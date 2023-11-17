@@ -7,3 +7,26 @@
 #landing {
   background: #F0D600;
 }
+
+.bannerImage {
+  transform: translateX(-1rem);
+  animation: fromBottom 1s linear 1s 1
+}
+
+@keyframes fromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+    transform: translateX(-1rem);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-10%);
+    transform: translateX(-1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+    transform: translateX(-1rem);
+  }
+}

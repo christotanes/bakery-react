@@ -1,4 +1,5 @@
 import { Button, Row, Image, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Banner() {
     return (
@@ -11,13 +12,13 @@ function Banner() {
                     <Button data-bs-toggle="modal" data-bs-target="#signUp">
                         Sign Up
                     </Button>
-                    <Button data-bs-toggle="modal" data-bs-target="#login">
+                    <Button as={Link} to="/login" exact>
                         Login
                     </Button>
                     </div>
                 </Col>
-                <Col xs={{order:'first'}} md={{order:'last'}} lg={5} className="shadow-lg">
-                    <Image className="align-items-center img-fluid" src="https://drive.google.com/uc?id=1P96tY_C3v8kNqjmazdtpSR_XiUycX4YF" alt="" width="720" rounded />
+                <Col xs={{order:'first'}} md={{order:'last'}} lg={5} className="shadow-lg overflow-hidden">
+                    <Image className="align-items-center bannerImage" src="https://drive.google.com/uc?id=1P96tY_C3v8kNqjmazdtpSR_XiUycX4YF" alt="" width="720" rounded />
                 </Col>
             </Row>
         </>

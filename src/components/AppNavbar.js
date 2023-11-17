@@ -1,11 +1,7 @@
 // import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import Image from 'react-bootstrap/Image';
+import { useContext } from 'react';
+import {Container, Form, Button, NavLink, Nav, Navbar, NavDropdown, Offcanvas, Image} from 'react-bootstrap';
+import UserContext from '../UserContext';
 
 function OffcanvasExample() {
     return (
@@ -38,7 +34,7 @@ function OffcanvasExample() {
                         <Offcanvas.Body>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
                                 <Nav.Link href="#action1">Home</Nav.Link>
-                                <Nav.Link href="#action2">Link</Nav.Link>
+                                <Nav.Link as={NavLink} to="/logout" exact>Logout</Nav.Link>
                                 <NavDropdown
                                     title="Dropdown"
                                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -55,7 +51,7 @@ function OffcanvasExample() {
                                 </NavDropdown>
                             </Nav>
 
-                            {/* <Form className="d-flex">
+                            <Form className="d-flex">
                                 <Form.Control
                                     type="search"
                                     placeholder="Search"
@@ -63,7 +59,7 @@ function OffcanvasExample() {
                                     aria-label="Search"
                                 />
                                 <Button variant="outline-success">Search</Button>
-                            </Form> */}
+                            </Form>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
                 </Container>
