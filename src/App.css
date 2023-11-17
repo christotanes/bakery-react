@@ -1,13 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-};
+  font-family: Poppins;
+}
 
-#landing {
+#landing, .background {
   background: #F0D600;
 }
 
+#landing, .register, .login {
+  height: 100vh;
+}
+
+.login {
+  transform: translateY(-5%);
+}
 .bannerImage {
   transform: translateX(-1rem);
   animation: fromBottom 1s linear 1s 1

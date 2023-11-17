@@ -13,45 +13,13 @@ import { useEffect, useState } from 'react';
 import { UserProvider } from './UserContext';
 
 function App() {
-  const [user, setUser] = useState({
-    id: null,
-    isAdmin: null
-  })
-
-  const unsetUser = () => {
-    console.log(`localStorage clear`)
-    localStorage.clear();
-  }
-
-  useEffect(() => {
-    console.log(user);
-    fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      if(typeof data._id !== undefined) {
-        setUser({
-          id: data._id,
-          isAdmin: data.isAdmin
-        })
-      } else {
-        setUser({
-          id: null,
-          isAdmin: null
-        })
-      }
-    })
-  }, [])
 
   return (
     <>
-      <UserProvider value={{ user, setUser, unsetUser }}>
+      {/* <UserProvider value={{ user, setUser, unsetUser }}> */}
         <Router>
           <AppNavbar />
-          <Container id='landing'>
+          <Container fluid id='landing'>
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/register' element={<Register/>}/>
@@ -62,7 +30,7 @@ function App() {
             </Routes>
           </Container>
         </Router>
-      </UserProvider>
+      {/* </UserProvider> */}
     </>   
   );
 }
