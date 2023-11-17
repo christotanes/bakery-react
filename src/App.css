@@ -7,36 +7,48 @@
   font-family: Poppins;
 }
 
-#landing, .background {
-  background: #F0D600;
+#landing{
+  background: #ffc800;
 }
 
 #landing, .register, .login {
   height: 100vh;
 }
 
-.login {
-  transform: translateY(-5%);
-}
-.bannerImage {
-  transform: translateX(-1rem);
-  animation: fromBottom 1s linear 1s 1
+.bannerImage, .register, .login {
+  animation: fromBottom 1s linear 1;
 }
 
 @keyframes fromBottom {
   0% {
     opacity: 0;
-    transform: translateY(50%);
-    transform: translateX(-1rem);
+    transform: translateY(20%);
   }
   75% {
     opacity: 1;
-    transform: translateY(-10%);
-    transform: translateX(-1rem);
+    transform: translateY(-3%);
   }
   100% {
     opacity: 1;
-    transform: translateY(0%);
-    transform: translateX(-1rem);
+    transform: translateY(0);
+  }
+}
+
+.bannerText {
+  animation: fromLeft 1.5s linear 1;
+}
+
+@keyframes fromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30%);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(1%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

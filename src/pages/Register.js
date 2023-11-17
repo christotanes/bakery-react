@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, CardBody, Form, Row, Col, CardTitle } from "react-bootstrap";
+import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image } from "react-bootstrap";
 
 
 function Register() {
@@ -12,9 +12,12 @@ function Register() {
 
     return (
         <>
-            <Row className="d-flex justify-content-center align-items-center register" style={{ height: '100vh' }}>
-                <Col xs="5" className="d-flex flex-column my-auto mx-auto"> 
-                <Card className="shadow-lg p-3">
+            <Row className="d-flex justify-content-center align-items-center register flex-column">
+                <Col xs="3" className="m-0 p-0 text-center">
+                <Image className="img-fluid shadow-lg my-3" src="https://drive.google.com/uc?id=1tYh9q_ii39cyotTRzn8u_TAEJCiu-uhg" alt="" width="200" roundedCircle />
+                </Col>
+                <Col xs="5" className="d-flex flex-column mx-auto"> 
+                <Card className="shadow-lg p-3 bg-tertiary">
                     <CardBody>
                     <CardTitle className="text-center">Register</CardTitle>
                     <Form className="justify-content-center mx-auto my-3">
