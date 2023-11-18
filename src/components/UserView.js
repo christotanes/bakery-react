@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function UserView({ activeProducts }) {
     const activeProductCols = activeProducts.map((product) => (
-        <Col xs={12} md={6} lg={4} key={product._id} className="my-3">
+        <Col xs={12} md={5} lg={4} key={product._id} className="my-3">
             <Card style={{ width: '18rem' }} className="shadow-lg">
                 <Card.Img variant="top" src={product.img} />
                 <Card.Body>
@@ -16,9 +16,21 @@ function UserView({ activeProducts }) {
         </Col>
     ))
     return (
-        <Row>
+        <>
+            <Row>
+                <Col>
+                    <h1>Filter</h1>
+                </Col>
+            </Row>
+            <Row>
             { activeProductCols }
-        </Row>
+            </Row>
+            <Row>
+                <Col>
+                    <h1>Cart</h1>
+                </Col>
+            </Row>
+        </>
     )
 }
 

@@ -69,14 +69,16 @@ function Products() {
 
     return(
         <>
-            <Container fluid id="products">
+            
             {
                 (user.isAdmin === true) ?
-                <AdminView products={ products } getAllProducts={ getAllProducts } /> 
+                <Container fluid id="products">
+                <AdminView products={ products } getAllProducts={ getAllProducts } /> </Container>
                 :
-                <UserView activeProducts={ activeProducts } getUserProducts={ getUserProducts } />
+                <Container fluid id="products" className="d-flex flex-row">
+                <UserView activeProducts={ activeProducts } getUserProducts={ getUserProducts } /></Container>
             }
-            </Container>
+            
         </>
     )
 }
