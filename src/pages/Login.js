@@ -76,12 +76,12 @@ function Login({ checkLocalToken }) {
         <Navigate to={'/products'} />
         :
         <>
-        <Row className="d-flex login flex-column">
+        <Row className="d-flex flex-column login">
             <Col xs="12" md="6" lg="3" className="mx-auto p-0 text-center">
-                <Image className="img-fluid shadow-lg my-3" src="https://drive.google.com/uc?id=1tYh9q_ii39cyotTRzn8u_TAEJCiu-uhg" alt="" width="200" roundedCircle />
+                <Image className="img-fluid shadow-lg my-3 registerCard" src="https://drive.google.com/uc?id=1tYh9q_ii39cyotTRzn8u_TAEJCiu-uhg" alt="" width="200" roundedCircle />
             </Col>
             <Col xs="12" md="8" lg="4" className="d-flex flex-column mx-auto"> 
-            <Card className="shadow-lg p-3">
+            <Card className="shadow-lg p-3 loginCard">
                 <CardBody>
                 <CardTitle className="text-center">Login</CardTitle>
                 <Form className="justify-content-center mx-auto my-3" onSubmit={handleLogin}>

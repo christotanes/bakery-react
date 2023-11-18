@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Carousel, Image} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -8,16 +8,17 @@ function Banner({ activeProducts }) {
 
     return (
         <>
-        <Carousel className="mx-auto d-flex justify-content-center">
+        {/* Until md breakpoint this setting is fine need to tweak for xs */}
+        <Carousel className="pt-3 shadow-lg">
         {activeProducts.map((product) => {
             if(product.featured === true) {
                 return (
             <Carousel.Item key={product._id} className="justify-content-center">
-            <Image src={product.imgBanner} text={product.name} className="justify-content-center" height="400" />
+            <Image src={product.imgBanner} text={product.name} className="img-fluid rounded"/>
                 <Carousel.Caption>
                 <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <p>PhP {product.price}</p>
+                {/* <p>{product.description}</p>
+                <p>PhP {product.price}</p> */}
                 <Link to={`/products/${product._id}`}>Details</Link>
                 </Carousel.Caption>
             </Carousel.Item>)

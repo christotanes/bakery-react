@@ -58,7 +58,6 @@ const App = () => {
       <UserProvider value={{ user, setUser, unSetUser }}>
         <Router>
           <AppNavbar />
-          <Container fluid id='landing'>
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/register' element={<Register/>}/>
@@ -67,7 +66,6 @@ const App = () => {
                 <Route path='/products' element={<Products />}/>
                 <Route path='*' element={<Error/>}/> 
             </Routes>
-          </Container>
         </Router>
       </UserProvider>
     </>   

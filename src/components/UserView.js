@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Card, Button, Col } from "react-bootstrap";
+import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function Highlights({ data }) {
-    const { _id, name, description, price, img } = data;
+function UserView({ products }) {
+    const { _id, img, name, description, price } = products;
 
     return (
         <>
-            <Col xs={12} md={5} lg={2} className="mx-auto">
+        <Row>
+            <Col>
                 <Card style={{ width: '18rem' }} key={_id}>
                 <Card.Img variant="top" src={img}/>
                 <Card.Body>
@@ -20,8 +20,10 @@ function Highlights({ data }) {
                 </Card.Body>
                 </Card>
             </Col>
-        </>    
+        </Row>
+            
+        </>
     )
 }
 
-export default Highlights;
+export default UserView;

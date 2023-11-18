@@ -9,13 +9,15 @@
 
 #landing{
   background: #ffc800;
+  height: 80vh;
 }
 
-#landing, .register, .login {
+.register, .login {
+  background: #ffc800;
   height: 100vh;
 }
 
-.bannerImage, .register, .login {
+.bannerImage, .registerCard, .loginCard {
   animation: fromBottom 1s linear 1;
 }
 
@@ -50,5 +52,18 @@
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+.carousel {
+  width:900px;
+  height:500px;
+  margin: auto;
+}
+
+@media (max-width: 900px) {
+  .carousel {
+    width:auto;
+    height:auto;
   }
 }
