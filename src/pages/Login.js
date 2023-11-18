@@ -72,7 +72,7 @@ function Login({ checkLocalToken }) {
     };
 
     return (
-        (user) ?
+        (user.id) ?
         <Navigate to={'/products'} />
         :
         <>
