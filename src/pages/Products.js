@@ -8,9 +8,12 @@ function Products() {
     const { user } = useContext(UserContext);
 
     const [ products, setProducts ] = useState([]);
+    const [ activeProducts, setActiveProducts ] = useState([]);
+
     const [ isNull, setIsNull ] = useState(false);
 
-    const getAllProducts = async () => {
+    const MAX_RETRIES = 3;
+    const getAllProducts = async (retryCount = 0) => {
         console.log(`This is GETALLPRODUCTS function from products.js`)
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/products/`, {
@@ -21,10 +24,12 @@ function Products() {
             })
 
             const data = await response.json();
-            console.log(`Data from Products.js: ${data}`)
+            console.log(`Data from getAllProducts.js: ${data}`)
             if(data){
                 setProducts(data);
                 setIsNull(false);
+            } else if (retryCount < MAX_RETRIES) {
+                getAllProducts(retryCount + 1);
             } else {
                 console.log(`Data is null`);
                 setIsNull(true);
@@ -34,15 +39,42 @@ function Products() {
         }
     }
 
+    const getUserProducts = async (retryCount = 0) => {
+        console.log(`This is getProducts at Products.js`);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/products/active`);
+            const data = await response.json();
+            console.log(`getUserProducts data: ${data}`)
+            if (data) {
+                setActiveProducts(data);
+                setIsNull(false);
+            } else if (retryCount < MAX_RETRIES) {
+                getAllProducts(retryCount + 1);
+            } else {
+                console.log(`Data is null`);
+                setIsNull(true);
+            }
+        } catch (error) {   
+            console.error(`Error: ${error}`);
+        };
+    };
+
     useEffect(() => {
-        getAllProducts();
-    }, [isNull])
+        if(user.isAdmin === true){
+            getAllProducts();
+        } else {
+            getUserProducts();
+        }
+    }, [user.isAdmin])
+
     return(
         <>
             <Container fluid id="products">
             {
-                (user.isAdmin) ?
-                <AdminView products={ products } exact/> : <UserView products={ products } /> 
+                (user.isAdmin === true) ?
+                <AdminView products={ products } getAllProducts={ getAllProducts } /> 
+                :
+                <UserView activeProducts={ activeProducts } getUserProducts={ getUserProducts } />
             }
             </Container>
         </>

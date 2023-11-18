@@ -1,28 +1,24 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function UserView({ products }) {
-    const { _id, img, name, description, price } = products;
-
-    return (
-        <>
-        <Row>
-            <Col>
-                <Card style={{ width: '18rem' }} key={_id}>
-                <Card.Img variant="top" src={img}/>
+function UserView({ activeProducts }) {
+    const activeProductCols = activeProducts.map((product) => (
+        <Col xs={12} md={6} lg={4} key={product._id} className="my-3">
+            <Card style={{ width: '18rem' }} className="shadow-lg">
+                <Card.Img variant="top" src={product.img} />
                 <Card.Body>
-                    <Card.Title>{name}</Card.Title>
-                    <Card.Subtitle>{description}</Card.Subtitle>
-                    <Card.Text>
-                    Php {price}
-                    </Card.Text>
-                    <Button variant="primary" as={Link} to={`/products/${_id}`} exact>Details</Button>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Subtitle>{product.description}</Card.Subtitle>
+                    <Card.Text>Php {product.price}</Card.Text>
+                    <Button variant="primary" as={Link} to={`/products/${product._id}`}>Details</Button>
                 </Card.Body>
-                </Card>
-            </Col>
+            </Card>
+        </Col>
+    ))
+    return (
+        <Row>
+            { activeProductCols }
         </Row>
-            
-        </>
     )
 }
 
