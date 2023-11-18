@@ -4,7 +4,6 @@ import Highlights from "../components/Highlights.js";
 
 function Home() {
     const [ activeProducts, setActiveProducts ] = useState([]);
-    const [ featured, setFeatured ] = useState([]);
     const [ isNull, setIsNull ] = useState(false);
 
     const getProducts = async () => {
@@ -22,20 +21,6 @@ function Home() {
                 setActiveProducts(data);
                 console.log(activeProducts)
                 setIsNull(false);
-                let numbers = [];
-                let highlights = [];
-                for (let i = 0; i < 5; i++){
-                    let random = Math.floor(Math.random()*data.length);
-                    numbers.push(random);
-                    console.log(numbers);
-                    highlights = data.map((product) => {
-                        return (
-                            <Highlights key={product[numbers[i]]._id} data={product[numbers[i]]} breakPoint={2}/>
-                        )
-                    })
-                }
-                console.log(highlights)
-                setFeatured(highlights);
             } else {
                 console.log(`getProduct data returned Null`)
                 setIsNull(true);
@@ -52,7 +37,7 @@ function Home() {
     return (
         <>
             <Banner activeProducts={ activeProducts } />
-            { featured }
+            <Highlights activeProducts={ activeProducts } />
         </>
     )
 }

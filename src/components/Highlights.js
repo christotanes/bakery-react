@@ -2,11 +2,10 @@ import React from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function Highlights({ featured }) {
-    const { breakPoint, data } = featured
-    const { _id, img, name, description, price } = data;
-    console.log(`This is featured ${featured}`)
-    console.log(`This is data ${data}`)
+function Highlights({ activeProducts }) {
+
+    
+    
     return (
         <Row className="my-3">
             <Col xs={12} md={breakPoint}>
