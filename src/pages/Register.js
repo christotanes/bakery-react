@@ -3,7 +3,7 @@ import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image } from "react-
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const Register = () => {
+function Register() {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ confirmPassword, setConfirmPassord ] = useState('');

@@ -24,6 +24,7 @@ function Home() {
                     }
                 }
                 setFeatured(highlights);
+                setIsNull(false);
             } else {
                 setIsNull(true);
             }

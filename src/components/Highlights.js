@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, Button, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Highlights({ data }) {
-    const { _id, name, description, price, img } = data;
+    const { _id, name, price, img } = data;
 
     return (
         <>
@@ -12,10 +12,7 @@ function Highlights({ data }) {
                 <Card.Img variant="top" src={img}/>
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
-                    <Card.Subtitle>{description}</Card.Subtitle>
-                    <Card.Text>
-                    Php {price}
-                    </Card.Text>
+                    <Card.Text>Php {price}</Card.Text>
                     <Button variant="primary" as={Link} to={`/products/${_id}`} exact>Details</Button>
                 </Card.Body>
                 </Card>

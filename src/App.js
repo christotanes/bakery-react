@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Products from './pages/Products';
 import Register from './pages/Register';
+import ProductView from './pages/ProductView';
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
@@ -64,6 +65,7 @@ const App = () => {
                 <Route path='/login' element={<Login checkLocalToken={checkLocalToken}/>}/>
                 <Route path='/logout' element={<Logout/>}/>
                 <Route path='/products' element={<Products />}/>
+                <Route path='/products/:productId' element={<ProductView />} />
                 <Route path='*' element={<Error/>}/> 
             </Routes>
         </Router>

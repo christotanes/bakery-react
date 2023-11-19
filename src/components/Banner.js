@@ -15,12 +15,12 @@ function Banner({ activeProducts }) {
                 return (
             <Carousel.Item key={product._id} className="justify-content-center">
             <Image src={product.imgBanner} text={product.name} className="img-fluid rounded"/>
-                <Carousel.Caption>
+                {/* <Carousel.Caption>
                 <h3>{product.name}</h3>
-                {/* <p>{product.description}</p>
-                <p>PhP {product.price}</p> */}
-                <Link to={`/products/${product._id}`}>Details</Link>
-                </Carousel.Caption>
+                <p>{product.description}</p>
+                <p>PhP {product.price}</p>
+                <Link to={`/products/${product._id}`} product={ product }>Details</Link>
+                </Carousel.Caption> */}
             </Carousel.Item>)
         }})}
         </Carousel>

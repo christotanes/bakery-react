@@ -10,8 +10,6 @@ function Products() {
     const [ products, setProducts ] = useState([]);
     const [ activeProducts, setActiveProducts ] = useState([]);
 
-    const [ isNull, setIsNull ] = useState(false);
-
     const MAX_RETRIES = 3;
     const getAllProducts = async (retryCount = 0) => {
         console.log(`This is GETALLPRODUCTS function from products.js`)
@@ -27,12 +25,10 @@ function Products() {
             console.log(`Data from getAllProducts.js: ${data}`)
             if(data){
                 setProducts(data);
-                setIsNull(false);
             } else if (retryCount < MAX_RETRIES) {
                 getAllProducts(retryCount + 1);
             } else {
                 console.log(`Data is null`);
-                setIsNull(true);
             }
         } catch (error) {   
             console.error(`Error: ${error}`)
@@ -47,12 +43,10 @@ function Products() {
             console.log(`getUserProducts data: ${data}`)
             if (data) {
                 setActiveProducts(data);
-                setIsNull(false);
             } else if (retryCount < MAX_RETRIES) {
                 getAllProducts(retryCount + 1);
             } else {
                 console.log(`Data is null`);
-                setIsNull(true);
             }
         } catch (error) {   
             console.error(`Error: ${error}`);
