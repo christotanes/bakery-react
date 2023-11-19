@@ -1,0 +1,47 @@
+Done
+    > Register
+    > Login
+    > Retrieve all active products < CSS
+    > Retrieve single product
+    > Admin dashboard
+        > Retrieve all products
+        > Deactivate/reactivate product
+
+Todo
+    > Admin dashboard
+        > Create product >>> MVP
+        > Update product info >>> MVP
+        > Retrieve all users
+            > new users
+            > set as admin
+        
+        > Retrieve all orders
+            > pending
+            > complete
+            > new orders
+        
+        > retrieve all feedbacks
+            > new feedbacks
+        
+        > Retrieve all reviews
+            > Check review
+
+    > Cart
+        > addtocart
+        > edit Cart
+        > Checkout >>> MVP
+
+    > User
+        > Get myOrders
+        > Update Profile >>> MVP
+        > Reset Password >>> MVP
+
+        > Add review
+        > Edit review
+        > Get review
+
+        > Get feedback
+        > Add feedback
+        > Edit feedback
+    
+    
