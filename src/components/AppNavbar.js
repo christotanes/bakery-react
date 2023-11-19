@@ -5,7 +5,7 @@ import UserContext from '../UserContext';
 import { Link } from 'react-router-dom';
 
 function OffcanvasExample() {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     return (
     <>
         {['lg'].map((expand) => (
@@ -51,7 +51,9 @@ function OffcanvasExample() {
                                 </NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link as={Link} to="/" exact>Home</Nav.Link>
-                            <Nav.Link as={Link} to="/products" exact>Browse</Nav.Link>
+                            {(user.isAdmin === true) ? <Nav.Link as={Link} to="/products" exact>Admin</Nav.Link> :
+                            <Nav.Link as={Link} to="/products" exact>Browse</Nav.Link>}
+                            
                             <Nav.Link as={Link} to="/register" exact>Register</Nav.Link>
                             {(user.id) ? 
                                 <Nav.Link as={Link} to="/logout" exact>Logout</Nav.Link> : <Nav.Link as={Link} to="/login" exact>Login</Nav.Link>

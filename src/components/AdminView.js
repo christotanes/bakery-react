@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Col, Row, Table, Image, Button, Collapse } from "react-bootstrap";
+import ArchiveToggle from "./ArchiveToggle.js";
 
 
-function AdminView({ products }) {
+function AdminView({ products, getAllProducts }) {
     const [openStates, setOpenStates] = useState({});
     const toggleOpen = (productId) => {
         setOpenStates(prevStates => ({
@@ -29,10 +30,10 @@ function AdminView({ products }) {
                 <td>{product.description}</td>
                 <td>PhP {product.price}</td>
                 <td>{product.quantity}</td>
-                <td className={product.featured ? 'text-success' : 'text-danger'}>{product.featured ? 'Featured' : 'Not Featured'}</td>
                 <td className={product.isActive ? 'text-success' : 'text-danger'}>{product.isActive ? 'Available' : 'Unavailable'}</td>
                 <td>Edit</td>
-                <td>Archive/Activate</td>
+                <td>Featured</td>
+                <td><ArchiveToggle product={product._id} getAllProducts={getAllProducts} isActive={product.isActive}/></td>
             </tr>
             <Collapse in={openStates[product._id]}>
                 <tr key={`collapse-${product._id}`} id={`collapse-text-${product._id}`}>
@@ -99,9 +100,8 @@ function AdminView({ products }) {
                                 <th>Description</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <th>Featured</th>
-                                <th>Availability</th>
-                                <th colSpan={2} className="text-center">Actions</th>
+                                <th>Active</th>
+                                <th colSpan={3} className="text-center">Actions</th>
                             </tr>
                         </thead>
                         { productRows }
