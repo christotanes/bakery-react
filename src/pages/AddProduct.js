@@ -77,7 +77,7 @@ function AddProduct() {
                 </Row>
                 <Form onSubmit={addProduct}>
                     <Row className="mb-3">
-                        <Col xs={12} className="d-flex flex-column justify-content-center my-3">
+                        <Col xs={12} className="d-flex flex-column justify-content-center my-3" style={{ width: '500' }}>
                             <FormGroup>
                                 <FormLabel>imgBanner link:</FormLabel>
                                 <Form.Control 
