@@ -90,7 +90,7 @@ function AdminView({ products, getAllProducts }) {
                         <thead>
                             <tr>
                                 <th colSpan={6} className="font-weight-bold">Name</th>
-                                <th><Button variant={"primary"} as={Link} to={'/products/add'} ></Button></th>
+                                <th><Button variant={"primary"} as={Link} to={'/products/add'} >Add Product</Button></th>
                                 <th>Image</th>
                                 <th>Image Banner</th>
                             </tr>
