@@ -17,6 +17,10 @@
   height: 100vh;
 }
 
+#products, #addProduct {
+  background-color: #ffc800;
+}
+
 .bannerImage, .registerCard, .loginCard {
   animation: fromBottom 1s linear 1;
 }

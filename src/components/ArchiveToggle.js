@@ -76,7 +76,7 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
     return (
         <>
         {
-            (isActive === true) ? <Button variant="danger" onClick={e => (archive(e, product))}>Archive</Button> : <Button variant="success" onClick={e => (activate(e, product))}>Activate</Button>
+            (isActive === true) ? <Button width="100%" variant="danger" onClick={e => (archive(e, product))}>Archive</Button> : <Button width="100%" variant="success" onClick={e => (activate(e, product))}>Activate</Button>
         }
         </>
     )
