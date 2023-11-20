@@ -1,7 +1,7 @@
-import { Form, Button, Row, Card, Col, CardBody, CardTitle, Image } from "react-bootstrap";
+import { Form, Button, Row, Card, Col, CardBody, CardTitle, CardFooter, Image, Container } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../UserContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Login({ checkLocalToken }) {
@@ -76,6 +76,7 @@ function Login({ checkLocalToken }) {
         <Navigate to={'/products'} />
         :
         <>
+        <Container fluid>
         <Row className="d-flex flex-column login">
             <Col xs="12" md="6" lg="3" className="mx-auto p-0 text-center">
                 <Image className="img-fluid shadow-lg my-3 registerCard" src="https://drive.google.com/uc?id=1tYh9q_ii39cyotTRzn8u_TAEJCiu-uhg" alt="" width="200" roundedCircle />
@@ -102,10 +103,12 @@ function Login({ checkLocalToken }) {
                         }
                     </div>
                 </Form>
+                <CardFooter className="text-center">Don't have an account yet? <Link to="/register" exact>Click here</Link> to register.</CardFooter>
                 </CardBody>
             </Card>
             </Col>
         </Row>
+        </Container>
         </>
         )
 }

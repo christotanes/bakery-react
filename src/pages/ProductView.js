@@ -29,7 +29,7 @@ function ProductView() {
         getProductById();
     }, []);
 
-    const { _id, name, description, price, quantity, type, size, flavor, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner } = product;
+    const { _id, name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner } = product;
 
     return(
         <Container id="productView">
@@ -60,7 +60,7 @@ function ProductView() {
                             <h5>Size:</h5>
                             <p>{size}</p>
                             <h5>Flavors:</h5>
-                            <p>{flavor}</p> 
+                            <p>{flavors}</p> 
                             <h5>Allergens:</h5>
                             <p>{allergens}</p>
                         </Col>

@@ -37,6 +37,7 @@ function OffcanvasExample() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav variant="underline" className="justify-content-end flex-grow-1 pe-3 me-auto">
+                            {(user.id !== null && user.isAdmin === false) ?
                             <NavDropdown
                                 title="Cart"
                                 id={`offcanvasNavbarDropdown-expand-${expand}`}>
@@ -50,32 +51,25 @@ function OffcanvasExample() {
                                     Something else here
                                 </NavDropdown.Item>
                             </NavDropdown>
+                            : null
+                            }
                             <Nav.Link as={Link} to="/" exact>Home</Nav.Link>
-                            {(user.isAdmin === true) ? <Nav.Link as={Link} to="/products" exact>Admin</Nav.Link> :
-                            <Nav.Link as={Link} to="/products" exact>Browse</Nav.Link>}
+                            {(user.isAdmin === true) ? 
+                                <Nav.Link as={Link} to="/products" exact>Admin</Nav.Link> 
+                                :
+                                <Nav.Link as={Link} to="/products" exact>Browse</Nav.Link>}
                             
-                            <Nav.Link as={Link} to="/register" exact>Register</Nav.Link>
-                            {(user.id) ? 
-                                <Nav.Link as={Link} to="/logout" exact>Logout</Nav.Link> : <Nav.Link as={Link} to="/login" exact>Login</Nav.Link>
+                            
+                            {(user.id !== null) ? 
+                                <Nav.Link as={Link} to="/logout" exact>Logout</Nav.Link> 
+                                : 
+                                <>
+                                    <Nav.Link as={Link} to="/register" exact>Register</Nav.Link>
+                                    <Nav.Link as={Link} to="/login" exact>Login</Nav.Link>
+                                </>
                             }
                             
                         </Nav>
-                    {/* <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-                    <Navbar.Offcanvas
-                        id={`offcanvasNavbar-expand-${expand}`}
-                        aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-                        placement="end"
-                    >
-                        <Offcanvas.Header closeButton>
-                            <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                                Cart
-                            </Offcanvas.Title>
-                        </Offcanvas.Header>
-
-                        <Offcanvas.Body>
-                            
-                        </Offcanvas.Body>
-                    </Navbar.Offcanvas> */}
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

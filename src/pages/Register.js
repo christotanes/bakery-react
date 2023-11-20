@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image, CardFooter, Container } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Register() {
@@ -65,6 +65,7 @@ function Register() {
 
     return (
         <>
+        <Container fluid>
             <Row className="d-flex register flex-column">
                 <Col xs="12" md="6" lg="3" className="mx-auto p-0 text-center">
                 <Image className="img-fluid shadow-lg my-3 registerCard" src="https://drive.google.com/uc?id=1tYh9q_ii39cyotTRzn8u_TAEJCiu-uhg" alt="" width="200" roundedCircle />
@@ -98,10 +99,12 @@ function Register() {
                             }
                         </div>
                     </Form>
+                    <CardFooter className="text-center">Already have an account? <Link to="/login" exact>Click here</Link> to log in.</CardFooter>
                     </CardBody>
                 </Card>
                 </Col>
             </Row>
+        </Container>
         </>
     )
 }

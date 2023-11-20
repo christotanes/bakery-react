@@ -1,4 +1,5 @@
 import './App.css';
+import AddProduct from './pages/AddProduct';
 import AppNavbar from "./components/AppNavbar";
 import Error from "./pages/Error";
 import Home from './pages/Home';
@@ -65,6 +66,7 @@ const App = () => {
                 <Route path='/login' element={<Login checkLocalToken={checkLocalToken}/>}/>
                 <Route path='/logout' element={<Logout/>}/>
                 <Route path='/products' element={<Products />}/>
+                <Route path='/products/add' element={<AddProduct />} />
                 <Route path='/products/:productId' element={<ProductView />} />
                 <Route path='*' element={<Error/>}/> 
             </Routes>

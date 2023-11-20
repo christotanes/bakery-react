@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Col, Row, Table, Image, Button, Collapse } from "react-bootstrap";
 import ArchiveToggle from "./ArchiveToggle.js";
-
+import { Link } from "react-router-dom";
 
 function AdminView({ products, getAllProducts }) {
     const [openStates, setOpenStates] = useState({});
@@ -89,10 +89,10 @@ function AdminView({ products, getAllProducts }) {
                 <Table striped bordered hover responsive>
                         <thead>
                             <tr>
-                                <th colSpan={7} className="font-weight-bold">Name</th>
+                                <th colSpan={6} className="font-weight-bold">Name</th>
+                                <th><Button variant={"primary"} as={Link} to={'/products/add'} ></Button></th>
                                 <th>Image</th>
                                 <th>Image Banner</th>
-                                
                             </tr>
                             <tr>
                                 <th></th>

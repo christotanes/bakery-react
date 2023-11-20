@@ -1,19 +1,19 @@
 Done
-    > Register
-    > Login
-    > Retrieve all active products < CSS
-    > Retrieve single product
+    > Register >>>MVP1
+    > Login >>>MVP2
+    > Retrieve all active products >>>MVP3 < CSS
+    > Retrieve single product >>>MVP4
     > Admin dashboard
-        > Retrieve all products
-        > Deactivate/reactivate product
+        > Retrieve all products >>> MVP6
+        > Deactivate/reactivate product >>> MVP8
 
 Todo
     > Admin dashboard
-        > Create product >>> MVP
-        > Update product info >>> MVP
+        > Create product > MVP5
+        > Update product info > MVP7
         > Retrieve all users
             > new users
-            > set as admin
+            > set as admin > MVP Stretch3
         
         > Retrieve all orders
             > pending
@@ -27,14 +27,14 @@ Todo
             > Check review
 
     > Cart
-        > addtocart
-        > edit Cart
-        > Checkout >>> MVP
+        > addtocart > MVP Stretch4
+        > edit Cart > MVP Stretch5
+        > Checkout > MVP9
 
     > User
         > Get myOrders
-        > Update Profile >>> MVP
-        > Reset Password >>> MVP
+        > Update Profile > MVP Stretch1
+        > Reset Password > MVP Stretch2
 
         > Add review
         > Edit review

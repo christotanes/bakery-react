@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 
 function Logout() {
     
-    const { user, setUser, unSetUser } = useContext(UserContext);
+    const { setUser, unSetUser } = useContext(UserContext);
 
     unSetUser();
     useEffect(() => {
