@@ -21,9 +21,9 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
             if (response.ok) {
                 getAllProducts();
                 Swal.fire({
-                    title: `${data.message}`,
+                    title: `Product Archived Successfully`,
                     icon: 'success',
-                    text: `${data.product.name} is successfully archived!`
+                    text: `${data.name} is successfully archived!`
                 })
             } else {
                 getAllProducts();

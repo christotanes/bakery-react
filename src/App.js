@@ -21,6 +21,7 @@ const Register = React.lazy(() => import('./pages/Register'));
 const ProductView = React.lazy(() => import('./pages/ProductView'));
 
 const App = () => {
+  const [ isNull, setIsNull ] = useState(null)
   const [ user, setUser ] = useState({
     id: null,
     isAdmin: null
@@ -39,7 +40,7 @@ const App = () => {
 
   useEffect(() => {
     checkLocalToken();
-  }, [])
+  }, [isNull])
 
   const checkLocalToken = async () => {
     console.log(`This is CHECKLOCALTOKEN at app.js`);
@@ -50,7 +51,7 @@ const App = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-
+      
       const cartResponse = await fetch(`${process.env.REACT_APP_API_URL}/cart/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -59,36 +60,52 @@ const App = () => {
 
       const userData = await userResponse.json();
       const cartData = await cartResponse.json();
-
-      if (userResponse.ok) {
+      console.log(`cartResponse.status: ${cartResponse.status}`)
+      console.log(`cartData: ${cartData.cart._id}`)
+      console.log(`cartData: ${cartData.cart.products}`)
+      console.log(`cartData: ${cartData.cart.totalAmount}`)
+      if (userResponse.ok || cartResponse.ok) {
         setUser({
           id: userData._id,
           isAdmin: userData.isAdmin
+        });
+        setCart({
+          cartId: cartData._id,
+          products: cartData.products,
+          totalAmount: cartData.totalAmount
+        });
+      } else if (userResponse.ok && !cartData) {
+        setUser({
+          id: userData._id,
+          isAdmin: userData.isAdmin
+        });
+        setCart({
+          cartId: null,
+          products: [],
+          totalAmount: null
         });
       } else {
         setUser({
           id: null,
           isAdmin: null
         })
-      }
-
-      if (cartResponse.ok) {
-        setCart({
-          cartId: cartData._id,
-          products: cartData.products,
-          totalAmount: cartData.totalAmount
-        });
-      } else {
         setCart({
           cartId: null,
           products: [],
           totalAmount: null
-        });
+        })
       }
+
       console.log(user);
       console.log(cart);
     } catch (error) {
       console.error(`Error: ${error}`)
+    } finally {
+      if(user.id){
+        setIsNull(false);
+      } else if (user.id === null || cart.id === undefined) {
+        setIsNull(true);
+      }
     }
   };
 
