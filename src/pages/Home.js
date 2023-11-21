@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Banner from "../components/Banner.js";
-import Highlights from "../components/Highlights.js";
+import Banner from "../components/features/Banner.js";
+import Highlights from "../components/features/Highlights.js";
 import { Container, Row } from "react-bootstrap";
 
 function Home() {

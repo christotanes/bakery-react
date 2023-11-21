@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import UserContext from '../UserContext';
+import UserContext from '../../UserContext';
 import { Navigate } from "react-router-dom";
 import { Container, Row, Col, Card, FormLabel, Button, Form, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-function EditProduct() {
+function EditProduct({ product, getAllProducts }) {
     const { user } = useContext(UserContext);
     const [ name, setName ] = useState('');
     const [ description, setDescription ] = useState('');

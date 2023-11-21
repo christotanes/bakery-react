@@ -31,7 +31,7 @@ function AdminView({ products, getAllProducts }) {
                 <td>PhP {product.price}</td>
                 <td>{product.quantity}</td>
                 <td className={product.isActive ? 'text-success' : 'text-danger'}>{product.isActive ? 'Available' : 'Unavailable'}</td>
-                <td>Edit</td>
+                <td><UpdateProduct product={ product } getAllProducts={ getAllProducts }/> </td>
                 <td>Featured</td>
                 <td><ArchiveToggle product={product._id} getAllProducts={getAllProducts} isActive={product.isActive}/></td>
             </tr>
