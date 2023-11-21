@@ -69,7 +69,7 @@ function Products() {
                 <Container fluid id="products">
                 <AdminView products={ products } getAllProducts={ getAllProducts } /> </Container>
                 :
-                <Container fluid id="products" className="d-flex flex-row">
+                <Container fluid id="products">
                 <UserView activeProducts={ activeProducts } getUserProducts={ getUserProducts } /></Container>
             }
             

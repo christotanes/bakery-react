@@ -61,9 +61,9 @@ const App = () => {
       const userData = await userResponse.json();
       const cartData = await cartResponse.json();
       console.log(`cartResponse.status: ${cartResponse.status}`)
-      console.log(`cartData: ${cartData.cart._id}`)
-      console.log(`cartData: ${cartData.cart.products}`)
-      console.log(`cartData: ${cartData.cart.totalAmount}`)
+      console.log(`cartData: ${cartData._id}`)
+      console.log(`cartData: ${cartData.products}`)
+      console.log(`cartData: ${cartData.totalAmount}`)
       if (userResponse.ok || cartResponse.ok) {
         setUser({
           id: userData._id,
@@ -95,7 +95,7 @@ const App = () => {
           totalAmount: null
         })
       }
-
+      
       console.log(user);
       console.log(cart);
     } catch (error) {

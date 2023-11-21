@@ -34,7 +34,7 @@ function ProductView() {
         }
     } 
 
-    const { _id, name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner } = product;
+    const { _id, name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner, imgLqip } = product;
 
     useEffect(() => {
         getProductById();
@@ -153,6 +153,8 @@ function ProductView() {
                         :
                         <AddToCart productId={ _id }
                         productName={ name }
+                        productImg={ img }
+                        productImgLqip={ imgLqip}
                         productPrice={ price }
                         productToCart={ productToCart } 
                         getProductById={ getProductById }

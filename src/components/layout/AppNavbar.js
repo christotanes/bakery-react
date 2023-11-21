@@ -38,19 +38,20 @@ function OffcanvasExample() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav variant="underline" className="justify-content-end flex-grow-1 pe-3 me-auto">
-                            {(user.id && user.isAdmin === false) ? <NavDropdown
+                            {(user.id && user.isAdmin === false) ? 
+                                <NavDropdown
                                 title="Cart"
                                 id={`offcanvasNavbarDropdown-expand-${expand}`}>
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                                <NavDropdown.Item href="#action3"></NavDropdown.Item>
                                 <NavDropdown.Item href="#action4">
-                                    Another action
+
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="#action5">
-                                    Something else here
+
                                 </NavDropdown.Item>
-                            </NavDropdown>
+                                </NavDropdown>
                             : null
                             }
                             <Nav.Link as={Link} to="/" exact>Home</Nav.Link>

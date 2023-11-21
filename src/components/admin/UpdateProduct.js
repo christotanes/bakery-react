@@ -12,25 +12,6 @@ function EditProduct({ product, getAllProducts }) {
         setLoading(true);
         setIsActive(false);
 
-        // const editProductData = {
-        //     name: name,
-        //     description: description,
-        //     type: type,
-        //     size: size,
-        //     quantity: quantity,
-        //     price: price,
-        //     allergens: allergens,
-        //     weight: weight,
-        //     deliveryAvailable: deliveryAvailable,
-        //     flavors: flavors,
-        //     bestBefore: bestBefore,
-        //     vegetarian: vegetarian,
-        //     img: img,
-        //     imgLqip: imgLqip,
-        //     imgBanner: imgBanner,
-        //     imgBannerLqip: imgBannerLqip
-        // }
-
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${product._id}`, {
                 method: "PUT",

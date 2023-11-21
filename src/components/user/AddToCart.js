@@ -4,7 +4,7 @@ import { Button, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-function AddToCart({ productId, productName, productPrice, productToCart, getProductById, setProductToCartData }) {
+function AddToCart({ productId, productName, productPrice, productToCart, getProductById, setProductToCartData, productImgLqip, productImg }) {
     const { setProductToCart } = setProductToCartData;
     const [ loading, setLoading ] = useState(false);
     const { cart, setCart } = useContext(UserContext);
@@ -15,8 +15,11 @@ function AddToCart({ productId, productName, productPrice, productToCart, getPro
         setLoading(true);
         const addCartData = {
             productId: productId,
+            name: productName,
             price: Number(productPrice),
-            quantity: Number(productToCart)
+            quantity: Number(productToCart),
+            img: productImg,
+            imgLqip: productImgLqip
         }
         console.log(addCartData)
         try {
