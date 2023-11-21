@@ -28,7 +28,7 @@ function UserView({ activeProducts }) {
                 </Col>
 
                 <Col xs={12} md={3} className="mb-auto my-3 mx-auto float-left">
-                    <ViewCart activeProducts={activeProducts}/>
+                    <ViewCart/>
                 </Col>
             </Row>
         </>

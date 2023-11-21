@@ -29,7 +29,7 @@
   height: 80vh;
 }
 
-.register, .login {
+.register, .login, #checkout {
   background: #ffc800;
   height: 100vh;
 }

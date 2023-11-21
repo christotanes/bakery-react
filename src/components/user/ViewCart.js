@@ -1,54 +1,37 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import UserContext from "../../UserContext";
-import { Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Image } from "react-bootstrap";
+import { Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function ViewCart({ activeProducts }) {
-    const { cart, setCart } = useContext(UserContext);
-    const [ cartDetailsComplete, setCartDetailsComplete ] = useState(false)
-
-    const getProductDetails = async () => {
-        setCartDetailsComplete(false)
-        try {
-            let updatedProducts = await cart.products.map(product => {
-            let activeProduct = activeProducts.find(p => p._id === product.productId);
-                return activeProduct ? { ...product, name: activeProduct.name, imgLqip: activeProduct.imgLqip } : product;
-            })
-        setCart({ ...cart, products: updatedProducts });
-        if(updatedProducts[0] && updatedProducts[0].name && updatedProducts[0].imgLqip){
-            setCartDetailsComplete(true);
-        } else {
-            setCartDetailsComplete(false);
-        }
-        } catch (error) {
-            console.error(`Error: ${error}`)
-        } finally {
-            if(!cart.products[0].name){
-                getProductDetails();
-            }
-        }
-    }
-
-    useEffect(() => {
-        getProductDetails();
-        console.log(cart.products)
-    }, [cartDetailsComplete])
+function ViewCart() {
+    const { cart} = useContext(UserContext);
 
     return (
-        <Card>
+            (cart?.products?.length > 0) ? (
+        <Card className="shadow">
             <CardHeader className="text-center">My Cart</CardHeader>
-            <CardTitle>My Cart</CardTitle>
-            {cart.products.map((product) => {
+            {cart.products.map((product) => (
             <CardBody key={product.id}>
-                <CardText><Image src={product.imgLqip} width={30} height={30} className="productAdminImage"/></CardText>
-                <CardText>{product.name}</CardText>
-                <CardText>{product.price}</CardText>
-                <CardText>{product.quantity}</CardText>
-                <CardText>{product.subTotal}</CardText>
+                <div className="d-flex justify-content-between align-items-center">
+                <Image src={product.imgLqip} width={50} height={50} className="productAdminImage"/>
+                <CardTitle>{product.name}</CardTitle></div>
+                <CardText className="text-end">PhP {product.price} x {product.quantity}</CardText>
+                <CardText className="text-end">PhP {product.subTotal}</CardText>
             </CardBody>
-            })}
-            <CardFooter>{cart.totalAmount}</CardFooter>
+            ))}
+            <CardFooter className="text-end">PhP{cart.totalAmount}</CardFooter>
+
+            <Button variant="outline-primary" as={Link} to={`/checkout`} exact className="m-3">Checkout</Button>
+        </Card>)
+        :
+        (<Card>
+            <CardHeader className="text-center">My Cart</CardHeader>
+            <CardBody>
+                <CardText></CardText>
+            </CardBody>
+            <CardFooter className="text-center">Cart is empty</CardFooter>
         </Card>
-        
+        )
     )
 }
 

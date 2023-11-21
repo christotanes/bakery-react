@@ -11,8 +11,9 @@ import Login from './pages/Login';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useEffect, useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
-import { Container, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 
+const Checkout = React.lazy(() => import('./pages/Checkout'))
 const Error = React.lazy(() => import('./pages/Error'));
 const Home = React.lazy(() => import('./pages/Home'));
 const Logout = React.lazy(() => import('./pages/Logout'));
@@ -24,7 +25,16 @@ const App = () => {
   const [ isNull, setIsNull ] = useState(null)
   const [ user, setUser ] = useState({
     id: null,
-    isAdmin: null
+    firstName: null,
+    lastName: null,
+    isAdmin: null,
+    mobileNo: 0,
+    address: {
+      houseNo: null,
+      streetName: null,
+      city: null
+    },
+    img: null
   })
 
   const [ cart, setCart ] = useState({
@@ -67,7 +77,16 @@ const App = () => {
       if (userResponse.ok || cartResponse.ok) {
         setUser({
           id: userData._id,
-          isAdmin: userData.isAdmin
+          isAdmin: userData.isAdmin,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          mobileNo: userData.mobileNo,
+          address: {
+            houseNo: userData.address?.houseNo || '',
+            streetName: userData.address?.streetName || '',
+            city: userData.address?.city || ''
+          },
+          img: userData.img
         });
         setCart({
           cartId: cartData._id,
@@ -77,7 +96,16 @@ const App = () => {
       } else if (userResponse.ok && !cartData) {
         setUser({
           id: userData._id,
-          isAdmin: userData.isAdmin
+          isAdmin: userData.isAdmin,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          mobileNo: userData.mobileNo,
+          address: {
+            houseNo: userData.address?.houseNo || '',
+            streetName: userData.address?.streetName || '',
+            city: userData.address?.city || ''
+          },
+          img: userData.img
         });
         setCart({
           cartId: null,
@@ -87,7 +115,16 @@ const App = () => {
       } else {
         setUser({
           id: null,
-          isAdmin: null
+          firstName: null,
+          lastName: null,
+          isAdmin: null,
+          mobileNo: 0,
+          address: {
+            houseNo: null,
+            streetName: null,
+            city: null
+          },
+          img: null
         })
         setCart({
           cartId: null,
@@ -117,6 +154,7 @@ const App = () => {
           <AppNavbar />
             <Routes>
                 <Route path='/' element={<Home/>}/>
+                <Route path='/checkout' element={<Checkout/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/login' element={<Login checkLocalToken={checkLocalToken}/>}/>
                 <Route path='/logout' element={<Logout/>}/>
