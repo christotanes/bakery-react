@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 
 function Logout() {
     
-    const { setUser, unSetUser } = useContext(UserContext);
+    const { setUser, unSetUser, setCart } = useContext(UserContext);
 
     unSetUser();
     useEffect(() => {
@@ -12,7 +12,13 @@ function Logout() {
             id: null,
             isAdmin: null
         })
+        setCart({
+            cartId: null,
+            products: [],
+            totalAmount: null
+        })
     }, [])
+    
     console.log(`This is Logout: ${localStorage.getItem('token')}`)
     return (
         <>

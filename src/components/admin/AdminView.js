@@ -25,7 +25,7 @@ function AdminView({ products, getAllProducts }) {
                     onClick={() => toggleOpen(product._id)}
                     aria-controls={`collapse-text-${product._id}`}
                     aria-expanded={openStates[product._id]}>
-                    click
+                    More
                 </Button></td>
                 <td>{product._id}</td>
                 <td>{product.description}</td>

@@ -26,6 +26,12 @@ const App = () => {
     isAdmin: null
   })
 
+  const [ cart, setCart ] = useState({
+    cartId: null,
+    products: [],
+    totalAmount: null
+  })
+
   const unSetUser = () => {
     localStorage.clear();
     console.log(`This is unSetUser at app.js`)
@@ -35,35 +41,82 @@ const App = () => {
     checkLocalToken();
   }, [])
 
-  function checkLocalToken(){
+  const checkLocalToken = async () => {
     console.log(`This is CHECKLOCALTOKEN at app.js`);
-  
-    fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
+    
+    try {
+      const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      .then(res => res.json())
-      .then(data => {
-        if(data._id){
-          console.log(`This is response.ok on CHECKLOCALTOKEN at app.js and user is ${user}`)
-          setUser({
-            id: data._id,
-            isAdmin: data.isAdmin
-          })
-        } else {
-          setUser({
-            id: null,
-            isAdmin: null
-          })
-          console.log(`This is ELSE of response.ok on CHECKLOCALTOKEN at app.js and user is ${user}`)
+
+      const cartResponse = await fetch(`${process.env.REACT_APP_API_URL}/cart/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
+
+      const userData = await userResponse.json();
+      const cartData = await cartResponse.json();
+
+      if (userResponse.ok) {
+        setUser({
+          id: userData._id,
+          isAdmin: userData.isAdmin
+        });
+      } else {
+        setUser({
+          id: null,
+          isAdmin: null
+        })
+      }
+
+      if (cartResponse.ok) {
+        setCart({
+          cartId: cartResponse._id,
+          products: cartResponse.products,
+          totalAmount: cartResponse.totalAmount
+        });
+      } else {
+        setCart({
+          cartId: null,
+          products: [],
+          totalAmount: null
+        });
+      }
+      console.log(user);
+      console.log(cart);
+    } catch (error) {
+      console.error(`Error: ${error}`)
+    }
   };
+
+    // fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
+    //     headers: {
+    //       Authorization: `Bearer ${localStorage.getItem('token')}`
+    //     }
+    //   })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     if(data._id){
+    //       console.log(`This is response.ok on CHECKLOCALTOKEN at app.js and user is ${user}`)
+    //       setUser({
+    //         id: data._id,
+    //         isAdmin: data.isAdmin
+    //       })
+    //     } else {
+    //       setUser({
+    //         id: null,
+    //         isAdmin: null
+    //       })
+    //       console.log(`This is ELSE of response.ok on CHECKLOCALTOKEN at app.js and user is ${user}`)
+    //     }
+    //   })
 
   return (
     <>
-      <UserProvider value={{ user, setUser, unSetUser }}>
+      <UserProvider value={{ user, setUser, unSetUser, cart, setCart }}>
         <Router>
         <Suspense fallback={<Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>}>
           <AppNavbar />

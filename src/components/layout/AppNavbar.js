@@ -5,7 +5,8 @@ import UserContext from '../../UserContext';
 import { Link } from 'react-router-dom';
 
 function OffcanvasExample() {
-    const { user } = useContext(UserContext);
+    const { user, cart } = useContext(UserContext);
+
     return (
     <>
         {['lg'].map((expand) => (
@@ -37,8 +38,7 @@ function OffcanvasExample() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav variant="underline" className="justify-content-end flex-grow-1 pe-3 me-auto">
-                            {(user.id !== null && user.isAdmin === false) ?
-                            <NavDropdown
+                            {(user.id && user.isAdmin === false) ? <NavDropdown
                                 title="Cart"
                                 id={`offcanvasNavbarDropdown-expand-${expand}`}>
                                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -54,13 +54,13 @@ function OffcanvasExample() {
                             : null
                             }
                             <Nav.Link as={Link} to="/" exact>Home</Nav.Link>
-                            {(user.isAdmin === true) ? 
+                            {(user.isAdmin) ? 
                                 <Nav.Link as={Link} to="/products" exact>Admin</Nav.Link> 
                                 :
                                 <Nav.Link as={Link} to="/products" exact>Browse</Nav.Link>}
                             
                             
-                            {(user.id !== null) ? 
+                            {(user.id) ? 
                                 <Nav.Link as={Link} to="/logout" exact>Logout</Nav.Link> 
                                 : 
                                 <>

@@ -5,7 +5,7 @@ import { Navigate, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Login({ checkLocalToken }) {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
