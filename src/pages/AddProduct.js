@@ -60,6 +60,7 @@ function AddProduct() {
     };
 
     const addProduct = async (e) => {
+        e.preventDefault();
         console.log('This is addProduct async Function');
         setLoading(true);
         setIsActive(false);

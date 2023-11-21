@@ -83,7 +83,7 @@ function AdminView({ products, getAllProducts }) {
 
     return (
         <>
-        <h1 className="text-center">Admin Dashboard</h1>
+        <h1 className="text-center font-weight-bold py-3">Admin Dashboard</h1>
         <Row>
             <Col>
                 <Table striped bordered hover responsive>

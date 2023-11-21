@@ -25,7 +25,7 @@ function OffcanvasExample() {
                     <Form className="d-flex">
                                 <Form.Control
                                     type="search"
-                                    placeholder="Search"
+                                    placeholder="Under Construction"
                                     className="me-2"
                                     aria-label="Search"
                                 />

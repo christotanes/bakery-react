@@ -4,12 +4,12 @@ Done
     > Retrieve all active products >>>MVP3 < CSS
     > Retrieve single product >>>MVP4
     > Admin dashboard
+        > Create product >>> MVP5
         > Retrieve all products >>> MVP6
         > Deactivate/reactivate product >>> MVP8
 
 Todo
     > Admin dashboard
-        > Create product > MVP5
         > Update product info > MVP7
         > Retrieve all users
             > new users
