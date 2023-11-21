@@ -7,6 +7,23 @@
   font-family: Poppins;
 }
 
+.suspenseImage{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  animation: rotate 2s infinite;
+}
+
+@keyframes rotate {
+  0%{
+    transform: rotate(0%);
+  }
+  100%{
+    transform: rotate(100%);
+  }
+}
+
 #landing{
   background: #ffc800;
   height: 80vh;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Image, Card, Button, Spinner } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
+import { Container, Row, Col, Image, Card, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import Error from "./Error";
 
 function ProductView() {
@@ -34,7 +34,7 @@ function ProductView() {
     const { name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner } = product;
 
     if (loading) {
-        return <Spinner animation="border" variant="success" />
+        return <Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>
     }
 
     if (error) {

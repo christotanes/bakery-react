@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from '../UserContext';
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Container, Row, Col, Card, FormLabel, Button, Form, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 
@@ -15,7 +15,7 @@ function AddProduct() {
     const [ allergens, setAllergens ] = useState([]);
     const [ weight, setWeight ] = useState('');
     const [ deliveryAvailable, setDeliveryAvailable ] = useState(false);
-    const [ flavors, setFlavors ] = useState([{ value: '' }]);
+    const [ flavors, setFlavors ] = useState([]);
     const [ bestBefore, setBestBefore ] = useState(5);
     const [ vegetarian, setVegetarian ] = useState(false);
     const [ img, setImg ] = useState('');
@@ -43,14 +43,14 @@ function AddProduct() {
 
     const handleFlavorChange = (index, e) => {
         e.stopPropagation();
-        const newFlavor = [...flavors];
-        newFlavor[index].value = e.target.value;
-        setFlavors(newFlavor);
+        const newFlavors = [...flavors];
+        newFlavors[index] = e.target.value;
+        setFlavors(newFlavors);
     };
 
     const handleFlavorAddField = (e) => {
         e.stopPropagation();
-        setFlavors([...flavors, { value: '' }]);
+        setFlavors([...flavors, '']);
     };
 
     const handleFlavorRemoveField = (index) => {
@@ -65,9 +65,6 @@ function AddProduct() {
         setLoading(true);
         setIsActive(false);
 
-        const flavorsArray = flavors.map(flavor => flavor.value);
-        console.log("Submitted data:", flavorsArray);
-
         const newProductData = {
             name: name,
             description: description,
@@ -78,7 +75,7 @@ function AddProduct() {
             allergens: allergens,
             weight: weight,
             deliveryAvailable: deliveryAvailable,
-            flavors: flavorsArray,
+            flavors: flavors,
             bestBefore: bestBefore,
             vegetarian: vegetarian,
             img: img,
@@ -146,7 +143,8 @@ function AddProduct() {
                 <Row className="px-5 pt-3 text-center">
                     <Col xs={12} className="mt-3">
                         <h1>Add a New Product</h1>
-                        <p className="mb-0">All fields in <span className="text-danger">red</span> are required</p>
+                        <p className="mb-3">All fields in <span className="text-danger">red</span> are required</p>
+                        <Button as={Link} to={"/products"} variant="primary" size="sm">Return to Admin Dashboard</Button>
                     </Col>
                 </Row>
                 <Form onSubmit={addProduct} className="px-5">
@@ -288,7 +286,7 @@ function AddProduct() {
                                             <Form.Group key={index} className="my-1">
                                             <Form.Control 
                                                 type="text"
-                                                value={flavor.value}
+                                                value={flavor}
                                                 onChange={(event) => handleFlavorChange(index, event)}>
                                             </Form.Control>
                                             <Button className="my-1" size="sm" variant="outline-primary" onClick={() => handleFlavorRemoveField(index)}>

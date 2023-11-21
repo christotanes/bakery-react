@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Col, Row, Table, Image, Button, Collapse } from "react-bootstrap";
 import ArchiveToggle from "./ArchiveToggle.js";
 import { Link } from "react-router-dom";
+import UpdateProduct from "./UpdateProduct"
 
 function AdminView({ products, getAllProducts }) {
     const [openStates, setOpenStates] = useState({});
@@ -31,7 +32,7 @@ function AdminView({ products, getAllProducts }) {
                 <td>PhP {product.price}</td>
                 <td>{product.quantity}</td>
                 <td className={product.isActive ? 'text-success' : 'text-danger'}>{product.isActive ? 'Available' : 'Unavailable'}</td>
-                <td><UpdateProduct product={ product } getAllProducts={ getAllProducts }/> </td>
+                <td><UpdateProduct product={ product } getAllProducts={ getAllProducts }/></td>
                 <td>Featured</td>
                 <td><ArchiveToggle product={product._id} getAllProducts={getAllProducts} isActive={product.isActive}/></td>
             </tr>

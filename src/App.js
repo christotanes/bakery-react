@@ -1,18 +1,25 @@
 import './App.css';
-import AddProduct from './pages/AddProduct';
-import AppNavbar from "./components/AppNavbar";
-import Error from "./pages/Error";
-import Home from './pages/Home';
+// import AddProduct from './pages/AddProduct';
+import AppNavbar from "./components/layout/AppNavbar";
+// import Error from "./pages/Error";
+// import Home from './pages/Home';
 import Login from './pages/Login';
-import Logout from './pages/Logout';
-import Products from './pages/Products';
-import Register from './pages/Register';
-import ProductView from './pages/ProductView';
-import { Container } from "react-bootstrap";
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+// import Logout from './pages/Logout';
+// import Products from './pages/Products';
+// import Register from './pages/Register';
+// import ProductView from './pages/ProductView';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
+import { Container, Image } from 'react-bootstrap';
+
+const AddProduct = React.lazy(() => import('./pages/AddProduct'));
+const Error = React.lazy(() => import('./pages/Error'));
+const Home = React.lazy(() => import('./pages/Home'));
+const Logout = React.lazy(() => import('./pages/Logout'));
+const Products = React.lazy(() => import('./pages/Products'));
+const Register = React.lazy(() => import('./pages/Register'));
+const ProductView = React.lazy(() => import('./pages/ProductView'));
 
 const App = () => {
   const [ user, setUser ] = useState({
@@ -59,6 +66,7 @@ const App = () => {
     <>
       <UserProvider value={{ user, setUser, unSetUser }}>
         <Router>
+        <Suspense fallback={<Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>}>
           <AppNavbar />
             <Routes>
                 <Route path='/' element={<Home/>}/>
@@ -70,6 +78,7 @@ const App = () => {
                 <Route path='/products/:productId' element={<ProductView />} />
                 <Route path='*' element={<Error/>}/> 
             </Routes>
+          </Suspense>
         </Router>
       </UserProvider>
     </>   

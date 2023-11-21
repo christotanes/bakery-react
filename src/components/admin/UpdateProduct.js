@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from '../../UserContext';
 import { Navigate } from "react-router-dom";
-import { Container, Row, Col, Card, FormLabel, Button, Form, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Card, FormLabel, Button, Form, Spinner, Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 function EditProduct({ product, getAllProducts }) {
@@ -15,7 +15,7 @@ function EditProduct({ product, getAllProducts }) {
     const [ allergens, setAllergens ] = useState([]);
     const [ weight, setWeight ] = useState('');
     const [ deliveryAvailable, setDeliveryAvailable ] = useState(false);
-    const [ flavors, setFlavors ] = useState([{ value: '' }]);
+    const [ flavors, setFlavors ] = useState([]);
     const [ bestBefore, setBestBefore ] = useState(5);
     const [ vegetarian, setVegetarian ] = useState(false);
     const [ img, setImg ] = useState('');
@@ -27,6 +27,7 @@ function EditProduct({ product, getAllProducts }) {
     const [error, setError] = useState(null);
 
     const [ isActive, setIsActive ] = useState(false);
+    const [ showEdit, setShowEdit] = useState(false);
 
     const handleCheckboxChange = (e) => {
         e.stopPropagation();
@@ -43,14 +44,14 @@ function EditProduct({ product, getAllProducts }) {
 
     const handleFlavorChange = (index, e) => {
         e.stopPropagation();
-        const newFlavor = [...flavors];
-        newFlavor[index].value = e.target.value;
-        setFlavors(newFlavor);
+        const newFlavors = [...flavors];
+        newFlavors[index] = e.target.value;
+        setFlavors(newFlavors);
     };
 
     const handleFlavorAddField = (e) => {
         e.stopPropagation();
-        setFlavors([...flavors, { value: '' }]);
+        setFlavors([...flavors, '']);
     };
 
     const handleFlavorRemoveField = (index) => {
@@ -59,16 +60,13 @@ function EditProduct({ product, getAllProducts }) {
         setFlavors(newFlavors);
     };
 
-    const addProduct = async (e) => {
+    const editProduct = async (e) => {
         e.preventDefault();
-        console.log('This is addProduct async Function');
+        console.log('This is editProduct async Function');
         setLoading(true);
         setIsActive(false);
 
-        const flavorsArray = flavors.map(flavor => flavor.value);
-        console.log("Submitted data:", flavorsArray);
-
-        const newProductData = {
+        const editProductData = {
             name: name,
             description: description,
             type: type,
@@ -78,7 +76,7 @@ function EditProduct({ product, getAllProducts }) {
             allergens: allergens,
             weight: weight,
             deliveryAvailable: deliveryAvailable,
-            flavors: flavorsArray,
+            flavors: flavors,
             bestBefore: bestBefore,
             vegetarian: vegetarian,
             img: img,
@@ -88,48 +86,88 @@ function EditProduct({ product, getAllProducts }) {
         }
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/products/`, {
-                method: "POST",
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${product._id}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type":"application/json",
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify(newProductData)
+                body: JSON.stringify(editProductData)
             })
 
             const data = await response.json();
 
             if (response.ok) {
                 Swal.fire({
-                    title: 'Product Added Successfully',
+                    title: 'Product Update Successful',
                     icon: 'success',
-                    text: `${data.name} was added successfully.`
+                    text: `${data.name} was updated successfully.`
+                })
+            } else {
+                Swal.fire({
+                    title: 'Failed to Update Product',
+                    icon: 'success',
+                    text: `Please try again later.`
                 })
             }
         } catch (error) {
             setError(error.message);
+            Swal.fire({
+                title: 'Failed to Update Product',
+                icon: 'success',
+                text: `Please try again later. Error: ${error}`
+            })
         } finally {
-            setIsActive(false);
-            setLoading(false);
-            setName('')
-            setDescription('')
-            setType('')
-            setSize('')
-            setQuantity(0)
-            setPrice(0)
-            setAllergens([])
-            setWeight('')
-            setDeliveryAvailable(false)
-            setFlavors([{ value: '' }])
-            setBestBefore(5)
-            setVegetarian(false)
-            setImg('')
-            setImgLqip('')
-            setImgBanner('')
-            setImgBannerLqip('')
+            closeEdit()
+            getAllProducts()
         }
     };
 
+    // UPDATE
+    const openEdit = (product) => {
+        console.log(product)
+        setName(product.name)
+        setDescription(product.description)
+        setType(product.type)
+        setSize(product.size)
+        setQuantity(product.quantity)
+        setPrice(product.price)
+        setAllergens(product.allergens)
+        setWeight(product.weight)
+        setDeliveryAvailable(product.deliveryAvailable)
+        setFlavors(product.flavors)
+        setBestBefore(product.bestBefore)
+        setVegetarian(product.vegetarian)
+        setImg(product.img)
+        setImgLqip(product.imgLqip)
+        setImgBanner(product.imgBanner)
+        setImgBannerLqip(product.imgBannerLqip)
+        setShowEdit(true);
+    }
+
+    const closeEdit = () => {
+        setShowEdit(false);
+        setIsActive(false);
+        setLoading(false);
+        setName('')
+        setDescription('')
+        setType('')
+        setSize('')
+        setQuantity(0)
+        setPrice(0)
+        setAllergens([])
+        setWeight('')
+        setDeliveryAvailable(false)
+        setFlavors([])
+        setBestBefore(5)
+        setVegetarian(false)
+        setImg('')
+        setImgLqip('')
+        setImgBanner('')
+        setImgBannerLqip('')
+    }
+
+    // UPDATE
     useEffect(() => {
         if(name !== '' && description !== '' && type !== '' && size !== '' && quantity !== 0 && price !== 0 && img !== '' && imgLqip !== '' && imgBanner !== '' && imgBannerLqip !== ''){
             setIsActive(true);
@@ -140,16 +178,16 @@ function EditProduct({ product, getAllProducts }) {
 
     return (
         <>
-        {
-            (user.isAdmin !== true) ? <Navigate to={"/"} /> :
-            <Container id="addProduct">
+            <Button variant="primary" size="sm" onClick={() => openEdit(product)}>Edit</Button>
+            <Modal show={showEdit} onHide={closeEdit} size="xl">
+            <Container id="editProduct">
                 <Row className="px-5 pt-3 text-center">
                     <Col xs={12} className="mt-3">
-                        <h1>Add a New Product</h1>
+                        <h1>Edit Product</h1>
                         <p className="mb-0">All fields in <span className="text-danger">red</span> are required</p>
                     </Col>
                 </Row>
-                <Form onSubmit={addProduct} className="px-5">
+                <Form onSubmit={editProduct} className="px-5">
                     <Row className="mb-3">
                         <Col xs={12} className="d-flex flex-column justify-content-center my-3" style={{ width: '500' }}>
 
@@ -288,7 +326,7 @@ function EditProduct({ product, getAllProducts }) {
                                             <Form.Group key={index} className="my-1">
                                             <Form.Control 
                                                 type="text"
-                                                value={flavor.value}
+                                                value={flavor}
                                                 onChange={(event) => handleFlavorChange(index, event)}>
                                             </Form.Control>
                                             <Button className="my-1" size="sm" variant="outline-primary" onClick={() => handleFlavorRemoveField(index)}>
@@ -304,30 +342,35 @@ function EditProduct({ product, getAllProducts }) {
                                                 type="checkbox"
                                                 value="Dairy"
                                                 label="Dairy"
+                                                checked={allergens.includes("Dairy")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Nuts"
                                                 label="Nuts"
+                                                checked={allergens.includes("Nuts")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Gluten"
                                                 label="Gluten"
+                                                checked={allergens.includes("Gluten")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Eggs"
                                                 label="Eggs"
+                                                checked={allergens.includes("Eggs")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Wheat"
                                                 label="Wheat"
+                                                checked={allergens.includes("Wheat")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                     </Form.Group>
@@ -349,7 +392,7 @@ function EditProduct({ product, getAllProducts }) {
                                         <Form.Check
                                                 type="switch"
                                                 id="vegetarian"
-                                                value={vegetarian}
+                                                checked={vegetarian}
                                                 label="Check if YES"
                                                 onChange={e => setVegetarian(e.target.checked)}
                                             />
@@ -371,7 +414,7 @@ function EditProduct({ product, getAllProducts }) {
                                         <Form.Check 
                                                 type="switch"
                                                 id="deliveryAvailable"
-                                                value={deliveryAvailable}
+                                                checked={deliveryAvailable}
                                                 label="Check if YES"
                                                 onChange={e => setDeliveryAvailable(e.target.checked)}
                                             />
@@ -384,7 +427,7 @@ function EditProduct({ product, getAllProducts }) {
 
                         {
                                 (isActive) ? 
-                                <Button variant="success" className="mt-4 w-50" type="submit">Add Product</Button>
+                                <Button variant="success" className="mt-4 w-50" type="submit">Update Product</Button>
                                 :
                                 (loading) ?
                                 <>
@@ -400,14 +443,14 @@ function EditProduct({ product, getAllProducts }) {
                                     </Button>
                                 </> 
                                 :
-                                <Button variant="success" className="mt-4 w-50" disabled>Add Product</Button>
+                                <Button variant="success" className="mt-4 w-50" disabled>Update Product</Button>
                         }
 
                         </Col>
                     </Row>
                 </Form>
             </Container>
-        }
+            </Modal>
         </>
     )
 };
