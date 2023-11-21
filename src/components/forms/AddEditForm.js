@@ -162,7 +162,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                     </Col>
                 </Row>
                 <Form onSubmit={handleSubmit} className="px-5">
-                    <Row className="mb-3">
+                    <Row className="mb-3 productBannerRow">
                         <Col xs={12} className="d-flex flex-column justify-content-center my-3" style={{ width: '500' }}>
 
                             <Form.Group controlId="imgBanner">

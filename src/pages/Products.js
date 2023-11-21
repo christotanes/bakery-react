@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext";
 import AdminView from "../components/admin/AdminView";
-import UserView from "../components/UserView";
+import UserView from "../components/user/UserView";
 import { Container } from "react-bootstrap";
 
 function Products() {

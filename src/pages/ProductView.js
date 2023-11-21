@@ -3,14 +3,20 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Card, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Error from "./Error";
+import AddToCart from "../components/user/AddToCart";
 
 function ProductView() {
     const { productId } = useParams();
     const [ product, setProduct ] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [ loading, setLoading] = useState(false);
+    const [ error, setError] = useState(null);
+    const [ productToCart, setProductToCart ] = useState(0);
+    const [ productLeft, setProductLeft ] = useState(10);
+    const [ disableAdd, setDisableAdd ] = useState(false);
+    const [ disableMinus, setDisableMinus ] = useState(true);
 
     const getProductById = async () => {
+        setLoading(true)
         try {
             const productResponse = await fetch(`${process.env.REACT_APP_API_URL}/products/${ productId }`);
 
@@ -18,6 +24,7 @@ function ProductView() {
 
             if(productResponse.ok){
                 setProduct(data);
+                setProductLeft(data.quantity)
                 console.log(product)
             }
         } catch (error) {
@@ -27,11 +34,11 @@ function ProductView() {
         }
     } 
 
+    const { _id, name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner } = product;
+
     useEffect(() => {
         getProductById();
     }, [productId]);
-
-    const { name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner } = product;
 
     if (loading) {
         return <Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>
@@ -45,22 +52,113 @@ function ProductView() {
         return <Error />
     }
 
+    function addToCart(e) {
+        e.stopPropagation();
+        if (productLeft <= 0) {
+            setDisableAdd(true);
+        } else {
+            setProductToCart(productToCart + 1);
+            setProductLeft(productLeft - 1);
+            setDisableMinus(false);
+        }
+    };
+
+    function removeToCart(e) {
+        e.stopPropagation();
+        if(productToCart <=0){
+            setDisableMinus(true);
+        } else {
+            setProductToCart(productToCart - 1);
+            setProductLeft(productLeft + 1);
+            setDisableAdd(false);
+        }
+    };
+
+    const setProductToCartData = {setProductToCart};
+
     return(
         <Container id="productView">
-            <Row className="my-3">
+            <Row className="my-3 productBannerRow">
                 <Col xs={12} className="d-flex justify-content-center my-3">
                     <Image src={imgBanner} className="productBanner shadow cover"/>
                 </Col>
             </Row>
-            <Row className="my-3">
+            <Row className="my-4">
                 <Col md={5} className="d-flex justify-content-center">
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '18rem' }} className="shadow">
                     <Card.Img variant="top" src={img}/>
                     <Card.Body>
                         <Card.Title>{name}</Card.Title>
-                        <Card.Text>Php {price}</Card.Text>
-                        <span>1 </span>|<span> {quantity}</span><br/>
-                        <Button variant="primary">Add to Cart</Button>
+                        <Card.Subtitle className="mt-2">PhP {price}</Card.Subtitle>
+                            <span>Quantity: {quantity} </span>
+                            <p> Add to Cart: {productToCart}</p>
+                            <p>
+                            {disableAdd ? 
+                                <>
+                                {/* There are still products left, button to add disabled, button to remove is active */}
+                                    <Button 
+                                    variant="outline-primary" 
+                                    onClick={e => addToCart(e)} 
+                                    size="sm"
+                                    className="me-2"
+                                    disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg></Button> 
+                                </>
+                                    :
+                                <>
+                                    <Button 
+                                    variant="outline-primary" 
+                                    onClick={e => addToCart(e)} 
+                                    size="sm"
+                                    className="me-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg></Button> 
+                                </>
+                                }
+                            {
+                                disableMinus ? 
+                                <>
+                                    <Button 
+                                    variant="outline-primary" 
+                                    onClick={e => removeToCart(e)}
+                                    size="sm"
+                                    disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                                    </svg></Button>
+                                </>
+                                :
+                                <>
+                                <Button 
+                                    variant="outline-primary" 
+                                    onClick={e => removeToCart(e)}
+                                    size="sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                                    </svg></Button>
+                                </>
+
+                            }
+                                    
+                                </p>
+                    {
+                        disableMinus ?
+                        <Button 
+                        variant="primary" 
+                        className="my-3 w-100" 
+                        disabled>Add to Cart</Button>
+                        :
+                        <AddToCart productId={ _id }
+                        productName={ name }
+                        productPrice={ price }
+                        productToCart={ productToCart } 
+                        getProductById={ getProductById }
+                        setProductToCartData={ setProductToCartData }/>
+                    }
+                        
                     </Card.Body>
                     </Card>
                 </Col>
@@ -109,7 +207,7 @@ function ProductView() {
             </Row>
             <Row>
                 <Col>
-
+                    
                 </Col>
             </Row>
         </Container>

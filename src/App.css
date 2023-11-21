@@ -34,7 +34,7 @@
   height: 100vh;
 }
 
-#products, #addProduct {
+#products, #addProduct, .productBannerRow {
   background-color: #ffc800;
 }
 
