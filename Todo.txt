@@ -6,11 +6,11 @@ Done
     > Admin dashboard
         > Create product >>> MVP5
         > Retrieve all products >>> MVP6
+        > Update product info >>> MVP7
         > Deactivate/reactivate product >>> MVP8
 
 Todo
     > Admin dashboard
-        > Update product info > MVP7
         > Retrieve all users
             > new users
             > set as admin > MVP Stretch3

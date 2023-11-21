@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Col, Row, Table, Image, Button, Collapse } from "react-bootstrap";
 import ArchiveToggle from "./ArchiveToggle.js";
-import { Link } from "react-router-dom";
 import UpdateProduct from "./UpdateProduct"
+import AddProduct from "./AddProduct.js";
 
 function AdminView({ products, getAllProducts }) {
     const [openStates, setOpenStates] = useState({});
@@ -91,7 +91,7 @@ function AdminView({ products, getAllProducts }) {
                         <thead>
                             <tr>
                                 <th colSpan={6} className="font-weight-bold">Name</th>
-                                <th><Button variant={"primary"} as={Link} to={'/products/add'} >Add Product</Button></th>
+                                <th><AddProduct getAllProducts={ getAllProducts }/></th>
                                 <th>Image</th>
                                 <th>Image Banner</th>
                             </tr>

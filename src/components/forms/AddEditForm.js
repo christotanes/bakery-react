@@ -1,32 +1,27 @@
-import React, { useContext, useState, useEffect } from "react";
-import UserContext from '../UserContext';
-import { Link, Navigate } from "react-router-dom";
-import { Container, Row, Col, Card, FormLabel, Button, Form, Spinner } from "react-bootstrap";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import { Form, Button, Card, Col, Row, FormLabel, Spinner, Modal, Container } from 'react-bootstrap';
 
-function AddProduct() {
-    const { user } = useContext(UserContext);
-    const [ name, setName ] = useState('');
-    const [ description, setDescription ] = useState('');
-    const [ type, setType ] = useState('');
-    const [ size, setSize ] = useState('');
-    const [ quantity, setQuantity ] = useState(0);
-    const [ price, setPrice ] = useState(0);
-    const [ allergens, setAllergens ] = useState([]);
-    const [ weight, setWeight ] = useState('');
-    const [ deliveryAvailable, setDeliveryAvailable ] = useState(false);
-    const [ flavors, setFlavors ] = useState([]);
-    const [ bestBefore, setBestBefore ] = useState(5);
-    const [ vegetarian, setVegetarian ] = useState(false);
-    const [ img, setImg ] = useState('');
-    const [ imgLqip, setImgLqip ] = useState('');
-    const [ imgBanner, setImgBanner ] = useState('');
-    const [ imgBannerLqip, setImgBannerLqip ] = useState('');
+function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActiveData }) {
+    const [ name, setName ] = useState(initialProduct?.name || '');
+    const [ description, setDescription ] = useState(initialProduct?.description || '');
+    const [ type, setType ] = useState(initialProduct?.type || '');
+    const [ size, setSize ] = useState(initialProduct?.size || '');
+    const [ quantity, setQuantity ] = useState(initialProduct?.quantity || 0);
+    const [ price, setPrice ] = useState(initialProduct?.price || 0);
+    const [ allergens, setAllergens ] = useState(initialProduct?.allergens || []);
+    const [ weight, setWeight ] = useState(initialProduct?.weight || '');
+    const [ deliveryAvailable, setDeliveryAvailable ] = useState(initialProduct?.deliveryAvailable || false);
+    const [ flavors, setFlavors ] = useState(initialProduct?.flavors || []);
+    const [ bestBefore, setBestBefore ] = useState(initialProduct?.bestBefore || 5);
+    const [ vegetarian, setVegetarian ] = useState(initialProduct?.vegetarian || false);
+    const [ img, setImg ] = useState(initialProduct?.img || '');
+    const [ imgLqip, setImgLqip ] = useState(initialProduct?.imgLqip || '');
+    const [ imgBanner, setImgBanner ] = useState(initialProduct?.imgBanner || '');
+    const [ imgBannerLqip, setImgBannerLqip ] = useState(initialProduct?.imgBannerLqip || '');
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    const [ isActive, setIsActive ] = useState(false);
+    const [ loading, setLoading ] = useState(loadingData);
+    const [ showModal, setShowModal] = useState(false);
+    const [ isActive, setIsActive ] = useState(isActiveData);
 
     const handleCheckboxChange = (e) => {
         e.stopPropagation();
@@ -59,13 +54,79 @@ function AddProduct() {
         setFlavors(newFlavors);
     };
 
-    const addProduct = async (e) => {
-        e.preventDefault();
-        console.log('This is addProduct async Function');
-        setLoading(true);
-        setIsActive(false);
+    const openModal = (product) => {
+        if(product){
+        console.log(product)
+        setName(product.name)
+        setDescription(product.description)
+        setType(product.type)
+        setSize(product.size)
+        setQuantity(product.quantity)
+        setPrice(product.price)
+        setAllergens(product.allergens)
+        setWeight(product.weight)
+        setDeliveryAvailable(product.deliveryAvailable)
+        setFlavors(product.flavors)
+        setBestBefore(product.bestBefore)
+        setVegetarian(product.vegetarian)
+        setImg(product.img)
+        setImgLqip(product.imgLqip)
+        setImgBanner(product.imgBanner)
+        setImgBannerLqip(product.imgBannerLqip)
+        } else {
+        setName('')
+        setDescription('')
+        setType('')
+        setSize('')
+        setQuantity(0)
+        setPrice(0)
+        setAllergens([])
+        setWeight('')
+        setDeliveryAvailable(false)
+        setFlavors([])
+        setBestBefore(0)
+        setVegetarian(false)
+        setImg('')
+        setImgLqip('')
+        setImgBanner('')
+        setImgBannerLqip('')
+        }
+    setShowModal(true);
+    }
 
-        const newProductData = {
+    const closeModal = () => {
+        setShowModal(false);
+        setIsActive(false);
+        setLoading(false);
+        setName('')
+        setDescription('')
+        setType('')
+        setSize('')
+        setQuantity(0)
+        setPrice(0)
+        setAllergens([])
+        setWeight('')
+        setDeliveryAvailable(false)
+        setFlavors([])
+        setBestBefore(5)
+        setVegetarian(false)
+        setImg('')
+        setImgLqip('')
+        setImgBanner('')
+        setImgBannerLqip('')
+    }
+
+    useEffect(() => {
+        if(name !== '' && description !== '' && type !== '' && size !== '' && quantity !== 0 && price !== 0 && img !== '' && imgLqip !== '' && imgBanner !== '' && imgBannerLqip !== ''){
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
+    }, [name, description, type, size, quantity, price, img, imgLqip, imgBanner, imgBannerLqip]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = {
             name: name,
             description: description,
             type: type,
@@ -82,72 +143,25 @@ function AddProduct() {
             imgLqip: imgLqip,
             imgBanner: imgBanner,
             imgBannerLqip: imgBannerLqip
-        }
-
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/products/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type":"application/json",
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify(newProductData)
-            })
-
-            const data = await response.json();
-
-            if (response.ok) {
-                Swal.fire({
-                    title: 'Product Added Successfully',
-                    icon: 'success',
-                    text: `${data.name} was added successfully.`
-                })
-            }
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setIsActive(false);
-            setLoading(false);
-            setName('')
-            setDescription('')
-            setType('')
-            setSize('')
-            setQuantity(0)
-            setPrice(0)
-            setAllergens([])
-            setWeight('')
-            setDeliveryAvailable(false)
-            setFlavors([{ value: '' }])
-            setBestBefore(5)
-            setVegetarian(false)
-            setImg('')
-            setImgLqip('')
-            setImgBanner('')
-            setImgBannerLqip('')
-        }
+        };
+        onSubmit(formData, closeModal);
     };
-
-    useEffect(() => {
-        if(name !== '' && description !== '' && type !== '' && size !== '' && quantity !== 0 && price !== 0 && img !== '' && imgLqip !== '' && imgBanner !== '' && imgBannerLqip !== ''){
-            setIsActive(true);
-        } else {
-            setIsActive(false);
-        }
-    }, [name, description, type, size, quantity, price, img, imgLqip, imgBanner, imgBannerLqip]);
 
     return (
         <>
-        {
-            (user.isAdmin !== true) ? <Navigate to={"/"} /> :
-            <Container id="addProduct">
+        {isEditMode ? 
+        <Button variant="primary" size="sm" onClick={() => openModal(initialProduct)}>Edit</Button>
+        : 
+        <Button variant="success" size="sm" onClick={() => openModal()}>Add Product</Button>}
+        <Modal show={showModal} onHide={closeModal} size="xl">
+            <Container id={isEditMode ? "editProduct": "addProduct"}>
                 <Row className="px-5 pt-3 text-center">
                     <Col xs={12} className="mt-3">
-                        <h1>Add a New Product</h1>
-                        <p className="mb-3">All fields in <span className="text-danger">red</span> are required</p>
-                        <Button as={Link} to={"/products"} variant="primary" size="sm">Return to Admin Dashboard</Button>
+                        <h1>{isEditMode ? "Edit": "Add New"} Product</h1>
+                        <p className="mb-0">All fields {isEditMode ? <span className="text-danger">are required </span> : <span className="text-danger">in red are required </span>}</p>
                     </Col>
                 </Row>
-                <Form onSubmit={addProduct} className="px-5">
+                <Form onSubmit={handleSubmit} className="px-5">
                     <Row className="mb-3">
                         <Col xs={12} className="d-flex flex-column justify-content-center my-3" style={{ width: '500' }}>
 
@@ -302,30 +316,35 @@ function AddProduct() {
                                                 type="checkbox"
                                                 value="Dairy"
                                                 label="Dairy"
+                                                checked={allergens.includes("Dairy")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Nuts"
                                                 label="Nuts"
+                                                checked={allergens.includes("Nuts")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Gluten"
                                                 label="Gluten"
+                                                checked={allergens.includes("Gluten")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Eggs"
                                                 label="Eggs"
+                                                checked={allergens.includes("Eggs")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Wheat"
                                                 label="Wheat"
+                                                checked={allergens.includes("Wheat")}
                                                 onChange={e => handleCheckboxChange(e)}
                                                 />
                                     </Form.Group>
@@ -347,7 +366,7 @@ function AddProduct() {
                                         <Form.Check
                                                 type="switch"
                                                 id="vegetarian"
-                                                value={vegetarian}
+                                                checked={vegetarian}
                                                 label="Check if YES"
                                                 onChange={e => setVegetarian(e.target.checked)}
                                             />
@@ -369,7 +388,7 @@ function AddProduct() {
                                         <Form.Check 
                                                 type="switch"
                                                 id="deliveryAvailable"
-                                                value={deliveryAvailable}
+                                                checked={deliveryAvailable}
                                                 label="Check if YES"
                                                 onChange={e => setDeliveryAvailable(e.target.checked)}
                                             />
@@ -382,7 +401,8 @@ function AddProduct() {
 
                         {
                                 (isActive) ? 
-                                <Button variant="success" className="mt-4 w-50" type="submit">Add Product</Button>
+                                <Button variant="success" className="mt-4 w-50" type="submit">
+                                {isEditMode ? "Update" : "Add"} Product</Button>
                                 :
                                 (loading) ?
                                 <>
@@ -398,16 +418,17 @@ function AddProduct() {
                                     </Button>
                                 </> 
                                 :
-                                <Button variant="success" className="mt-4 w-50" disabled>Add Product</Button>
+                                <Button variant="success" className="mt-4 w-50" disabled>
+                                {isEditMode ? "Update" : "Add"} Product</Button>
                         }
 
                         </Col>
                     </Row>
                 </Form>
             </Container>
-        }
+        </Modal>
         </>
-    )
-};
+    );
+}
 
-export default AddProduct;
+export default AddEditForm;

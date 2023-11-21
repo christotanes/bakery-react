@@ -13,7 +13,6 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Container, Image } from 'react-bootstrap';
 
-const AddProduct = React.lazy(() => import('./pages/AddProduct'));
 const Error = React.lazy(() => import('./pages/Error'));
 const Home = React.lazy(() => import('./pages/Home'));
 const Logout = React.lazy(() => import('./pages/Logout'));
@@ -74,7 +73,6 @@ const App = () => {
                 <Route path='/login' element={<Login checkLocalToken={checkLocalToken}/>}/>
                 <Route path='/logout' element={<Logout/>}/>
                 <Route path='/products' element={<Products />}/>
-                <Route path='/products/add' element={<AddProduct />} />
                 <Route path='/products/:productId' element={<ProductView />} />
                 <Route path='*' element={<Error/>}/> 
             </Routes>
