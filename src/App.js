@@ -74,9 +74,9 @@ const App = () => {
 
       if (cartResponse.ok) {
         setCart({
-          cartId: cartResponse._id,
-          products: cartResponse.products,
-          totalAmount: cartResponse.totalAmount
+          cartId: cartData._id,
+          products: cartData.products,
+          totalAmount: cartData.totalAmount
         });
       } else {
         setCart({
@@ -91,28 +91,6 @@ const App = () => {
       console.error(`Error: ${error}`)
     }
   };
-
-    // fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem('token')}`
-    //     }
-    //   })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     if(data._id){
-    //       console.log(`This is response.ok on CHECKLOCALTOKEN at app.js and user is ${user}`)
-    //       setUser({
-    //         id: data._id,
-    //         isAdmin: data.isAdmin
-    //       })
-    //     } else {
-    //       setUser({
-    //         id: null,
-    //         isAdmin: null
-    //       })
-    //       console.log(`This is ELSE of response.ok on CHECKLOCALTOKEN at app.js and user is ${user}`)
-    //     }
-    //   })
 
   return (
     <>
