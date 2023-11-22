@@ -5,7 +5,7 @@ import UserContext from '../../UserContext';
 import { Link } from 'react-router-dom';
 
 function OffcanvasExample() {
-    const { user, cart } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     return (
     <>

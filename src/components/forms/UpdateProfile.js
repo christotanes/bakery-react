@@ -3,16 +3,17 @@ import UserContext from "../../UserContext.js";
 import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import Checkout from "../../pages/Checkout.js";
 
 function UpdateProfile() {
-    const { user, setUser } = useContext(UserContext);
-    const [ firstName, setFirstName ] = useState(user.firstName || '');
-    const [ lastName, setLastName ] = useState(user.lastName || '');
-    const [ mobileNo, setMobileNo ] = useState(user.mobileNo || '');
-    const [ img, setImg ] = useState(user.img || '');
-    const [ houseNo, setHouseNo ] = useState(user.address.houseNo || '');
-    const [ streetName, setStreetName ] = useState(user.address.streetName || '');
-    const [ city, setCity ] = useState(user.address.city || '');
+    const { user, userDetails, setUserDetails } = useContext(UserContext);
+    const [ firstName, setFirstName ] = useState(userDetails.firstName || '');
+    const [ lastName, setLastName ] = useState(userDetails.lastName || '');
+    const [ mobileNo, setMobileNo ] = useState(userDetails.mobileNo || '');
+    const [ img, setImg ] = useState(userDetails.img || '');
+    const [ houseNo, setHouseNo ] = useState(userDetails.address.houseNo || '');
+    const [ streetName, setStreetName ] = useState(userDetails.address.streetName || '');
+    const [ city, setCity ] = useState(userDetails.address.city || '');
 
     const [ isActive, setIsActive ] = useState(false);
     const [ loading, setLoading ] = useState(false);
@@ -48,15 +49,7 @@ function UpdateProfile() {
             const data = await response.json();
 
             if(response.ok){
-                Swal.fire({
-                    title: "Profile Update Successfully",
-                    icon: "success",
-                    text: `Thank you, ${data.firstName} for updating your profile!`
-                })
-
-                setUser({
-                    id: data.id,
-                    isAdmin: data.isAdmin,
+                setUserDetails({
                     firstName: data.firstName,
                     lastName: data.lastName,
                     mobileNo: data.mobileNo,
@@ -67,9 +60,7 @@ function UpdateProfile() {
                     },
                     img: data.img
                 })
-                navigate('/checkout');
-                setLoading(false);
-                setIsActive(false);
+                
                 setFirstName('');
                 setLastName('');
                 setMobileNo('');
@@ -77,6 +68,20 @@ function UpdateProfile() {
                 setStreetName('');
                 setCity('');
                 setImg('');
+                setLoading(false);
+                setIsActive(false);
+
+                Swal.fire({
+                    title: "Profile Update Successfully",
+                    text: `Thank you, ${data.firstName} for updating your profile!`,
+                    icon: "success",
+                    confirmButtonText: "Ok"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/checkout');
+                        };
+                    })
+
             } else {
                 Swal.fire({
                     title: "Update failed",
@@ -95,6 +100,8 @@ function UpdateProfile() {
                 text: "Please try again later.",
                 timer: 2500
             })
+            setLoading(false);
+            setIsActive(false);
         }
     }
 

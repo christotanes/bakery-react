@@ -4,7 +4,7 @@ import { Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Im
 import { Link } from "react-router-dom";
 
 function ViewCart({ onCheckout }) {
-    const { cart} = useContext(UserContext);
+    const { cart } = useContext(UserContext);
 
     return (
             (cart?.products?.length > 0) ? (

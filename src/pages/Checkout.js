@@ -1,26 +1,26 @@
 import { useContext, useState, useEffect } from "react";
 import UserContext from "../UserContext.js";
-import Home from "./Home.js";
+import Products from "./Products.js";
 import ViewCart from "../components/user/ViewCart.js";
 import { Container, Row, Col } from "react-bootstrap";
 import UpdateProfile from "../components/forms/UpdateProfile.js";
 import CheckoutForm from "../components/forms/CheckoutForm.js";
 
 function Checkout() {
-    const { user, cart, setCart } = useContext(UserContext);
+    const { user, userDetails } = useContext(UserContext);
     const [ profileHasAddress, setProfileHasAddress ]= useState(true);
 
     useEffect(() => {
-        if (user.address === undefined || user.address === null) {
+        if (userDetails.address.streetName === undefined || userDetails.address.streetName === null || userDetails.address.city === null || userDetails.address.city === undefined || userDetails.address.houseNo === null || userDetails.address.houseNo === undefined || userDetails.firstName === undefined || userDetails.firstName === null || userDetails.lastName === null || userDetails.lastName === undefined || userDetails.mobileNo === null || userDetails.mobileNo === undefined) {
             setProfileHasAddress(false)
         }
-    }, [profileHasAddress])
+    }, [userDetails])
     
 
     return(
     <Container fluid id="checkout">
         {(user.isAdmin === true) ?
-        <Home />
+        <Products />
         :
         (profileHasAddress === false) ?
         <>

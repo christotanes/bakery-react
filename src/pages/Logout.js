@@ -4,15 +4,22 @@ import { useContext, useEffect } from "react";
 
 function Logout() {
     
-    const { setUser, unSetUser, setCart, user, cart } = useContext(UserContext);
+    const { setUser, unSetUser, setCart, user, cart, setUserDetails } = useContext(UserContext);
 
     unSetUser();
     useEffect(() => {
         setUser({
             id: null,
+            isAdmin: null
+        })
+        setCart({
+            cartId: null,
+            products: [],
+            totalAmount: null
+        })
+        setUserDetails({
             firstName: null,
             lastName: null,
-            isAdmin: null,
             mobileNo: 0,
             address: {
                 houseNo: null,
@@ -20,11 +27,6 @@ function Logout() {
                 city: null
             },
             img: null
-        })
-        setCart({
-            cartId: null,
-            products: [],
-            totalAmount: null
         })
         console.log(`This is logout, user: ${user}`)
         console.log(`This is logout, cart: ${cart}`)

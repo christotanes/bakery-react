@@ -25,9 +25,12 @@ const App = () => {
   const [ isNull, setIsNull ] = useState(null)
   const [ user, setUser ] = useState({
     id: null,
+    isAdmin: null
+  })
+
+  const [ userDetails, setUserDetails ] = useState({
     firstName: null,
     lastName: null,
-    isAdmin: null,
     mobileNo: 0,
     address: {
       houseNo: null,
@@ -77,26 +80,14 @@ const App = () => {
       if (userResponse.ok || cartResponse.ok) {
         setUser({
           id: userData._id,
-          isAdmin: userData.isAdmin,
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          mobileNo: userData.mobileNo,
-          address: {
-            houseNo: userData.address?.houseNo || '',
-            streetName: userData.address?.streetName || '',
-            city: userData.address?.city || ''
-          },
-          img: userData.img
+          isAdmin: userData.isAdmin
         });
         setCart({
           cartId: cartData._id,
           products: cartData.products,
           totalAmount: cartData.totalAmount
         });
-      } else if (userResponse.ok && !cartData) {
-        setUser({
-          id: userData._id,
-          isAdmin: userData.isAdmin,
+        setUserDetails({
           firstName: userData.firstName,
           lastName: userData.lastName,
           mobileNo: userData.mobileNo,
@@ -106,18 +97,41 @@ const App = () => {
             city: userData.address?.city || ''
           },
           img: userData.img
+        })
+      } else if (userResponse.ok && !cartData) {
+        setUser({
+          id: userData._id,
+          isAdmin: userData.isAdmin
         });
         setCart({
           cartId: null,
           products: [],
           totalAmount: null
         });
+        setUserDetails({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          mobileNo: userData.mobileNo,
+          address: {
+            houseNo: userData.address?.houseNo || '',
+            streetName: userData.address?.streetName || '',
+            city: userData.address?.city || ''
+          },
+          img: userData.img
+        })
       } else {
         setUser({
           id: null,
+          isAdmin: null
+        })
+        setCart({
+          cartId: null,
+          products: [],
+          totalAmount: null
+        })
+        setUserDetails({
           firstName: null,
           lastName: null,
-          isAdmin: null,
           mobileNo: 0,
           address: {
             houseNo: null,
@@ -125,11 +139,6 @@ const App = () => {
             city: null
           },
           img: null
-        })
-        setCart({
-          cartId: null,
-          products: [],
-          totalAmount: null
         })
       }
       
@@ -148,7 +157,7 @@ const App = () => {
 
   return (
     <>
-      <UserProvider value={{ user, setUser, unSetUser, cart, setCart }}>
+      <UserProvider value={{ user, setUser, unSetUser, cart, setCart, userDetails, setUserDetails }}>
         <Router>
         <Suspense fallback={<Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>}>
           <AppNavbar />
