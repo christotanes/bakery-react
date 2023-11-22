@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../UserContext.js";
-import { Button, Card, Col, CardTitle, Form, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function UpdateProfile() {
     const { user, setUser } = useContext(UserContext);
@@ -16,7 +17,9 @@ function UpdateProfile() {
     const [ isActive, setIsActive ] = useState(false);
     const [ loading, setLoading ] = useState(false);
 
-    const updateProfile = async (e) => {
+    const navigate = useNavigate();
+
+    const handleUpdate = async (e) => {
         e.preventDefault();
         setLoading(true);
 
@@ -50,7 +53,10 @@ function UpdateProfile() {
                     icon: "success",
                     text: `Thank you, ${data.firstName} for updating your profile!`
                 })
+
                 setUser({
+                    id: data.id,
+                    isAdmin: data.isAdmin,
                     firstName: data.firstName,
                     lastName: data.lastName,
                     mobileNo: data.mobileNo,
@@ -61,7 +67,16 @@ function UpdateProfile() {
                     },
                     img: data.img
                 })
-                
+                navigate('/checkout');
+                setLoading(false);
+                setIsActive(false);
+                setFirstName('');
+                setLastName('');
+                setMobileNo('');
+                setHouseNo('');
+                setStreetName('');
+                setCity('');
+                setImg('');
             } else {
                 Swal.fire({
                     title: "Update failed",
@@ -69,58 +84,60 @@ function UpdateProfile() {
                     text: "Please try again later.",
                     timer: 2500
                 })
+                setLoading(false);
+                setIsActive(false);
             }
         } catch (error) {
             console.error(`Error: ${error}`);
-        } finally {
-            setLoading(false);
-            setIsActive(false);
-            setFirstName('');
-            setLastName('');
-            setMobileNo('');
-            setHouseNo('');
-            setStreetName('');
-            setCity('');
-            setImg('');
+            Swal.fire({
+                title: "Update failed",
+                icon: "error",
+                text: "Please try again later.",
+                timer: 2500
+            })
         }
     }
 
     useEffect(() => {
-        if((firstName !== '' && lastName !== '' && mobileNo !== '' && houseNo !== '' && streetName !== '' && city !== '' && img !== '') && (mobileNo.length === 11)){
+        if((firstName !== '' && lastName !== '' && mobileNo !== '' && houseNo !== '' && streetName !== '' && city !== '' && img !== '') && (mobileNo.length === 11 && (/^\d{11}$/.test(mobileNo)))){
             setIsActive(true);
         } else {
             setIsActive(false)
         }
-    }, [])
+    }, [firstName, lastName, mobileNo, houseNo, streetName, city, img])
 
     return (
         <Card className="w-100 m-3 shadow ">
-            <CardTitle>Update Profile</CardTitle>
-            
-            <Form onSubmit={e => updateProfile(e)}>
-                <Form.Group controlId="firstName">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control 
-                    type="text"
-                    placeholder="First Name"
-                    required
-                    value={firstName}
-                    onChange={e => setFirstName(e.target.value)}
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="lastName">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control 
-                    type="text"
-                    placeholder="Last Name"
-                    required
-                    value={lastName}
-                    onChange={e => setLastName(e.target.value)}
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="mobileNo">
+            <Form onSubmit={e => handleUpdate(e)} className="mb-3">
+            <Row className="mx-3 mt-3">
+                <Col md={6}>
+                    <Form.Group controlId="firstName">
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        placeholder="First Name"
+                        required
+                        value={firstName}
+                        onChange={e => setFirstName(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col md={6}>
+                    <Form.Group controlId="lastName">
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        placeholder="Last Name"
+                        required
+                        value={lastName}
+                        onChange={e => setLastName(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row className="mx-3 mt-3">
+                <Col md={6}>
+                    <Form.Group controlId="mobileNo">
                     <Form.Label>Mobile Number</Form.Label>
                     <Form.Control 
                     type="text"
@@ -129,9 +146,16 @@ function UpdateProfile() {
                     value={mobileNo}
                     onChange={e => setMobileNo(e.target.value)}
                     />
-                </Form.Group>
-
-                <Form.Group controlId="houseNo">
+                    <Form.Text id="mobileNoHelpBlock" muted>
+                        Your mobileNo must be 11 numerical digits, no spaces or dashes in between.
+                    </Form.Text>
+                    </Form.Group>
+                </Col>
+            </Row>
+                
+            <Row className="mx-3 mt-3">
+                <Col md={6}>
+                    <Form.Group controlId="houseNo">
                     <Form.Label>House No.</Form.Label>
                     <Form.Control 
                     type="text"
@@ -140,9 +164,10 @@ function UpdateProfile() {
                     value={houseNo}
                     onChange={e => setHouseNo(e.target.value)}
                     />
-                </Form.Group>
-
-                <Form.Group controlId="streetName">
+                    </Form.Group>
+                </Col>
+                <Col md={6}>
+                    <Form.Group controlId="streetName">
                     <Form.Label>Street Name</Form.Label>
                     <Form.Control 
                     type="text"
@@ -151,29 +176,44 @@ function UpdateProfile() {
                     value={streetName}
                     onChange={e => setStreetName(e.target.value)}
                     />
-                </Form.Group>
+                    </Form.Group>
+                </Col>
+            </Row>
 
-                <Form.Group controlId="city">
+            <Row className="mx-3 mt-3">
+                <Col md={6}>
+                    <Form.Group controlId="city">
                     <Form.Label>City</Form.Label>
                     <Form.Control 
                     type="text"
-                    placeholder="city"
+                    placeholder="City Name"
                     required
                     value={city}
                     onChange={e => setCity(e.target.value)}
                     />
-                </Form.Group>
-
-                <Form.Group controlId="img">
+                    </Form.Group>
+                </Col>
+            </Row>
+                
+            <Row className="mx-3 mt-3">
+                <Col md={6} className="mx-auto">
+                    <Form.Group controlId="img">
                     <Form.Label>Profile Pic Link</Form.Label>
                     <Form.Control 
                     type="text"
-                    placeholder="img"
+                    placeholder="Image URL Link"
                     required
                     value={img}
                     onChange={e => setImg(e.target.value)}
                     />
-                </Form.Group>
+                    <Form.Text id="mobileNoHelpBlock" muted>
+                        Don't worry we can provide a default profile picture if you don't have one right now!
+                    </Form.Text>
+                    </Form.Group>
+                </Col>
+            </Row>
+
+            <Row className="mx-3 mt-4">
                 <Col xs={12} className="text-center">
                 {
                     (isActive === true) ?
@@ -199,6 +239,7 @@ function UpdateProfile() {
                         <Button variant="primary" type="submit" className="w-50 mx-auto" disabled>Update Profile</Button>
                 }
                 </Col>
+            </Row>
             </Form>
 
         </Card>

@@ -12,7 +12,7 @@ function Highlights({ data }) {
                 <Card.Img variant="top" src={img}/>
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
-                    <Card.Text>Php {price}</Card.Text>
+                    <h5 className="text-end text-danger border-bottom mb-3">₱ {price}</h5>
                     <Button variant="primary" as={Link} to={`/products/${_id}`} exact>Details</Button>
                 </Card.Body>
                 </Card>

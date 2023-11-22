@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ViewCart from "./ViewCart";
 
 function UserView({ activeProducts }) {
+
     const activeProductCols = activeProducts.map((product) => (
         <Col xs={12} md="auto" key={product._id} className="my-3 mx-auto">
             <Card style={{ width: '18rem' }} className="shadow-lg">
@@ -10,7 +11,7 @@ function UserView({ activeProducts }) {
                 <Card.Body>
                     <Card.Title>{product.name}</Card.Title>
                     <Card.Subtitle>{product.description}</Card.Subtitle>
-                    <Card.Text>Php {product.price}</Card.Text>
+                    <h5 className="text-end text-danger border-bottom my-3">₱ {product.price}</h5>
                     <Button variant="primary" as={Link} to={`/products/${product._id}`}>Details</Button>
                 </Card.Body>
             </Card>
@@ -28,7 +29,7 @@ function UserView({ activeProducts }) {
                 </Col>
 
                 <Col xs={12} md={3} className="mb-auto my-3 mx-auto float-left">
-                    <ViewCart/>
+                    <ViewCart onCheckout={false}/>
                 </Col>
             </Row>
         </>

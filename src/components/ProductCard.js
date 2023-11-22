@@ -11,9 +11,9 @@ function ProductCard({ products }) {
         <Card.Body>
             <Card.Title>{name}</Card.Title>
             <Card.Subtitle>{description}</Card.Subtitle>
-            <Card.Text>
-            PhP {price}
-            </Card.Text>
+            <h5 className="text-end text-danger border-bottom">
+            ₱ {price}
+            </h5>
             <Button variant="primary" as={Link} to={`/products/${_id}`} exact>Details</Button>
         </Card.Body>
         </Card>

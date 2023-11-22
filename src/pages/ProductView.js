@@ -80,7 +80,7 @@ function ProductView() {
         <Container id="productView">
             <Row className="my-3 productBannerRow">
                 <Col xs={12} className="d-flex justify-content-center my-3">
-                    <Image src={imgBanner} className="productBanner shadow cover"/>
+                    <Image src={imgBanner} className="productBanner shadow-lg"/>
                 </Col>
             </Row>
             <Row className="my-4">
@@ -89,7 +89,7 @@ function ProductView() {
                     <Card.Img variant="top" src={img}/>
                     <Card.Body>
                         <Card.Title>{name}</Card.Title>
-                        <Card.Subtitle className="mt-2">PhP {price}</Card.Subtitle>
+                        <h5 className="mt-2 text-end text-danger border-bottom mb-3">₱ {price}</h5>
                             <span>Quantity: {quantity} </span>
                             <p> Add to Cart: {productToCart}</p>
                             <p>
@@ -207,11 +207,11 @@ function ProductView() {
                     </Row>
                 </Col>
             </Row>
-            <Row>
+            {/* <Row>
                 <Col>
                     
                 </Col>
-            </Row>
+            </Row> */}
         </Container>
     )
 };

@@ -92,7 +92,7 @@ function Login({ checkLocalToken }) {
                     </Form.Group>
                     <Form.Group controlId="userPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Passord" required value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <Form.Control type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Group>
                     <div className="d-flex justify-content-center">
                         {

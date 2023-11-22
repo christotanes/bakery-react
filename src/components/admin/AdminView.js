@@ -29,7 +29,7 @@ function AdminView({ products, getAllProducts }) {
                 </Button></td>
                 <td>{product._id}</td>
                 <td>{product.description}</td>
-                <td>PhP {product.price}</td>
+                <td>₱ {product.price}</td>
                 <td>{product.quantity}</td>
                 <td className={product.isActive ? 'text-success' : 'text-danger'}>{product.isActive ? 'Available' : 'Unavailable'}</td>
                 <td><UpdateProduct product={ product } getAllProducts={ getAllProducts }/></td>
