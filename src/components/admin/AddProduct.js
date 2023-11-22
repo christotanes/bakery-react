@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import AddEditForm from "../forms/AddEditForm";
+import AddEditForm from "../../forms/AddEditForm";
 
 function AddProduct({ getAllProducts }) {
     const [loading, setLoading] = useState(false);

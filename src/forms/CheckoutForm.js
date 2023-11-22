@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import UserContext from "../../UserContext";
+import UserContext from "../UserContext";
 import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import UserProfileDetails from "../user/UserProfileDetails";
+import UserProfileDetails from "../components/user/UserProfileDetails";
 
 function CheckoutForm() {
     const { setCart, userDetails } = useContext(UserContext);

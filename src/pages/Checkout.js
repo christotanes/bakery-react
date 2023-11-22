@@ -3,8 +3,8 @@ import UserContext from "../UserContext.js";
 import Products from "./Products.js";
 import ViewCart from "../components/user/ViewCart.js";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import UpdateProfile from "../components/forms/UpdateProfile.js";
-import CheckoutForm from "../components/forms/CheckoutForm.js";
+import UpdateProfile from "../forms/UpdateProfile.js";
+import CheckoutForm from "../forms/CheckoutForm.js";
 import { Link } from "react-router-dom";
 
 function Checkout() {

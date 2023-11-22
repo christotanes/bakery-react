@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import UserContext from "../../UserContext";
+import UserContext from "../UserContext";
 import Swal from "sweetalert2";
 
 function ResetPassword() {

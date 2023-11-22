@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import UserContext from "../../UserContext.js";
+import UserContext from "../UserContext.js";
 import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";

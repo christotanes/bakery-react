@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image, CardFooter, Container } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { ConfirmPasswordField, EmailField, PasswordField } from "../forms/InputFields.js";
+import HandleChange from "../util/Handlers.js";
 
 function Register() {
-    const [ email, setEmail ] = useState('');
-    const [ password, setPassword ] = useState('');
-    const [ confirmPassword, setConfirmPassord ] = useState('');
+    const [ userInfo, setUserInfo ] = useState({
+        email: "",
+        password: "",
+        confirmPassword: ""
+    });
 
     const [ isActive, setIsActive ] = useState(false);
     const [ disableInput, setDisableInput ] = useState(false);
@@ -18,10 +22,6 @@ function Register() {
         e.preventDefault();
         setDisableInput(true);
         console.log(`This is handleRegister at register.js`)
-        const userDetails = {
-            email: email,
-            password: password
-        }
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/users/register`, {
@@ -29,7 +29,7 @@ function Register() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(userDetails)
+                body: JSON.stringify(userInfo)
             })
 
             const data = await response.json();
@@ -47,9 +47,11 @@ function Register() {
                         image: 'swalImage shadow-lg'
                     }
                 })
-                setEmail('');
-                setPassword('');
-                setConfirmPassord('');
+                setUserInfo({
+                    email: "",
+                    password: "",
+                    confirmPassword: ""
+                })
                 setIsActive(false);
                 navigate('/login');
                 setDisableInput(false);
@@ -74,12 +76,12 @@ function Register() {
     }
 
     useEffect( () => {
-        if ( (email !== "" && password !== "" && confirmPassword !== "") && (password === confirmPassword) && (password.length >= 8 && password.length <= 20)){
+        if ( (userInfo.email !== "" && userInfo.password !== "" && userInfo.confirmPassword !== "") && (userInfo.password === userInfo.confirmPassword) && (userInfo.password.length >= 8 && userInfo.password.length <= 20)){
             setIsActive(true);
         } else {
             setIsActive(false);
         }
-    }, [email, password, confirmPassword])
+    }, [userInfo])
 
     return (
         <>
@@ -93,41 +95,12 @@ function Register() {
                     <CardBody>
                     <CardTitle className="text-center">Register</CardTitle>
                     <Form className="justify-content-center mx-auto my-3" onSubmit={handleRegister}>
-                        <Form.Group controlId="userEmail">
-                            <Form.Label>Email Address</Form.Label>
-                            <Form.Control 
-                            type="email" 
-                            placeholder="Email Address" 
-                            required 
-                            value={email} 
-                            onChange={e => setEmail(e.target.value)} 
-                            disabled={disableInput === true}/>
-                        </Form.Group>
 
-                        <Form.Group controlId="userPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control 
-                            type="password" 
-                            placeholder="Password" 
-                            required 
-                            value={password} 
-                            onChange={e => setPassword(e.target.value)}
-                            disabled={disableInput === true}/>
-                            <Form.Text muted>Must be 8-20 characters long.</Form.Text>
-                        </Form.Group>
-
-                        <Form.Group controlId="userConfirmPassword">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control 
-                            type="password" 
-                            placeholder="Confirm Password"
-                            required value={confirmPassword} 
-                            onChange={e => setConfirmPassord(e.target.value)} 
-                            disabled={disableInput === true}/>
-                        </Form.Group>
+                        <EmailField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                        <PasswordField disableInput={disableInput} onRegister={true} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                        <ConfirmPasswordField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
 
                         <div className="d-flex justify-content-center">
-                        
                                 <Button 
                                 variant="success" 
                                 className="mt-4" 

@@ -3,9 +3,9 @@ import { useState, useEffect, useContext } from "react";
 import UserProfileDetails from "../components/user/UserProfileDetails";
 import { Col, Container, Row, Card, Image, Button } from "react-bootstrap";
 import ViewCart from "../components/user/ViewCart";
-import UpdateProfile from "../components/forms/UpdateProfile";
+import UpdateProfile from "../forms/UpdateProfile";
 import UserOrders from "../components/user/UserOrders";
-import ResetPassword from "../components/forms/ResetPassword";
+import ResetPassword from "../forms/ResetPassword";
 
 
 function Profile() {

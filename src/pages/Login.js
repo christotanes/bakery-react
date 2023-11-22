@@ -3,34 +3,32 @@ import { useState, useEffect, useContext } from "react";
 import UserContext from "../UserContext";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { EmailField, PasswordField } from "../forms/InputFields.js";
+import HandleChange from "../util/Handlers.js";
 
 function Login({ checkLocalToken }) {
     const { user } = useContext(UserContext);
-
-    const [ email, setEmail ] = useState('');
-    const [ password, setPassword ] = useState('');
+    const [ userInfo, setUserInfo ] = useState({
+        email: "",
+        password: ""
+    });
     const [ isActive, setIsActive ] = useState('');
-
     const [ disableInput, setDisableInput ] = useState(false);
-
     const navigate = useNavigate();
+    
+
     useEffect(() => {
-        if (email !== "" && password !== "") {
+        if (userInfo.email !== "" && userInfo.password !== "") {
             setIsActive(true);
         } else {
             setIsActive(false);
         }
-    });
+    }, [userInfo]);
 
     const handleLogin = async (e) => {
-        console.log('This is handleLogin at login.js')
+        console.log(`This is handleLogin at login.js: ${userInfo.email}`)
         e.preventDefault();
         setDisableInput(true);
-
-        const userDetails = {
-            email: email,
-            password: password
-        }
         
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
@@ -38,7 +36,7 @@ function Login({ checkLocalToken }) {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(userDetails)
+                body: JSON.stringify(userInfo)
             })
 
             const data = await response.json();
@@ -63,8 +61,10 @@ function Login({ checkLocalToken }) {
                         image: 'swalImage shadow-lg'
                     }
                 });
-                setEmail('');
-                setPassword('');
+                setUserInfo({
+                    email: "",
+                    password: ""
+                })
                 setIsActive(false);
                 setDisableInput(false);
                 navigate('/products');
@@ -81,8 +81,10 @@ function Login({ checkLocalToken }) {
                         image: 'swalImageError shadow-lg'
                     }
                 });
-                setEmail('');
-                setPassword('');
+                setUserInfo({
+                    email: "",
+                    password: ""
+                })
                 setIsActive('');
                 setDisableInput(false);
             };
@@ -106,14 +108,8 @@ function Login({ checkLocalToken }) {
                 <CardBody>
                 <CardTitle className="text-center">Login</CardTitle>
                 <Form className="justify-content-center mx-auto my-3" onSubmit={handleLogin}>
-                    <Form.Group controlId="userEmail">
-                        <Form.Label>Email Address</Form.Label>
-                            <Form.Control type="email" placeholder="Email Address" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disableInput === true}/> 
-                    </Form.Group>
-                    <Form.Group controlId="userPassword">
-                        <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={disableInput === true}/> 
-                    </Form.Group>
+                    <EmailField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                    <PasswordField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
                     <div className="d-flex justify-content-center">
                             <Button 
                             variant="success" 

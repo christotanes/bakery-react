@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import AddEditForm from "../forms/AddEditForm";
+import AddEditForm from "../../forms/AddEditForm";
 
 function EditProduct({ product, getAllProducts }) {
     const [error, setError] = useState(null);
