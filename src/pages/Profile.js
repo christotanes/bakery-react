@@ -10,7 +10,6 @@ import UserOrders from "../components/user/UserOrders";
 function Profile() {
     const { userDetails } = useContext(UserContext);
     const [ onUpdate, setOnUpdate ] = useState(false);
-    const [ onOrders, setOnOrders ] = useState(false);
 
     const handleUpdateProfile = () => {
         setOnUpdate(true);
@@ -24,7 +23,7 @@ function Profile() {
     }, [userDetails])
 
     return(
-        <Container fluid id="checkout">
+        <Container fluid id="profile">
             <Row>
                 <Col xs="auto" className="mx-auto mt-3 mb-1 d-flex">
                     <Image src={userDetails.img} width={100} height={100} className="userImg me-3 rounded-circle shadow"/>

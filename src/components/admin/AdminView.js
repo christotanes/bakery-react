@@ -12,6 +12,13 @@ function AdminView({ products, getAllProducts }) {
             [productId]: !prevStates[productId]
         }));
     };
+    const [ isOpen, setIsOpen ] = useState(false);
+    function handleCollapse (e) {
+        e.preventDefault();
+        isOpen === false ?
+        setIsOpen(true) : setIsOpen(false);
+    };
+
     const productRows = products.map((product) => (
         <tbody key={product._id}>
             <tr>
@@ -22,10 +29,11 @@ function AdminView({ products, getAllProducts }) {
             </tr>
             <tr>
                 <td><Button
-                    onClick={() => toggleOpen(product._id)}
+                    onClick={(e) => (toggleOpen(product._id), handleCollapse(e))}
                     aria-controls={`collapse-text-${product._id}`}
-                    aria-expanded={openStates[product._id]}>
-                    More
+                    aria-expanded={openStates[product._id]}
+                    >
+                    {isOpen === false ? "Open" : "Close"}
                 </Button></td>
                 <td>{product._id}</td>
                 <td>{product.description}</td>
@@ -39,42 +47,58 @@ function AdminView({ products, getAllProducts }) {
             <Collapse in={openStates[product._id]}>
                 <tr key={`collapse-${product._id}`} id={`collapse-text-${product._id}`}>
                     <td colSpan={9}>
-                    <tr>
-                        <td className="font-weight-bold">Type</td>
-                        <td className="font-weight-bold">Size</td>
-                        <td className="font-weight-bold">Allergens</td>
-                        <td className="font-weight-bold">Weight</td>
-                        <td className="font-weight-bold">Delivery</td>
-                        <td className="font-weight-bold">Flavors</td>
-                        <td className="font-weight-bold" colSpan={2}>Best Before</td>
-                        <td className="font-weight-bold">Vegetarian</td>
-                    </tr>
-                    <tr>
-                        <td>{product.type}</td>
-                        <td>{product.size}</td>
-                        <td>{product.allergens}</td>
-                        <td>{product.weight}</td>
-                        <td className={product.deliveryAvailable ? 'text-success' : 'text-danger'}>{product.deliveryAvailable ? 'Available' : 'Unavailable'}</td>
-                        <td>{product.flavors}</td>
-                        <td colSpan={2}>{product.bestBefore}</td>
-                        <td className={product.vegetarian ? 'text-success' : 'text-danger'}>{product.vegetarian ? 'Yes' : 'No'}</td>
-                    </tr>
-                    <tr>
-                        <td className="font-weight-bold">Img Link:</td>
-                        <td colSpan={8}>{product.img}</td>
-                    </tr>
-                    <tr>
-                        <td className="font-weight-bold">Img LQIP Link:</td>
-                        <td colSpan={8}>{product.imgLqip}</td>
-                    </tr>
-                    <tr>
-                        <td className="font-weight-bold">Img Banner Link:</td>
-                        <td colSpan={8}>{product.imgBanner}</td>
-                    </tr>
-                    <tr>
-                        <td className="font-weight-bold">Img LQIP Link:</td>
-                        <td colSpan={8}>{product.imgBannerLqip}</td>
-                    </tr>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <td className="font-weight-bold">Type</td>
+                                <td className="font-weight-bold">Size</td>
+                                <td className="font-weight-bold">Allergens</td>
+                                <td className="font-weight-bold">Weight</td>
+                                <td className="font-weight-bold">Delivery</td>
+                                <td className="font-weight-bold">Flavors</td>
+                                <td className="font-weight-bold" colSpan={2}>Best Before</td>
+                                <td className="font-weight-bold">Vegetarian</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>{product.type}</td>
+                                <td>{product.size}</td>
+                                <td>{product.allergens}</td>
+                                <td>{product.weight}</td>
+                                <td className={product.deliveryAvailable ? 'text-success' : 'text-danger'}>{product.deliveryAvailable ? 'Available' : 'Unavailable'}</td>
+                                <td>{product.flavors}</td>
+                                <td colSpan={2}>{product.bestBefore}</td>
+                                <td className={product.vegetarian ? 'text-success' : 'text-danger'}>{product.vegetarian ? 'Yes' : 'No'}</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <td>Image</td>
+                            <td colSpan={8}>URL Link</td>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td className="font-weight-bold">Img Link:</td>
+                                <td colSpan={8}>{product.img}</td>
+                            </tr>
+                            <tr>
+                                <td className="font-weight-bold">Img LQIP Link:</td>
+                                <td colSpan={8}>{product.imgLqip}</td>
+                            </tr>
+                            <tr>
+                                <td className="font-weight-bold">Img Banner Link:</td>
+                                <td colSpan={8}>{product.imgBanner}</td>
+                            </tr>
+                            <tr>
+                                <td className="font-weight-bold">Img LQIP Link:</td>
+                                <td colSpan={8}>{product.imgBannerLqip}</td>
+                            </tr>
+                        </tbody>
+                        
+                        </Table>
                     </td>
                 </tr>
             </Collapse>

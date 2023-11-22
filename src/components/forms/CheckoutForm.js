@@ -109,7 +109,7 @@ function CheckoutForm() {
                             label="MasterCard"
                             name="paymentInfo"
                             type="radio"
-                            value={"MasterCard"}
+                            value={"Mastercard"}
                             id="mastercard"
                             // checked={Visa}
                             onChange={e => setPaymentInfo(e.target.value)}/>
