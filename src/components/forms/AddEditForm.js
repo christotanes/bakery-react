@@ -18,6 +18,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
     const [ imgLqip, setImgLqip ] = useState(initialProduct?.imgLqip || '');
     const [ imgBanner, setImgBanner ] = useState(initialProduct?.imgBanner || '');
     const [ imgBannerLqip, setImgBannerLqip ] = useState(initialProduct?.imgBannerLqip || '');
+    const [ featured, setFeatured ] = useState(initialProduct?.featured || true);
 
     const [ loading, setLoading ] = useState(loadingData);
     const [ showModal, setShowModal] = useState(false);
@@ -74,6 +75,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
         setImgLqip(product.imgLqip)
         setImgBanner(product.imgBanner)
         setImgBannerLqip(product.imgBannerLqip)
+        setFeatured(product.featured)
         } else {
         setName('')
         setDescription('')
@@ -91,6 +93,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
         setImgLqip('')
         setImgBanner('')
         setImgBannerLqip('')
+        setFeatured(false)
         }
     setShowModal(true);
     setDisableInput(false);
@@ -118,6 +121,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
         setImgLqip('')
         setImgBanner('')
         setImgBannerLqip('')
+        setFeatured(false)
     }
 
     useEffect(() => {
@@ -146,7 +150,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
             img: img,
             imgLqip: imgLqip,
             imgBanner: imgBanner,
-            imgBannerLqip: imgBannerLqip
+            imgBannerLqip: imgBannerLqip,
+            featured: featured
         };
         onSubmit(formData, closeModal);
     };
@@ -157,7 +162,12 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
         <Button variant="primary" size="sm" onClick={() => openModal(initialProduct)}>Edit</Button>
         : 
         <Button variant="success" size="sm" onClick={() => openModal()}>Add Product</Button>}
-        <Modal show={showModal} onHide={closeModal} size="xl">
+        <Modal 
+        show={showModal} 
+        onHide={closeModal} 
+        size="xl"
+        backdrop="static"
+        keyboard={false}>
             <Container id={isEditMode ? "editProduct": "addProduct"}>
                 <Row className="px-5 pt-3 text-center">
                     <Col xs={12} className="mt-3">
@@ -417,16 +427,26 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                             onChange={e => setDeliveryAvailable(e.target.checked)}
                                             disabled={disableInput === true}/>
                                     </Form.Group>
+
+                                    <Form.Group controlId="featured" className="my-1">
+                                        <Form.Label>Is Product on Promo or Featured?</Form.Label>
+                                        <Form.Check 
+                                            type="switch"
+                                            id="featured"
+                                            checked={featured}
+                                            label="Check if YES"
+                                            onChange={e => setFeatured(e.target.checked)}
+                                            disabled={disableInput === true}/>
+                                    </Form.Group>
                                     
                                 </Col>
                             </Row>
                         </Col>
                         <Col xs={12} className="my-3 text-center">
-
                         {
                                 (loading) ?
                                 <>
-                                    <Button variant="success" className="w-50" disabled>
+                                    <Button variant="success" className="w-25" disabled>
                                         <Spinner
                                         as="span"
                                         animation="border"
@@ -440,12 +460,16 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                 :
                                 <Button 
                                 variant="success" 
-                                className="mt-4 w-50"
+                                className="mt-4 w-25"
                                 type="submit"
                                 disabled={isActive === false}>
                                 {isEditMode ? "Update" : "Add"} Product</Button>
                         }
-
+                            <Button variant="danger" 
+                            className="mt-4 me-auto ms-3 w-25" 
+                            onClick={closeModal}>
+                                Cancel
+                            </Button>
                         </Col>
                     </Row>
                 </Form>

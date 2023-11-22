@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Card, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Error from "./Error";
 import AddToCart from "../components/user/AddToCart";
+import UserContext from "../UserContext";
+import Products from "./Products";
 
 function ProductView() {
+    const { user } = useContext(UserContext);
     const { productId } = useParams();
     const [ product, setProduct ] = useState('');
     const [ loading, setLoading] = useState(false);
@@ -77,16 +80,19 @@ function ProductView() {
     const setProductToCartData = {setProductToCart};
 
     return(
+        user.isAdmin === true ?
+        <Products />
+        :
         <Container id="productView">
             <Row className="my-3 productBannerRow">
                 <Col xs={12} className="d-flex justify-content-center my-3">
-                    <Image src={imgBanner} className="productBanner shadow-lg"/>
+                    <Image src={imgBanner} className="productBanner shadow-lg productViewImage"/>
                 </Col>
             </Row>
             <Row className="my-4">
                 <Col md={5} className="d-flex justify-content-center">
                     <Card style={{ width: '18rem' }} className="shadow">
-                    <Card.Img variant="top" src={img}/>
+                    <Card.Img variant="top" src={img} className="productViewImage"/>
                     <Card.Body>
                         <Card.Title>{name}</Card.Title>
                         <h5 className="mt-2 text-end text-danger border-bottom mb-3">₱ {price}</h5>

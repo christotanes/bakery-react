@@ -13,7 +13,7 @@
   height: auto;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(25%, 25%);
   animation: rotate 2s infinite;
   border-radius: 50%;
 }
@@ -133,4 +133,20 @@
     transform: translateX(0);
     /* transform: translateY(0); */
   }
+}
+
+.productAdminImage {
+  transition: 1s;
+}
+
+.productAdminImage:hover {
+  transform: scale(5);
+}
+
+.productViewImage {
+  transition: 1s;
+}
+
+.productViewImage:hover {
+  transform: scale(2);
 }
