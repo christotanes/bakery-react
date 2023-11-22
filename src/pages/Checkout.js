@@ -10,9 +10,14 @@ function Checkout() {
     const { user, userDetails } = useContext(UserContext);
     const [ profileHasAddress, setProfileHasAddress ]= useState(true);
 
+    const handleProfileUpdate = () => {
+        setProfileHasAddress(true);
+    };
+
     useEffect(() => {
         if (userDetails.address.streetName === undefined || userDetails.address.streetName === null || userDetails.address.city === null || userDetails.address.city === undefined || userDetails.address.houseNo === null || userDetails.address.houseNo === undefined || userDetails.firstName === undefined || userDetails.firstName === null || userDetails.lastName === null || userDetails.lastName === undefined || userDetails.mobileNo === null || userDetails.mobileNo === undefined) {
             setProfileHasAddress(false)
+            console.log(userDetails)
         }
     }, [userDetails])
     
@@ -31,7 +36,7 @@ function Checkout() {
         </Row>
         <Row>
             <Col xs={12} md={8} className="d-flex flex-wrap mx-auto mb-auto">
-                <UpdateProfile />
+                <UpdateProfile onProfileUpdate={handleProfileUpdate}/>
             </Col>
             <Col xs={12} md={3} className="mb-auto my-3 mx-auto float-left">
                 <ViewCart onCheckout={true}/>

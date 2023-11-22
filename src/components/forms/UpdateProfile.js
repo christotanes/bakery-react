@@ -3,9 +3,8 @@ import UserContext from "../../UserContext.js";
 import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Checkout from "../../pages/Checkout.js";
 
-function UpdateProfile() {
+function UpdateProfile({ onProfileUpdate }) {
     const { user, userDetails, setUserDetails } = useContext(UserContext);
     const [ firstName, setFirstName ] = useState(userDetails.firstName || '');
     const [ lastName, setLastName ] = useState(userDetails.lastName || '');
@@ -70,7 +69,7 @@ function UpdateProfile() {
                 setImg('');
                 setLoading(false);
                 setIsActive(false);
-
+                onProfileUpdate();
                 Swal.fire({
                     title: "Profile Update Successfully",
                     text: `Thank you, ${data.firstName} for updating your profile!`,
@@ -78,6 +77,7 @@ function UpdateProfile() {
                     confirmButtonText: "Ok"
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        onProfileUpdate();
                         navigate('/checkout');
                         };
                     })
