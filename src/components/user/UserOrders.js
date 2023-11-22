@@ -86,12 +86,10 @@ function UserOrders() {
                         <tbody>
                         {order.products.map((product) => (
                             <tr key={product.productId}>
-                                {/* Populate product details here */}
                                 <td>{product.name}</td>
                                 <td>{product.quantity}</td>
                                 <td>₱ {product.price}</td>
                                 <td>{product.subTotal}</td>
-                                {/* Add more product details as needed */}
                             </tr>
                         ))}
                         </tbody>
