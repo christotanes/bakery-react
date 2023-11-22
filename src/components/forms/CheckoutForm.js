@@ -3,10 +3,10 @@ import UserContext from "../../UserContext";
 import { Button, Card, CardSubtitle, CardTitle, Col, Form, Row, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import UserProfileDetails from "../user/UserProfileDetails";
 
 function CheckoutForm() {
     const { setCart, userDetails } = useContext(UserContext);
-    const { firstName, lastName, mobileNo, address } = userDetails
     const [ isActive, setIsActive ] = useState(false);
     const [ loading, setLoading ] = useState(false);
     const [ paymentInfo, setPaymentInfo ] = useState('');
@@ -35,8 +35,15 @@ function CheckoutForm() {
             if(response.ok){
                 Swal.fire({
                     title: 'Successful Checkout',
-                    icon: 'success',
-                    text: `You have successfully purchased the items with ${data.paymentInfo}`
+                    text: `You have successfully purchased the items with ${data.paymentInfo}`,
+                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    }
                 })
                 setCart({
                     cartId: null,
@@ -80,40 +87,8 @@ function CheckoutForm() {
 
     return (
         <Card className="w-100 m-3 shadow ">
-            <Row className="mx-3 mt-3">
-                <Col md={6}>
-                    <CardTitle>First Name:</CardTitle>
-                    <CardSubtitle className="ms-3">{firstName}</CardSubtitle>
-                </Col>
-                <Col md={6}>
-                    <CardTitle>Last Name:</CardTitle>
-                    <CardSubtitle className="ms-3">{lastName}</CardSubtitle>
-                </Col>
-            </Row>
-            <Row className="mx-3 mt-3">
-                <Col md={6}>
-                    <CardTitle>Mobile No:</CardTitle>
-                    <CardSubtitle className="ms-3">{mobileNo}</CardSubtitle>
-                </Col>
-            </Row>
-                
-            <Row className="mx-3 mt-3">
-                <Col md={6}>
-                    <CardTitle>House No:</CardTitle>
-                    <CardSubtitle className="ms-3">{address?.houseNo || `Not Provided`}</CardSubtitle>
-                </Col>
-                <Col md={6}>
-                    <CardTitle>Street Name:</CardTitle>
-                    <CardSubtitle className="ms-3">{address?.streetName || `Not Provided`}</CardSubtitle>
-                </Col>
-            </Row>
 
-            <Row className="mx-3 mt-3">
-                <Col md={6}>
-                    <CardTitle>City Name:</CardTitle>
-                    <CardSubtitle className="ms-3">{address?.city || `Not Provided`}</CardSubtitle>
-                </Col>
-            </Row>
+            <UserProfileDetails onProfile={false}/>
             
             <Form onSubmit={e => handleSubmit(e)}>
             <Row className="mx-3 mt-3">

@@ -55,9 +55,16 @@ function AddToCart({ productId, productName, productPrice, productToCart, getPro
         } finally {
             Swal.fire({
                 title: 'Add to Cart Success',
-                icon: 'success',
                 text: `${productName} was added successfully`,
-                timer: 2500
+                timer: 2500,
+                imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                imageWidth: 250,
+                imageHeight: 250,
+                imageAlt: "Custom image",
+                background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    }
             })
             getProductById();
             setProductToCart(0);

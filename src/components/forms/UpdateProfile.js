@@ -4,7 +4,7 @@ import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-function UpdateProfile({ onProfileUpdate }) {
+function UpdateProfile({ onProfileUpdate, onProfile }) {
     const { user, userDetails, setUserDetails } = useContext(UserContext);
     const [ firstName, setFirstName ] = useState(userDetails.firstName || '');
     const [ lastName, setLastName ] = useState(userDetails.lastName || '');
@@ -73,12 +73,23 @@ function UpdateProfile({ onProfileUpdate }) {
                 Swal.fire({
                     title: "Profile Update Successfully",
                     text: `Thank you, ${data.firstName} for updating your profile!`,
-                    icon: "success",
+                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    },
                     confirmButtonText: "Ok"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         onProfileUpdate();
-                        navigate('/checkout');
+                        if(onProfile === true){
+                            navigate('/profile');
+                        } else {
+                            navigate('/checkout');
+                        }
                         };
                     })
 

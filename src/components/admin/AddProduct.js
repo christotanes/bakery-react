@@ -28,8 +28,15 @@ function AddProduct({ getAllProducts }) {
             if (response.ok) {
                 Swal.fire({
                     title: 'Product Added Successfully',
-                    icon: 'success',
-                    text: `${data.name} was added successfully.`
+                    text: `${data.name} was added successfully.`,
+                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    }
                 })
             } else {
                 Swal.fire({

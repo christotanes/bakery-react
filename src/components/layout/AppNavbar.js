@@ -56,13 +56,16 @@ function OffcanvasExample() {
                             }
                             <Nav.Link as={Link} to="/" exact>Home</Nav.Link>
                             {(user.isAdmin) ? 
-                                <Nav.Link as={Link} to="/products" exact>Admin</Nav.Link> 
+                                <Nav.Link as={Link} to="/products" exact>Admin</Nav.Link>
                                 :
                                 <Nav.Link as={Link} to="/products" exact>Browse</Nav.Link>}
                             
                             
                             {(user.id) ? 
+                                <>
+                                <Nav.Link as={Link} to="/profile" exact>Profile</Nav.Link>
                                 <Nav.Link as={Link} to="/logout" exact>Logout</Nav.Link> 
+                                </>
                                 : 
                                 <>
                                     <Nav.Link as={Link} to="/register" exact>Register</Nav.Link>

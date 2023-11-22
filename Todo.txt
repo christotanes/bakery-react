@@ -8,6 +8,12 @@ Done
         > Retrieve all products >>> MVP6
         > Update product info >>> MVP7
         > Deactivate/reactivate product >>> MVP8
+    > Cart
+        > addtocart >>> MVP Stretch4
+        > Checkout >>> MVP9
+
+    > User
+        > Update Profile >>> MVP Stretch1
 
 Todo
     > Admin dashboard
@@ -25,15 +31,13 @@ Todo
         
         > Retrieve all reviews
             > Check review
-
-    > Cart
-        > addtocart > MVP Stretch4
+            
+    >Cart
         > edit Cart > MVP Stretch5
-        > Checkout > MVP9
+        
 
     > User
         > Get myOrders
-        > Update Profile > MVP Stretch1
         > Reset Password > MVP Stretch2
 
         > Add review

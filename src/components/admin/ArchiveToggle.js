@@ -22,8 +22,15 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
                 getAllProducts();
                 Swal.fire({
                     title: `Product Archived Successfully`,
-                    icon: 'success',
-                    text: `${data.name} is successfully archived!`
+                    text: `${data.name} is successfully archived!`,
+                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    }
                 })
             } else {
                 getAllProducts();
@@ -56,9 +63,16 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
             if(response.ok){
                 getAllProducts();
                 Swal.fire({
-                    title: `${data.message}`,
-                    icon: 'success',
-                    text: `${data.product.name} is successfully activated!`
+                    title: `Product Activated Successfully`,
+                    text: `${data.product.name} is successfully activated!`,
+                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    }
                 })
             } else {
                 getAllProducts();

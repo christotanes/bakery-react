@@ -27,8 +27,15 @@ function EditProduct({ product, getAllProducts }) {
             if (response.ok) {
                 Swal.fire({
                     title: 'Product Update Successful',
-                    icon: 'success',
-                    text: `${data.name} was updated successfully.`
+                    text: `${data.name} was updated successfully.`,
+                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    }
                 })
             } else {
                 Swal.fire({

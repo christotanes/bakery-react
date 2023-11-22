@@ -45,12 +45,20 @@ function Login({ checkLocalToken }) {
 
                 console.log(`This is LOGIN response.ok localStorage: ${localStorage.getItem('token')}`);
                 console.log(`LOGIN redirecting to CHECKLOCALTOKEN`);
+                
                 checkLocalToken();
                 
                 Swal.fire({
                     title: 'Login Successful',
-                    icon: 'success',
-                    text: 'Welcome back to JerryBee!'
+                    text: 'Welcome back to JerryBee!',
+                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImage shadow-lg'
+                    }
                 });
                 setEmail('');
                 setPassword('');

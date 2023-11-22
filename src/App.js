@@ -18,8 +18,9 @@ const Error = React.lazy(() => import('./pages/Error'));
 const Home = React.lazy(() => import('./pages/Home'));
 const Logout = React.lazy(() => import('./pages/Logout'));
 const Products = React.lazy(() => import('./pages/Products'));
-const Register = React.lazy(() => import('./pages/Register'));
 const ProductView = React.lazy(() => import('./pages/ProductView'));
+const Profile = React.lazy(() => import('./pages/Profile'));
+const Register = React.lazy(() => import('./pages/Register'));
 
 const App = () => {
   const [ isNull, setIsNull ] = useState(null)
@@ -72,41 +73,32 @@ const App = () => {
       })
 
       const userData = await userResponse.json();
-      const cartData = await cartResponse.json();
+
+      if (cartResponse.ok && cartResponse.status !== 204) {
+        const cartData = await cartResponse.json();
+        setCart({
+            cartId: cartData._id,
+            products: cartData.products,
+            totalAmount: cartData.totalAmount
+        });
+        console.log(`cartData: ${cartData._id}`)
+        console.log(`cartData: ${cartData.products}`)
+        console.log(`cartData: ${cartData.totalAmount}`)
+      } else {
+          // Handle the case where cartResponse is not OK or has no content
+          setCart({
+              cartId: null,
+              products: [],
+              totalAmount: null
+          });
+      }
+
       console.log(`cartResponse.status: ${cartResponse.status}`)
-      console.log(`cartData: ${cartData._id}`)
-      console.log(`cartData: ${cartData.products}`)
-      console.log(`cartData: ${cartData.totalAmount}`)
-      if (userResponse.ok || cartResponse.ok) {
+      console.log(`userResponse.status: ${userResponse.status}`)
+      if (userResponse.ok) {
         setUser({
           id: userData._id,
           isAdmin: userData.isAdmin
-        });
-        setCart({
-          cartId: cartData._id,
-          products: cartData.products,
-          totalAmount: cartData.totalAmount
-        });
-        setUserDetails({
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          mobileNo: userData.mobileNo,
-          address: {
-            houseNo: userData.address?.houseNo || '',
-            streetName: userData.address?.streetName || '',
-            city: userData.address?.city || ''
-          },
-          img: userData.img
-        })
-      } else if (userResponse.ok && !cartData) {
-        setUser({
-          id: userData._id,
-          isAdmin: userData.isAdmin
-        });
-        setCart({
-          cartId: null,
-          products: [],
-          totalAmount: null
         });
         setUserDetails({
           firstName: userData.firstName,
@@ -121,24 +113,19 @@ const App = () => {
         })
       } else {
         setUser({
-          id: null,
-          isAdmin: null
-        })
-        setCart({
-          cartId: null,
-          products: [],
-          totalAmount: null
-        })
+          id: userData._id,
+          isAdmin: userData.isAdmin
+        });
         setUserDetails({
-          firstName: null,
-          lastName: null,
-          mobileNo: 0,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          mobileNo: userData.mobileNo,
           address: {
-            houseNo: null,
-            streetName: null,
-            city: null
+            houseNo: userData.address?.houseNo || '',
+            streetName: userData.address?.streetName || '',
+            city: userData.address?.city || ''
           },
-          img: null
+          img: userData.img
         })
       }
       
@@ -164,11 +151,12 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/checkout' element={<Checkout/>}/>
-                <Route path='/register' element={<Register/>}/>
                 <Route path='/login' element={<Login checkLocalToken={checkLocalToken}/>}/>
                 <Route path='/logout' element={<Logout/>}/>
                 <Route path='/products' element={<Products />}/>
                 <Route path='/products/:productId' element={<ProductView />} />
+                <Route path='/profile' element={<Profile />}/>
+                <Route path='/register' element={<Register/>}/>
                 <Route path='*' element={<Error/>}/> 
             </Routes>
           </Suspense>

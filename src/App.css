@@ -15,12 +15,17 @@
   animation: rotate 2s infinite;
 }
 
+.swalImage {
+  animation: rotate 2s infinite;
+  border-radius: 50%;
+}
+
 @keyframes rotate {
   0%{
-    transform: rotate(0%);
+    transform: rotate(0deg);
   }
   100%{
-    transform: rotate(100%);
+    transform: rotate(360deg);
   }
 }
 
