@@ -36,8 +36,16 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
                 getAllProducts();
                 Swal.fire({
                     title: 'Failed to Archive',
-                    icon: 'error',
-                    text: 'Please try again later.'
+                    text: 'Please try again later.',
+                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImageError shadow-lg'
+                    },
+                    timer: 2500
                 })
             }
         } catch (error) {
@@ -78,8 +86,16 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
                 getAllProducts();
                 Swal.fire({
                     title: 'Failed to Activate',
-                    icon: 'error',
-                    text: 'Please try again later.'
+                    text: 'Please try again later.',
+                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImageError shadow-lg'
+                    },
+                    timer: 2500
                 })
             };
         } catch (error) {
@@ -90,7 +106,10 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
     return (
         <>
         {
-            (isActive === true) ? <Button width="100%" variant="danger" onClick={e => (archive(e, product))}>Archive</Button> : <Button width="100%" variant="success" onClick={e => (activate(e, product))}>Activate</Button>
+            (isActive === true) ? 
+            <Button width="100%" variant="danger" onClick={e => (archive(e, product))}>Archive</Button> 
+            : 
+            <Button width="100%" variant="success" onClick={e => (activate(e, product))}>Activate</Button>
         }
         </>
     )

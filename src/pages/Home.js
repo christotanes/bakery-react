@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Banner from "../components/features/Banner.js";
 import Highlights from "../components/features/Highlights.js";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 function Home() {
     const [ activeProducts, setActiveProducts ] = useState([]);
@@ -43,6 +43,11 @@ function Home() {
             <Banner activeProducts={ activeProducts } />
         </Container>
         <Container fluid id="featured" className="my-3">
+            <Row className="py-3">
+                <Col className="d-flex justify-content-center">
+                    <h3>Bring life to your celebration with these products!</h3>
+                </Col>
+            </Row>
             <Row className="my-3 justify-content-center">
             {featured.map((product) => (
                 <Highlights key={product._id} data={product} />

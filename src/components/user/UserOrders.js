@@ -50,9 +50,9 @@ function UserOrders() {
     function formatDate(isoString) {
         const date = new Date(isoString);
         return date.toLocaleDateString('en-US', {
-            year: 'numeric',
             month: 'long',
             day: 'numeric',
+            year: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
         });
@@ -102,7 +102,7 @@ function UserOrders() {
 
 
     return (
-        <Card className="w-100 mx-3 shadow-lg mb-5">
+        <Card className="w-xs-50 w-sm-100 mx-3 shadow-lg mb-5">
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>

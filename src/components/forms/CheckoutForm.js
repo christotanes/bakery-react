@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../UserContext";
-import { Button, Card, CardSubtitle, CardTitle, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import UserProfileDetails from "../user/UserProfileDetails";
@@ -10,11 +10,13 @@ function CheckoutForm() {
     const [ isActive, setIsActive ] = useState(false);
     const [ loading, setLoading ] = useState(false);
     const [ paymentInfo, setPaymentInfo ] = useState('');
+    const [ disableInput, setDisableInput ] = useState(false);
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         setLoading(true);
+        setDisableInput(true);
         e.preventDefault();
 
         const userPaymentInfo = {
@@ -53,27 +55,44 @@ function CheckoutForm() {
                 setPaymentInfo('');
                 setLoading(false);
                 setIsActive(false);
+                setDisableInput(false);
                 navigate('/products');
             } else {
                 Swal.fire({
-                    title: "Checkout failed",
-                    icon: "error",
+                    title: "Checkout Failed",
                     text: "Please try again later.",
+                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImageError shadow-lg'
+                    },
                     timer: 2500
                 })
                 setLoading(false);
                 setIsActive(false);
+                setDisableInput(false);
             }
         } catch (error) {
             console.error(`Error: ${error}`);
             Swal.fire({
-                title: "Checkout failed",
-                icon: "error",
+                title: "Checkout Failed",
                 text: "Please try again later.",
+                imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                imageWidth: 250,
+                imageHeight: 250,
+                imageAlt: "Custom image",
+                background: "#ffc800",
+                customClass: {
+                    image: 'swalImageError shadow-lg'
+                },
                 timer: 2500
             })
             setLoading(false);
             setIsActive(false);
+            setDisableInput(false);
         }
     }
 
@@ -102,7 +121,7 @@ function CheckoutForm() {
                             type="radio"
                             value={"Visa"}
                             id="visa"
-                            // checked={Visa}
+                            disabled={disableInput === true}
                             onChange={e => setPaymentInfo(e.target.value)}/>
 
                             <Form.Check
@@ -111,7 +130,7 @@ function CheckoutForm() {
                             type="radio"
                             value={"Mastercard"}
                             id="mastercard"
-                            // checked={Visa}
+                            disabled={disableInput === true}
                             onChange={e => setPaymentInfo(e.target.value)}/>
 
                             <Form.Check
@@ -120,7 +139,7 @@ function CheckoutForm() {
                             type="radio"
                             value={"Cash on Delivery"}
                             id="cashondelivery"
-                            // checked={Visa}
+                            disabled={disableInput === true}
                             onChange={e => setPaymentInfo(e.target.value)}/>
 
                             <Form.Check
@@ -129,7 +148,7 @@ function CheckoutForm() {
                             type="radio"
                             value={"Gcash"}
                             id="gcash"
-                            // checked={Visa}
+                            disabled={disableInput === true}
                             onChange={e => setPaymentInfo(e.target.value)}/>
                         </Form.Group>
 
@@ -139,9 +158,6 @@ function CheckoutForm() {
             <Row className="mx-3 my-4">
                 <Col xs={12} className="text-center">
                 {
-                    (isActive === true) ?
-                    <Button variant="primary" type="submit" className="w-50 mx-auto">Confirm and Checkout</Button> 
-                    :
                     (loading === true) ?
                         <>
                             <Button 
@@ -159,7 +175,11 @@ function CheckoutForm() {
                             </Button>
                         </> 
                         :
-                        <Button variant="primary" type="submit" className="w-50 mx-auto" disabled>Confirm and Checkout</Button>
+                        <Button 
+                        variant="primary" 
+                        type="submit" 
+                        className="w-50 mx-auto" 
+                        disabled={isActive === false}>Confirm and Checkout</Button>
                 }
                 </Col>
             </Row>

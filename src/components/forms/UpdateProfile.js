@@ -16,12 +16,14 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
 
     const [ isActive, setIsActive ] = useState(false);
     const [ loading, setLoading ] = useState(false);
+    const [ disableInput, setDisableInput ] = useState(false);
 
     const navigate = useNavigate();
 
     const handleUpdate = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setDisableInput(true);
 
         const userProfileData = {
             firstName: firstName,
@@ -70,6 +72,7 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                 setLoading(false);
                 setIsActive(false);
                 onProfileUpdate();
+                setDisableInput(false);
                 Swal.fire({
                     title: "Profile Update Successfully",
                     text: `Thank you, ${data.firstName} for updating your profile!`,
@@ -96,23 +99,39 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
             } else {
                 Swal.fire({
                     title: "Update failed",
-                    icon: "error",
                     text: "Please try again later.",
+                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImageError shadow-lg'
+                    },
                     timer: 2500
                 })
                 setLoading(false);
                 setIsActive(false);
+                setDisableInput(false);
             }
         } catch (error) {
             console.error(`Error: ${error}`);
             Swal.fire({
                 title: "Update failed",
-                icon: "error",
                 text: "Please try again later.",
+                imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                imageWidth: 250,
+                imageHeight: 250,
+                imageAlt: "Custom image",
+                background: "#ffc800",
+                customClass: {
+                    image: 'swalImageError shadow-lg'
+                },
                 timer: 2500
             })
             setLoading(false);
             setIsActive(false);
+            setDisableInput(false);
         }
     }
 
@@ -131,25 +150,25 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                 <Col md={6}>
                     <Form.Group controlId="firstName">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control 
-                        type="text"
-                        placeholder="First Name"
-                        required
-                        value={firstName}
-                        onChange={e => setFirstName(e.target.value)}
-                        />
+                            <Form.Control 
+                            type="text"
+                            placeholder="First Name"
+                            required
+                            value={firstName}
+                            onChange={e => setFirstName(e.target.value)}
+                            disabled={disableInput === true}/>
                     </Form.Group>
                 </Col>
                 <Col md={6}>
                     <Form.Group controlId="lastName">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control 
-                        type="text"
-                        placeholder="Last Name"
-                        required
-                        value={lastName}
-                        onChange={e => setLastName(e.target.value)}
-                        />
+                            <Form.Control 
+                            type="text"
+                            placeholder="Last Name"
+                            required
+                            value={lastName}
+                            onChange={e => setLastName(e.target.value)}
+                            disabled={disableInput === true}/>
                     </Form.Group>
                 </Col>
             </Row>
@@ -157,13 +176,13 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                 <Col md={6}>
                     <Form.Group controlId="mobileNo">
                     <Form.Label>Mobile Number</Form.Label>
-                    <Form.Control 
-                    type="text"
-                    placeholder="Mobile Number"
-                    required
-                    value={mobileNo}
-                    onChange={e => setMobileNo(e.target.value)}
-                    />
+                        <Form.Control 
+                        type="text"
+                        placeholder="Mobile Number"
+                        required
+                        value={mobileNo}
+                        onChange={e => setMobileNo(e.target.value)}
+                        disabled={disableInput === true}/>
                     <Form.Text id="mobileNoHelpBlock" muted>
                         Your mobileNo must be 11 numerical digits, no spaces or dashes in between.
                     </Form.Text>
@@ -175,13 +194,13 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                 <Col md={6}>
                     <Form.Group controlId="houseNo">
                     <Form.Label>House No.</Form.Label>
-                    <Form.Control 
-                    type="text"
-                    placeholder="House Number"
-                    required
-                    value={houseNo}
-                    onChange={e => setHouseNo(e.target.value)}
-                    />
+                        <Form.Control 
+                        type="text"
+                        placeholder="House Number"
+                        required
+                        value={houseNo}
+                        onChange={e => setHouseNo(e.target.value)}
+                        disabled={disableInput === true}/>
                     </Form.Group>
                 </Col>
                 <Col md={6}>
@@ -193,7 +212,7 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                     required
                     value={streetName}
                     onChange={e => setStreetName(e.target.value)}
-                    />
+                    disabled={disableInput === true}/>
                     </Form.Group>
                 </Col>
             </Row>
@@ -208,7 +227,7 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                     required
                     value={city}
                     onChange={e => setCity(e.target.value)}
-                    />
+                    disabled={disableInput === true}/>
                     </Form.Group>
                 </Col>
             </Row>
@@ -223,7 +242,7 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                     required
                     value={img}
                     onChange={e => setImg(e.target.value)}
-                    />
+                    disabled={disableInput === true}/>
                     <Form.Text id="mobileNoHelpBlock" muted>
                         Don't worry we can provide a default profile picture if you don't have one right now!
                     </Form.Text>
@@ -234,9 +253,6 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
             <Row className="mx-3 mt-4">
                 <Col xs={12} className="text-center">
                 {
-                    (isActive === true) ?
-                    <Button variant="primary" type="submit" className="w-50 mx-auto">Update Profile</Button> 
-                    :
                     (loading === true) ?
                         <>
                             <Button 
@@ -254,7 +270,11 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                             </Button>
                         </> 
                         :
-                        <Button variant="primary" type="submit" className="w-50 mx-auto" disabled>Update Profile</Button>
+                        <Button 
+                        variant="primary" 
+                        type="submit" 
+                        className="w-50 mx-auto" 
+                        disabled={isActive === false}>Update Profile</Button>
                 }
                 </Col>
             </Row>

@@ -6,11 +6,13 @@ function EditProduct({ product, getAllProducts }) {
     const [error, setError] = useState(null);
     const [ loading, setLoading] = useState(false);
     const [ isActive, setIsActive ] = useState(false);
+    const [ disableInput, setDisableInput ] = useState(false);
 
     const editProduct = async (productData, closeModal) => {
         console.log('This is editProduct async Function');
         setLoading(true);
         setIsActive(false);
+        setDisableInput(true);
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${product._id}`, {
@@ -37,21 +39,41 @@ function EditProduct({ product, getAllProducts }) {
                         image: 'swalImage shadow-lg'
                     }
                 })
+                setDisableInput(false);
             } else {
                 Swal.fire({
                     title: 'Failed to Update Product',
-                    icon: 'success',
-                    text: `Please try again later.`
+                    text: `Please try again later.`,
+                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImageError shadow-lg'
+                    },
+                    timer: 2500
                 })
+                setDisableInput(false);
             }
         } catch (error) {
             setError(error.message);
             Swal.fire({
                 title: 'Failed to Update Product',
-                icon: 'error',
-                text: `Please try again later. Error: ${error}`
+                text: `Please try again later. Error: ${error}`,
+                imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                imageWidth: 250,
+                imageHeight: 250,
+                imageAlt: "Custom image",
+                background: "#ffc800",
+                customClass: {
+                    image: 'swalImageError shadow-lg'
+                },
+                timer: 2500
             })
+            setDisableInput(false);
         } finally {
+            setDisableInput(false);
             closeModal()
             getAllProducts()
         }
@@ -65,6 +87,7 @@ function EditProduct({ product, getAllProducts }) {
                     isEditMode={true}
                     loadingData={loading}
                     isActiveData={isActive}
+                    disableInputData={disableInput}
                 />
         </>
     )

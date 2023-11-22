@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Card, Col, Row, FormLabel, Spinner, Modal, Container } from 'react-bootstrap';
 
-function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActiveData }) {
+function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActiveData, disableInputData }) {
     const [ name, setName ] = useState(initialProduct?.name || '');
     const [ description, setDescription ] = useState(initialProduct?.description || '');
     const [ type, setType ] = useState(initialProduct?.type || '');
@@ -22,6 +22,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
     const [ loading, setLoading ] = useState(loadingData);
     const [ showModal, setShowModal] = useState(false);
     const [ isActive, setIsActive ] = useState(isActiveData);
+    const [ disableInput, setDisableInput ] = useState(disableInputData);
 
     const handleCheckboxChange = (e) => {
         e.stopPropagation();
@@ -92,12 +93,15 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
         setImgBannerLqip('')
         }
     setShowModal(true);
+    setDisableInput(false);
+    setLoading(false);
     }
 
     const closeModal = () => {
         setShowModal(false);
         setIsActive(false);
-        setLoading(false);
+        setLoading(true);
+        setDisableInput(true);
         setName('')
         setDescription('')
         setType('')
@@ -171,7 +175,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                 as="textarea"
                                 rows={3}
                                 placeholder="This is where image banner will be placed" required value={imgBanner} 
-                                onChange={e => setImgBanner(e.target.value)}/>
+                                onChange={e => setImgBanner(e.target.value)}
+                                disabled={disableInput === true}/>
                             </Form.Group>
 
                             <Form.Group controlId="imgBannerLqip" className="mt-2">
@@ -180,7 +185,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                 as="textarea"
                                 rows={2}
                                 placeholder="This is where image banner low quality image picture will be placed if banner is not available" required value={imgBannerLqip} 
-                                onChange={e => setImgBannerLqip(e.target.value)}/>
+                                onChange={e => setImgBannerLqip(e.target.value)}
+                                disabled={disableInput === true}/>
                             </Form.Group>
                         </Col>
                     </Row>
@@ -197,7 +203,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                     placeholder="This is where image will be placed" 
                                     required 
                                     value={img} 
-                                    onChange={e => setImg(e.target.value)}/>
+                                    onChange={e => setImg(e.target.value)}
+                                    disabled={disableInput === true}/>
                                 </Form.Group>
 
                                 <Form.Group controlId="imgLqip" className="mt-2">
@@ -208,7 +215,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                     placeholder="This is where low quality image picture will be placed if image is not available" 
                                     required 
                                     value={imgLqip} 
-                                    onChange={e => setImgLqip(e.target.value)}/>
+                                    onChange={e => setImgLqip(e.target.value)}
+                                    disabled={disableInput === true}/>
                                 </Form.Group>
 
                                 <Card.Title className="mt-2">
@@ -219,7 +227,9 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                     placeholder="Name of Product" 
                                     required 
                                     value={name} 
-                                    onChange={e => setName(e.target.value)}/>
+                                    onChange={e => setName(e.target.value)}
+                                    disabled={disableInput === true}
+                                    />
                                 </Form.Group>
                                 </Card.Title>
 
@@ -230,7 +240,9 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                     type="number" 
                                     required value={price} 
                                     min={0}
-                                    onChange={e => setPrice(e.target.value)}/>
+                                    onChange={e => setPrice(e.target.value)}
+                                    disabled={disableInput === true}
+                                    />
                                 </Form.Group>
                                 
                                 <Form.Group controlId="quantiy">
@@ -240,7 +252,9 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                     required 
                                     value={quantity} 
                                     min={0}
-                                    onChange={e => setQuantity(e.target.value)}/>
+                                    onChange={e => setQuantity(e.target.value)}
+                                    disabled={disableInput === true}
+                                    />
                                 </Form.Group>
                                 </Card.Text>
 
@@ -257,7 +271,9 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                     placeholder="Description of Product" 
                                     required 
                                     value={description} 
-                                    onChange={e => setDescription(e.target.value)}/>
+                                    onChange={e => setDescription(e.target.value)}
+                                    disabled={disableInput === true}
+                                    />
                             </Form.Group>
 
                             <Row className="py-3">
@@ -268,7 +284,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                         as="select" 
                                         required 
                                         value={type} 
-                                        onChange={e => setType(e.target.value)}>
+                                        onChange={e => setType(e.target.value)}
+                                        disabled={disableInput === true}>
                                             <option value="">Select Type</option>
                                             <option value="Cake">Cake</option>
                                             <option value="Bread">Bread</option>
@@ -282,7 +299,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                         as="select" 
                                         required 
                                         value={size} 
-                                        onChange={e => setSize(e.target.value)}>
+                                        onChange={e => setSize(e.target.value)}
+                                        disabled={disableInput === true}>
                                             <option value="">Select Size</option>
                                             <option value="Regular">Regular</option>
                                             <option value="Medium">Medium</option>
@@ -301,7 +319,8 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                             <Form.Control 
                                                 type="text"
                                                 value={flavor}
-                                                onChange={(event) => handleFlavorChange(index, event)}>
+                                                onChange={(event) => handleFlavorChange(index, event)}
+                                                disabled={disableInput === true}>
                                             </Form.Control>
                                             <Button className="my-1" size="sm" variant="outline-primary" onClick={() => handleFlavorRemoveField(index)}>
                                                 Remove
@@ -318,6 +337,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                                 label="Dairy"
                                                 checked={allergens.includes("Dairy")}
                                                 onChange={e => handleCheckboxChange(e)}
+                                                disabled={disableInput === true}
                                                 />
                                             <Form.Check
                                                 type="checkbox"
@@ -325,28 +345,28 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                                 label="Nuts"
                                                 checked={allergens.includes("Nuts")}
                                                 onChange={e => handleCheckboxChange(e)}
-                                                />
+                                                disabled={disableInput === true}/>
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Gluten"
                                                 label="Gluten"
                                                 checked={allergens.includes("Gluten")}
                                                 onChange={e => handleCheckboxChange(e)}
-                                                />
+                                                disabled={disableInput === true}/>
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Eggs"
                                                 label="Eggs"
                                                 checked={allergens.includes("Eggs")}
                                                 onChange={e => handleCheckboxChange(e)}
-                                                />
+                                                disabled={disableInput === true}/>
                                             <Form.Check
                                                 type="checkbox"
                                                 value="Wheat"
                                                 label="Wheat"
                                                 checked={allergens.includes("Wheat")}
                                                 onChange={e => handleCheckboxChange(e)}
-                                                />
+                                                disabled={disableInput === true}/>
                                     </Form.Group>
                                 </Col>
                                 <Col xs={5} className="mx-auto">
@@ -358,18 +378,20 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                         placeholder="Weight of Product" 
                                         required 
                                         value={weight} 
-                                        onChange={e => setWeight(e.target.value)}/>
+                                        onChange={e => setWeight(e.target.value)}
+                                        disabled={disableInput === true}
+                                        />
                                     </Form.Group>
                                     
                                     <Form.Group controlId="vegetarian" className="my-1">
                                         <Form.Label>Is Product Vegetarian?</Form.Label>
                                         <Form.Check
-                                                type="switch"
-                                                id="vegetarian"
-                                                checked={vegetarian}
-                                                label="Check if YES"
-                                                onChange={e => setVegetarian(e.target.checked)}
-                                            />
+                                            type="switch"
+                                            id="vegetarian"
+                                            checked={vegetarian}
+                                            label="Check if YES"
+                                            onChange={e => setVegetarian(e.target.checked)}
+                                            disabled={disableInput === true}/>
                                     </Form.Group>
 
                                     <Form.Group controlId="bestBefore" className="my-1">
@@ -380,18 +402,20 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                         required value={bestBefore} 
                                         min={1}
                                         max={7}
-                                        onChange={e => setBestBefore(e.target.value)}/>
+                                        onChange={e => setBestBefore(e.target.value)}
+                                        disabled={disableInput === true}
+                                        />
                                     </Form.Group>
 
                                     <Form.Group controlId="deliveryAvailable" className="my-1">
                                         <Form.Label>Is Product Available for Delivery?</Form.Label>
                                         <Form.Check 
-                                                type="switch"
-                                                id="deliveryAvailable"
-                                                checked={deliveryAvailable}
-                                                label="Check if YES"
-                                                onChange={e => setDeliveryAvailable(e.target.checked)}
-                                            />
+                                            type="switch"
+                                            id="deliveryAvailable"
+                                            checked={deliveryAvailable}
+                                            label="Check if YES"
+                                            onChange={e => setDeliveryAvailable(e.target.checked)}
+                                            disabled={disableInput === true}/>
                                     </Form.Group>
                                     
                                 </Col>
@@ -400,10 +424,6 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                         <Col xs={12} className="my-3 text-center">
 
                         {
-                                (isActive) ? 
-                                <Button variant="success" className="mt-4 w-50" type="submit">
-                                {isEditMode ? "Update" : "Add"} Product</Button>
-                                :
                                 (loading) ?
                                 <>
                                     <Button variant="success" className="w-50" disabled>
@@ -418,7 +438,11 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                     </Button>
                                 </> 
                                 :
-                                <Button variant="success" className="mt-4 w-50" disabled>
+                                <Button 
+                                variant="success" 
+                                className="mt-4 w-50"
+                                type="submit"
+                                disabled={isActive === false}>
                                 {isEditMode ? "Update" : "Add"} Product</Button>
                         }
 

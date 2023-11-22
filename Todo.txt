@@ -14,6 +14,7 @@ Done
 
     > User
         > Update Profile >>> MVP Stretch1
+        > Get myOrders >>> Stretch
 
 Todo
     > Admin dashboard
@@ -34,10 +35,8 @@ Todo
             
     >Cart
         > edit Cart > MVP Stretch5
-        
 
     > User
-        > Get myOrders
         > Reset Password > MVP Stretch2
 
         > Add review

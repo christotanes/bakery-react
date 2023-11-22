@@ -45,8 +45,15 @@ function AddToCart({ productId, productName, productPrice, productToCart, getPro
                 setLoading(false);
                 Swal.fire({
                     title: 'Unable to add to Cart',
-                    icon: 'error',
                     text: 'Please try again later.',
+                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImageError shadow-lg'
+                    },
                     timer: 2500
                 })
             }

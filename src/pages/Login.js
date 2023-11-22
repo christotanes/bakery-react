@@ -11,6 +11,8 @@ function Login({ checkLocalToken }) {
     const [ password, setPassword ] = useState('');
     const [ isActive, setIsActive ] = useState('');
 
+    const [ disableInput, setDisableInput ] = useState(false);
+
     const navigate = useNavigate();
     useEffect(() => {
         if (email !== "" && password !== "") {
@@ -23,6 +25,7 @@ function Login({ checkLocalToken }) {
     const handleLogin = async (e) => {
         console.log('This is handleLogin at login.js')
         e.preventDefault();
+        setDisableInput(true);
 
         const userDetails = {
             email: email,
@@ -63,16 +66,25 @@ function Login({ checkLocalToken }) {
                 setEmail('');
                 setPassword('');
                 setIsActive(false);
+                setDisableInput(false);
                 navigate('/products');
             } else {
                 Swal.fire({
                     title: 'Unsuccessful Login',
-                    icon: 'error',
-                    text: 'Please Try Again Later'
+                    text: 'Please Try Again Later',
+                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+                    imageWidth: 250,
+                    imageHeight: 250,
+                    imageAlt: "Custom image",
+                    background: "#ffc800",
+                    customClass: {
+                        image: 'swalImageError shadow-lg'
+                    }
                 });
                 setEmail('');
                 setPassword('');
                 setIsActive('');
+                setDisableInput(false);
             };
         } catch (error) {
             console.error(`Error: ${error}`)
@@ -96,19 +108,18 @@ function Login({ checkLocalToken }) {
                 <Form className="justify-content-center mx-auto my-3" onSubmit={handleLogin}>
                     <Form.Group controlId="userEmail">
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control type="email" placeholder="Email Address" required value={email} onChange={(e) => setEmail(e.target.value)}/>
+                            <Form.Control type="email" placeholder="Email Address" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disableInput === true}/> 
                     </Form.Group>
                     <Form.Group controlId="userPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
+                            <Form.Control type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={disableInput === true}/> 
                     </Form.Group>
                     <div className="d-flex justify-content-center">
-                        {
-                            (isActive) ? 
-                            <Button variant="success" className="mt-4" type="submit">Login</Button>
-                            :
-                            <Button variant="primary" className="mt-4" disabled>Login</Button>
-                        }
+                            <Button 
+                            variant="success" 
+                            className="mt-4" 
+                            type="submit"
+                            disabled={isActive === false}>Login</Button>
                     </div>
                 </Form>
                 <CardFooter className="text-center">Don't have an account yet? <Link to="/register" exact>Click here</Link> to register.</CardFooter>

@@ -5,6 +5,7 @@ import { Col, Container, Row, Card, Image, Button } from "react-bootstrap";
 import ViewCart from "../components/user/ViewCart";
 import UpdateProfile from "../components/forms/UpdateProfile";
 import UserOrders from "../components/user/UserOrders";
+import ResetPassword from "../components/forms/ResetPassword";
 
 
 function Profile() {
@@ -27,17 +28,17 @@ function Profile() {
             <Row>
                 <Col xs="auto" className="mx-auto mt-3 mb-1 d-flex">
                     <Image src={userDetails.img} width={100} height={100} className="userImg me-3 rounded-circle shadow"/>
-                    <h3 className="text-center font-weight-bold align-self-center">{userDetails.firstName ? `${userDetails.firstName}` : "Your"} Profile</h3>
+                    <h3 className="text-center font-weight-bold align-self-center">{userDetails.firstName ? `${userDetails.firstName}'s` : "Your"} Profile</h3>
                 </Col>
             </Row>
             <Row>
                 <Col className="mx-auto d-flex justify-content-center my-3">
                     {
                         onUpdate === true ?
-                        <Button variant="outline-danger w-25 shadow" onClick={handleProfileUpdate}>Cancel Update</Button> :
-                        <Button variant="outline-success w-25 shadow" onClick={handleUpdateProfile}>Update Profile</Button> 
+                        <Button variant="outline-danger w-xs-100 w-md-25 shadow" onClick={handleProfileUpdate}>Cancel Update</Button> :
+                        <Button variant="outline-success w-xs-100 w-md-25 shadow" onClick={handleUpdateProfile}>Update Profile</Button> 
                     }
-                    
+                    <ResetPassword />
                 </Col>
             </Row>
             <Row>
@@ -59,7 +60,7 @@ function Profile() {
                 </Col>
             </Row>
             <Row>
-                <Col md={10} className="mb-auto my-3 mx-auto">
+                <Col xs={12} md={11} className="mb-auto my-3 mx-auto">
                     <UserOrders />
                 </Col>
             </Row>
