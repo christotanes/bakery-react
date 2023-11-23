@@ -148,7 +148,7 @@ const App = () => {
     <>
       <UserProvider value={{ user, setUser, unSetUser, cart, setCart, userDetails, setUserDetails }}>
         <Router>
-        <Suspense fallback={<Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>}>
+        <Suspense fallback={<Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='suspenseImage'/>}>
           <AppNavbar />
             <Routes>
                 <Route path='/' element={<Home/>}/>
@@ -159,7 +159,7 @@ const App = () => {
                 <Route path='/products/:productId' element={<ProductView />} />
                 <Route path='/profile' element={<Profile />}/>
                 <Route path='/register' element={<Register/>}/>
-                {/* <Route path='*' element={<Error/>}/>  */}
+                <Route path='*' element={<Error/>}/> 
             </Routes>
           </Suspense>
         </Router>

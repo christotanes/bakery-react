@@ -51,7 +51,7 @@ function UserOrders() {
     const ordersTable = userOrders.map((order) => (
         <tbody key={order._id}>
             <tr>
-                <td><Button
+                <td className="text-center"><Button
                     onClick={() => toggleOpen(order._id)}
                     aria-controls={`collapse-text-${order._id}`}
                     aria-expanded={openStates[order._id]}>
@@ -68,10 +68,10 @@ function UserOrders() {
                 <td colSpan={5}>
                     <Table>
                         <thead>
-                            <td>Name</td>
-                            <td>Quantity</td>
-                            <td>Price</td>
-                            <td>SubTotal</td>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>SubTotal</th>
                         </thead>
                         <tbody>
                         {order.products.map((product) => (

@@ -34,7 +34,7 @@ function Register() {
 
             const data = await response.json();
 
-            if (data.user){
+            if (response.ok){
                 const title = 'Successful Registration';
                 const text = 'Welcome to JerryBee!'
                 SwalFireSuccess(title, text);

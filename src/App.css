@@ -11,9 +11,9 @@
   position: relative;
   width: 250;
   height: auto;
-  top:50%;
-  left:50%;
-  transform: translateX(-25%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-25%, -25%);
   animation: rotate 2s infinite;
   border-radius: 50%;
 }
@@ -37,7 +37,7 @@
   height: 100vh;
 }
 
-.register, .login, #checkout {
+.register, .login, #checkout, .error {
   background: #ffc800;
   height: 100vh;
 }

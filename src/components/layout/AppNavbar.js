@@ -44,7 +44,7 @@ function AppNavbar() {
                                 id={`offcanvasNavbarDropdown-expand-${expand}`}>
                                 {cart.products.map((product, index) => (
                                     <NavDropdown.Item key={index} as={Link} to={`/products/${product.productId}`} className='d-flex justify-content-between'>
-                                        <span className='me-2'>{product.name}</span> <span>- {product.quantity} x {product.price}</span>
+                                        <span className='me-2'>{product.name}</span> <span>{product.quantity} x {product.price}</span>
                                     </NavDropdown.Item>
                                     ))}
                                     <NavDropdown.Divider />

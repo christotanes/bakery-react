@@ -31,7 +31,7 @@ function Home() {
     }, [isNull]);
 
     const landingText = {
-        title: "Welcome to JerryBee",
+        title: "Welcome to JerryBee!",
         subtitle: "Where Sweet Moments and Delightful Flavors Come to Life!"
     };
 
