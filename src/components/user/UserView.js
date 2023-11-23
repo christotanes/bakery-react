@@ -1,7 +1,7 @@
 import { Button, Row, Col } from "react-bootstrap";
 import ViewCart from "./ViewCart";
 import { getAscendingProductsOfType } from "../../util/RandomNumber.js";
-import { ActiveProducCols } from "./ActiveProductCols.js";
+import { ActiveProductCols } from "./ActiveProductCols.js";
 import { useEffect, useState } from "react";
 
 function UserView({ activeProducts }) {
@@ -29,10 +29,10 @@ function UserView({ activeProducts }) {
             </Row>
             <Row>
                 <Col xs={12} md={9} className="d-flex flex-wrap">
-                { userView === 'all' && <ActiveProducCols activeProducts={activeProducts}/>}
-                { userView === 'cake' && <ActiveProducCols activeProducts={cakesSorted}/>}
-                { userView === 'bread' && <ActiveProducCols activeProducts={breadsSorted}/>}
-                { userView === 'snack' && <ActiveProducCols activeProducts={snacksSorted}/>}
+                { userView === 'all' && <ActiveProductCols activeProducts={activeProducts}/>}
+                { userView === 'cake' && <ActiveProductCols activeProducts={cakesSorted}/>}
+                { userView === 'bread' && <ActiveProductCols activeProducts={breadsSorted}/>}
+                { userView === 'snack' && <ActiveProductCols activeProducts={snacksSorted}/>}
                 </Col>
 
                 <Col xs={12} md={3} className="mb-auto my-3 mx-auto float-left">

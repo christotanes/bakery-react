@@ -1,7 +1,7 @@
 import { Col, Card, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
-export function ActiveProducCols( { activeProducts } ) {
+export function ActiveProductCols( { activeProducts } ) {
     const productsCols = activeProducts.map((product) => (
     <Col xs={12} md="auto" key={product._id} className="my-3 mx-auto">
         <Card style={{ width: '18rem' }} className="shadow-lg">
