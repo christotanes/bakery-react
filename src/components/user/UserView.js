@@ -1,31 +1,38 @@
-import { Card, Button, Row, Col, CardTitle } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Row, Col } from "react-bootstrap";
 import ViewCart from "./ViewCart";
+import { getAscendingProductsOfType } from "../../util/RandomNumber.js";
+import { ActiveProducCols } from "./ActiveProductCols.js";
+import { useEffect, useState } from "react";
 
 function UserView({ activeProducts }) {
+    const [ cakesSorted, setCakesSorted ] = useState([]);
+    const [ breadsSorted, setBreadsSorted ] = useState([]);
+    const [ snacksSorted, setSnacksSorted ] = useState([]);
 
-    const activeProductCols = activeProducts.map((product) => (
-        <Col xs={12} md="auto" key={product._id} className="my-3 mx-auto">
-            <Card style={{ width: '18rem' }} className="shadow-lg">
-                <Card.Img variant="top" src={product.img} />
-                <Card.Body>
-                    <Card.Title>{product.name}</Card.Title>
-                    <Card.Subtitle>{product.description}</Card.Subtitle>
-                    <h5 className="text-end text-danger border-bottom my-3">₱ {product.price}</h5>
-                    <Button variant="primary" as={Link} to={`/products/${product._id}`}>Details</Button>
-                </Card.Body>
-            </Card>
-        </Col>
-    ))
+    const [ userView, setUserView ] = useState('all');
+
+    useEffect(() => {
+        setCakesSorted(getAscendingProductsOfType(activeProducts, "Cake"));
+        setBreadsSorted(getAscendingProductsOfType(activeProducts, "Bread"));
+        setSnacksSorted(getAscendingProductsOfType(activeProducts, "Snack"));
+    }, [activeProducts]);
 
     return (
         <>  
             <Row>
-                <Col className="mb-auto my-3 mx-auto d-flex justify-content-center"><h4>Categories</h4></Col>
+                <Col className="mb-auto my-3 mx-auto d-flex justify-content-center">
+                    <Button variant="primary" onClick={() => setUserView('all')} className="mx-2">All Products</Button>
+                    <Button variant="primary" onClick={() => setUserView('cake')} className="mx-2">Cakes</Button>
+                    <Button variant="primary" onClick={() => setUserView('bread')} className="mx-2">Breads</Button>
+                    <Button variant="primary" onClick={() => setUserView('snack')} className="mx-2">Snacks</Button>
+                </Col>
             </Row>
             <Row>
                 <Col xs={12} md={9} className="d-flex flex-wrap">
-                { activeProductCols }
+                { userView === 'all' && <ActiveProducCols activeProducts={activeProducts}/>}
+                { userView === 'cake' && <ActiveProducCols activeProducts={cakesSorted}/>}
+                { userView === 'bread' && <ActiveProducCols activeProducts={breadsSorted}/>}
+                { userView === 'snack' && <ActiveProducCols activeProducts={snacksSorted}/>}
                 </Col>
 
                 <Col xs={12} md={3} className="mb-auto my-3 mx-auto float-left">

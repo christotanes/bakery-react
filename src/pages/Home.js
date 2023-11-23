@@ -3,9 +3,13 @@ import Banner from "../components/features/Banner";
 import Highlights from "../components/features/Highlights";
 import { Container, Row, Col } from "react-bootstrap";
 import Landing from "../components/features/Landing";
+import { getRandomProductsOfType } from "../util/RandomNumber.js";
 
 function Home() {
     const [ activeProducts, setActiveProducts ] = useState([]);
+    const [ cakesFeatured, setCakesFeatured ] = useState([]);
+    const [ breadsFeatured, setBreadsFeatured ] = useState([]);
+    const [ snacksFeatured, setSnacksFeatured ] = useState([]);
 
     const [ isNull, setIsNull ] = useState(true);
 
@@ -17,6 +21,7 @@ function Home() {
             if (response.ok) {
                 setActiveProducts(data);
                 setIsNull(false);
+
             } else {
                 setIsNull(true);
             }
@@ -30,6 +35,14 @@ function Home() {
         console.log(activeProducts)
     }, [isNull]);
 
+    useEffect(() => {
+        if (activeProducts.length > 0) {
+            setCakesFeatured(getRandomProductsOfType(activeProducts, "Cake"));
+            setBreadsFeatured(getRandomProductsOfType(activeProducts, "Bread"));
+            setSnacksFeatured(getRandomProductsOfType(activeProducts, "Snack"));
+        }
+    }, [activeProducts]);
+
     const landingText = {
         title: "Welcome to JerryBee!",
         subtitle: "Where Sweet Moments and Delightful Flavors Come to Life!"
@@ -37,33 +50,33 @@ function Home() {
 
     return (
         <>
-        <Container fluid id="landing">
+        <Container fluid id="landing" className="overflow-hidden">
             <Banner activeProducts={ activeProducts } />
             <Landing landingText={landingText}/>
         </Container>
         <Container fluid id="featured" className="my-3">
             <section id="cakes">
-            <Row className="py-3">
+            <Row className="pt-3">
                 <Col className="d-flex justify-content-center">
                     <h3>Add a Dash of Delight to Your Celebrations with Our Exquisite Cake Collection!</h3>
                 </Col>
             </Row>
-            <Row className="my-3 justify-content-center">
-                {activeProducts.filter(product => product.type === "Cake").map(product => (
+            <Row className="mt-3 justify-content-center">
+                {cakesFeatured.map(product => (
                     <Highlights key={product._id} data={product} />
                 ))}
             </Row>
             </section>
 
             <section id="breads">
-            <Row className="py-3">
+            <Row className="pt-3">
                 <Col className="d-flex justify-content-center">
                     <h3>Start Your Day with a Smile: Our Breads Bring the Warmth of Sunrise to Your Mornings!</h3>
                 </Col>
             </Row>
             <Row className="my-3 justify-content-center">
-            {activeProducts.map((product) => (
-                product.type === "Bread" && <Highlights key={product._id} data={product} />
+            {breadsFeatured.map((product) => (
+                    <Highlights key={product._id} data={product} />
                 ))}
             </Row>
             </section>
@@ -75,7 +88,7 @@ function Home() {
                     </Col>
                 </Row>
                 <Row className="my-3 justify-content-center">
-                {activeProducts.map((product) => (
+                {snacksFeatured.map((product) => (
                     product.type === "Snack" && <Highlights key={product._id} data={product} />
                     ))}
                 </Row>

@@ -4,7 +4,7 @@ function Banner({ activeProducts }) {
 
     return (
         <>
-        <Carousel className="pt-3 shadow-lg">
+        <Carousel className="pt-3 shadow-lg aboveLanding ms-auto">
         {activeProducts.map((product) => {
             if(product.featured === true) {
                 return (

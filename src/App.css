@@ -32,12 +32,7 @@
   }
 }
 
-#landing{
-  background: #ffc800;
-  height: 100vh;
-}
-
-.register, .login, #checkout, .error {
+.register, .login, #checkout, .error, #landing {
   background: #ffc800;
   height: 100vh;
 }
@@ -67,8 +62,9 @@
 
 .bannerImage {
   width: auto;
-  height: auto;
+  height: 700px;
 }
+
 
 .bannerTitle {
   animation: fromLeft 1.5s linear 1;
@@ -112,6 +108,7 @@
   width:350px;
   height: auto;
   margin: auto;
+  z-index: 1;
 }
 
 @media (max-width: 900px) {
@@ -119,6 +116,7 @@
     width:auto;
     height:auto;
   }
+
 }
 
 .productBanner {

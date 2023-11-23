@@ -183,7 +183,7 @@ function AddEditForm({ initialProduct, onSubmit, isEditMode, loadingData, isActi
                                 <Form.Label className="text-danger">Product's Banner link:</Form.Label>
                                 <Form.Control 
                                 as="textarea"
-                                rows={3}
+                                rows={2}
                                 placeholder="This is where image banner will be placed" required value={imgBanner} 
                                 onChange={e => setImgBanner(e.target.value)}
                                 disabled={disableInput === true}/>
