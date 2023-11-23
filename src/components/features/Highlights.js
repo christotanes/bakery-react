@@ -7,13 +7,13 @@ function Highlights({ data }) {
 
     return (
         <>
-            <Col xs={12} md={5} lg={2} className="mx-auto">
+            <Col xs={12} md={5} lg={2} className="mx-2">
                 <Card style={{ width: '18rem' }} key={_id}>
                 <Card.Img variant="top" src={img}/>
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <h5 className="text-end text-danger border-bottom mb-3">₱ {price}</h5>
-                    <Button variant="primary" as={Link} to={`/products/${_id}`} exact>Details</Button>
+                    <Button variant="primary" as={Link} to={`/products/${_id}`}>Details</Button>
                 </Card.Body>
                 </Card>
             </Col>

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import Banner from "../components/features/Banner.js";
-import Highlights from "../components/features/Highlights.js";
+import Banner from "../components/features/Banner";
+import Highlights from "../components/features/Highlights";
 import { Container, Row, Col } from "react-bootstrap";
+import Landing from "../components/features/Landing";
 
 function Home() {
     const [ activeProducts, setActiveProducts ] = useState([]);
-    const [ featured, setFeatured ] = useState([]);
+
     const [ isNull, setIsNull ] = useState(true);
 
     const getProducts = async () => {
@@ -13,17 +14,8 @@ function Home() {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/products/active`);
             const data = await response.json();
-            if (data) {
+            if (response.ok) {
                 setActiveProducts(data);
-    
-                let highlights = [];
-                while (highlights.length < 4) {
-                    let randomNum = Math.floor(Math.random() * data.length);
-                    if (!highlights.includes(data[randomNum])) {
-                        highlights.push(data[randomNum]);
-                    }
-                }
-                setFeatured(highlights);
                 setIsNull(false);
             } else {
                 setIsNull(true);
@@ -32,27 +24,63 @@ function Home() {
             console.error(`Error: ${error}`)
         }
     }
+
     useEffect(() =>{
         getProducts();
         console.log(activeProducts)
     }, [isNull]);
 
+    const landingText = {
+        title: "Welcome to JerryBee",
+        subtitle: "Where Sweet Moments and Delightful Flavors Come to Life!"
+    };
+
     return (
         <>
         <Container fluid id="landing">
             <Banner activeProducts={ activeProducts } />
+            <Landing landingText={landingText}/>
         </Container>
         <Container fluid id="featured" className="my-3">
+            <section id="cakes">
             <Row className="py-3">
                 <Col className="d-flex justify-content-center">
-                    <h3>Bring life to your celebration with these products!</h3>
+                    <h3>Add a Dash of Delight to Your Celebrations with Our Exquisite Cake Collection!</h3>
                 </Col>
             </Row>
             <Row className="my-3 justify-content-center">
-            {featured.map((product) => (
-                <Highlights key={product._id} data={product} />
-            ))}
+                {activeProducts.filter(product => product.type === "Cake").map(product => (
+                    <Highlights key={product._id} data={product} />
+                ))}
             </Row>
+            </section>
+
+            <section id="breads">
+            <Row className="py-3">
+                <Col className="d-flex justify-content-center">
+                    <h3>Start Your Day with a Smile: Our Breads Bring the Warmth of Sunrise to Your Mornings!</h3>
+                </Col>
+            </Row>
+            <Row className="my-3 justify-content-center">
+            {activeProducts.map((product) => (
+                product.type === "Bread" && <Highlights key={product._id} data={product} />
+                ))}
+            </Row>
+            </section>
+
+            <section id="snacks">
+                <Row className="py-3">
+                    <Col className="d-flex justify-content-center">
+                        <h3>Delight in Fun-Filled Snacking Moments with the Kids with Our Joyful Assortment of Snacks!</h3>
+                    </Col>
+                </Row>
+                <Row className="my-3 justify-content-center">
+                {activeProducts.map((product) => (
+                    product.type === "Snack" && <Highlights key={product._id} data={product} />
+                    ))}
+                </Row>
+            </section>
+            
         </Container>
         </>
     )

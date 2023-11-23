@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image, CardFooter, Container } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import { ConfirmPasswordField, EmailField, PasswordField } from "../forms/InputFields.js";
 import HandleChange from "../util/Handlers.js";
+import { SwalFireError, SwalFireSuccess } from "../util/SwalFire.js";
 
 function Register() {
     const [ userInfo, setUserInfo ] = useState({
@@ -35,18 +35,10 @@ function Register() {
             const data = await response.json();
 
             if (data.user){
-                Swal.fire({
-                    title:'Successful Registration',
-                    text: 'Welcome to JerryBee!',
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                })
+                const title = 'Successful Registration';
+                const text = 'Welcome to JerryBee!'
+                SwalFireSuccess(title, text);
+                
                 setUserInfo({
                     email: "",
                     password: "",
@@ -56,18 +48,10 @@ function Register() {
                 navigate('/login');
                 setDisableInput(false);
             } else {
-                Swal.fire({
-                    title: 'Registration Unsuccessful',
-                    text: 'Please Try Again',
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    }
-                })
+                const title = 'Registration Unsuccessful';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
+                
                 setDisableInput(false);
             }
         } catch (error) {
@@ -96,9 +80,9 @@ function Register() {
                     <CardTitle className="text-center">Register</CardTitle>
                     <Form className="justify-content-center mx-auto my-3" onSubmit={handleRegister}>
 
-                        <EmailField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
-                        <PasswordField disableInput={disableInput} onRegister={true} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
-                        <ConfirmPasswordField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                        <EmailField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                        <PasswordField disableInput={disableInput} userInfo={userInfo} onRegister={true} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                        <ConfirmPasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
 
                         <div className="d-flex justify-content-center">
                                 <Button 

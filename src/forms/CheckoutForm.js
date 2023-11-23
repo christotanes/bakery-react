@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext";
 import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import UserProfileDetails from "../components/user/UserProfileDetails";
+import { SwalFireError, SwalFireSuccess } from "../util/SwalFire";
 
 function CheckoutForm() {
     const { setCart, userDetails } = useContext(UserContext);
@@ -35,18 +35,10 @@ function CheckoutForm() {
 
             const data = await response.json();
             if(response.ok){
-                Swal.fire({
-                    title: 'Successful Checkout',
-                    text: `You have successfully purchased the items with ${data.paymentInfo}`,
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                })
+                const title = 'Successful Checkout';
+                const text = `You have successfully purchased the items with ${data.paymentInfo}`;
+                SwalFireSuccess(title, text);
+
                 setCart({
                     cartId: null,
                     products: [],
@@ -58,38 +50,20 @@ function CheckoutForm() {
                 setDisableInput(false);
                 navigate('/products');
             } else {
-                Swal.fire({
-                    title: "Checkout Failed",
-                    text: "Please try again later.",
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Checkout Failed';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
+
                 setLoading(false);
                 setIsActive(false);
                 setDisableInput(false);
             }
         } catch (error) {
             console.error(`Error: ${error}`);
-            Swal.fire({
-                title: "Checkout Failed",
-                text: "Please try again later.",
-                imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                imageWidth: 250,
-                imageHeight: 250,
-                imageAlt: "Custom image",
-                background: "#ffc800",
-                customClass: {
-                    image: 'swalImageError shadow-lg'
-                },
-                timer: 2500
-            })
+            const title = 'Checkout Failed';
+            const text = 'Please Try Again Later';
+            SwalFireError(title, text);
+
             setLoading(false);
             setIsActive(false);
             setDisableInput(false);

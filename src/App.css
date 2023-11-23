@@ -13,7 +13,6 @@
   height: auto;
   top: 50%;
   left: 50%;
-  transform: translate(25%, 25%);
   animation: rotate 2s infinite;
   border-radius: 50%;
 }
@@ -34,7 +33,7 @@
 
 #landing{
   background: #ffc800;
-  height: 80vh;
+  height: 100vh;
 }
 
 .register, .login, #checkout {
@@ -42,7 +41,7 @@
   height: 100vh;
 }
 
-#products, #addProduct, .productBannerRow, #profile, .resetPassword {
+#products, #addProduct, .productBannerRow, #profile, .resetPassword, #bread {
   background-color: #ffc800;
 }
 
@@ -65,8 +64,17 @@
   }
 }
 
-.bannerText {
+.bannerImage {
+  width: auto;
+  height: auto;
+}
+
+.bannerTitle {
   animation: fromLeft 1.5s linear 1;
+}
+
+.bannerSubtitle {
+  animation: fromRight 1.5s linear 1;
 }
 
 @keyframes fromLeft {
@@ -84,9 +92,24 @@
   }
 }
 
+@keyframes fromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30%);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-1%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .carousel {
-  width:900px;
-  height:500px;
+  width:350px;
+  height: auto;
   margin: auto;
 }
 

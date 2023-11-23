@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import UserContext from "../../UserContext"
 import { Button, Spinner } from "react-bootstrap";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { SwalFireError, SwalFireSuccess } from "../../util/SwalFire";
 
 function AddToCart({ productId, productName, productPrice, productToCart, getProductById, setProductToCartData, productImgLqip, productImg }) {
     const { setProductToCart } = setProductToCartData;
@@ -43,36 +43,17 @@ function AddToCart({ productId, productName, productPrice, productToCart, getPro
             } else {
                 getProductById();
                 setLoading(false);
-                Swal.fire({
-                    title: 'Unable to add to Cart',
-                    text: 'Please try again later.',
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Unable to Add to Cart';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
             }
         } catch (error) {
             console.error(`Error: ${error}`);
         } finally {
-            Swal.fire({
-                title: 'Add to Cart Success',
-                text: `${productName} was added successfully`,
-                timer: 2500,
-                imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                imageWidth: 250,
-                imageHeight: 250,
-                imageAlt: "Custom image",
-                background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-            })
+            const title = 'Add to Cart Success';
+            const text = `${productName} was added successfully`
+            SwalFireSuccess(title, text);
+
             getProductById();
             setProductToCart(0);
             setLoading(false);

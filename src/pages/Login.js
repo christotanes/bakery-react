@@ -2,9 +2,9 @@ import { Form, Button, Row, Card, Col, CardBody, CardTitle, CardFooter, Image, C
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../UserContext";
 import { Navigate, useNavigate, Link } from "react-router-dom";
-import Swal from "sweetalert2";
 import { EmailField, PasswordField } from "../forms/InputFields.js";
 import HandleChange from "../util/Handlers.js";
+import { SwalFireError, SwalFireSuccess } from "../util/SwalFire.js";
 
 function Login({ checkLocalToken }) {
     const { user } = useContext(UserContext);
@@ -48,45 +48,31 @@ function Login({ checkLocalToken }) {
                 console.log(`LOGIN redirecting to CHECKLOCALTOKEN`);
                 
                 checkLocalToken();
+
+                const title = 'Login Successful';
+                const text = 'Welcome Back to JerryBee!'
+                SwalFireSuccess(title, text);
                 
-                Swal.fire({
-                    title: 'Login Successful',
-                    text: 'Welcome back to JerryBee!',
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                });
+                setUserInfo({
+                    email: "",
+                    password: ""
+                })
+                
+                setIsActive(false);
+                setDisableInput(false);
+                navigate('/products');
+            } else {
+                const title = 'Unsuccessful Login';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
+
                 setUserInfo({
                     email: "",
                     password: ""
                 })
                 setIsActive(false);
                 setDisableInput(false);
-                navigate('/products');
-            } else {
-                Swal.fire({
-                    title: 'Unsuccessful Login',
-                    text: 'Please Try Again Later',
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    }
-                });
-                setUserInfo({
-                    email: "",
-                    password: ""
-                })
-                setIsActive('');
-                setDisableInput(false);
+                console.log(`After unsuccessful login ${isActive}`)
             };
         } catch (error) {
             console.error(`Error: ${error}`)
@@ -108,8 +94,8 @@ function Login({ checkLocalToken }) {
                 <CardBody>
                 <CardTitle className="text-center">Login</CardTitle>
                 <Form className="justify-content-center mx-auto my-3" onSubmit={handleLogin}>
-                    <EmailField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
-                    <PasswordField disableInput={disableInput} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                    <EmailField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                    <PasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
                     <div className="d-flex justify-content-center">
                             <Button 
                             variant="success" 

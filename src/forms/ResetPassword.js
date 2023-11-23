@@ -1,14 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import UserContext from "../UserContext";
-import Swal from "sweetalert2";
+import { SwalFireError, SwalFireSuccess } from "../util/SwalFire";
+import { ConfirmPasswordField, PasswordField } from "./InputFields";
+import HandleChange from "../util/Handlers";
 
 function ResetPassword() {
     const { user } = useContext(UserContext);
     const [ showModal, setShowModal ] = useState(false);
     const [ isActive, setIsActive ] = useState('')
-    const [ password, setPassword ] = useState('');
-    const [ confirmPassword, setConfirmPassword ] = useState('');
+    const [ userInfo, setUserInfo ] = useState({
+        newPassword: "",
+        confirmPassword: ""
+    });
+
     const [ disableInput, setDisableInput ] = useState(false);
     
     const handleShow = () => setShowModal(true);
@@ -20,11 +25,6 @@ function ResetPassword() {
         setDisableInput(true)
         console.log(`Reset Password handleSubmit async function`);
 
-        const userNewPassword = {
-            newPassword: password,
-            confirmPassword: confirmPassword
-        }
-
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${user.id}`, {
                 method: "PATCH",
@@ -32,74 +32,54 @@ function ResetPassword() {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify(userNewPassword)
+                body: JSON.stringify(userInfo)
             })
 
             const data = await response.json();
             if (response.ok){
                 console.log(data);
-                Swal.fire({
-                    title: 'Reset Password Success!',
-                    text: `You have successfully reset your password`,
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                })
+                const title = 'Reset Password Success!';
+                const text = 'You have successfully reset your password'
+                SwalFireSuccess(title, text);
+                
                 setIsActive(false);
-                setPassword('');
-                setConfirmPassword('');
+                setUserInfo({
+                    password: "",
+                    confirmPassword: ""
+                })
                 handleClose();
                 setDisableInput(false);
             } else {
-                Swal.fire({
-                    title: "Reset Password Failed",
-                    text: "Please try again later.",
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Reset Password Failed';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
+
                 setIsActive(false);
-                setPassword('');
-                setConfirmPassword('');
+                setUserInfo({
+                    password: "",
+                    confirmPassword: ""
+                })
                 handleClose();
                 setDisableInput(false);
             }
         } catch (error) {
             console.error(`Error: ${error}`)
-            Swal.fire({
-                title: "Reset Password Failed",
-                text: "Please try again later.",
-                imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                imageWidth: 250,
-                imageHeight: 250,
-                imageAlt: "Custom image",
-                background: "#ffc800",
-                customClass: {
-                    image: 'swalImageError shadow-lg'
-                },
-                timer: 2500
-            })
+            const title = 'Reset Password Failed';
+            const text = 'Please Try Again Later';
+            SwalFireError(title, text);
+
             setIsActive(false);
-            setPassword('');
-            setConfirmPassword('');
+            setUserInfo({
+                password: "",
+                confirmPassword: ""
+            })
             handleClose();
             setDisableInput(false);
         }
     }
 
     useEffect(() => {
-        if ((password !== null || confirmPassword !== null) && (password === confirmPassword) && (password.length >= 8 && password.length <= 20)){
+        if ((userInfo.password !== null || userInfo.confirmPassword !== null) && (userInfo.password === userInfo.confirmPassword) && (userInfo.password.length >= 8 && userInfo.password.length <= 20)){
             setIsActive(true);
         } else {
             setIsActive(false);
@@ -124,27 +104,8 @@ function ResetPassword() {
             </Modal.Header>
             <Form className="resetPassword">
             <Modal.Body className="my-3">
-                <Form.Group className="mb-3">
-                    <Form.Label>New Password</Form.Label>
-                        <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        disabled={disableInput === true}/> 
-                    <Form.Text muted>Must be 8-20 characters long.</Form.Text>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Confirm New Password</Form.Label>
-                        <Form.Control
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                        disabled={disableInput === true}/>
-                </Form.Group>
+                <PasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)} />
+                <ConfirmPasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)} />
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="danger" onClick={handleClose}>

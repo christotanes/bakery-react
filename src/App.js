@@ -157,7 +157,7 @@ const App = () => {
                 <Route path='/products/:productId' element={<ProductView />} />
                 <Route path='/profile' element={<Profile />}/>
                 <Route path='/register' element={<Register/>}/>
-                <Route path='*' element={<Error/>}/> 
+                {/* <Route path='*' element={<Error/>}/>  */}
             </Routes>
           </Suspense>
         </Router>

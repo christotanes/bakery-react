@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext.js";
 import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { SwalFireError } from "../util/SwalFire.js";
+import Swal from "sweetalert2";
 
 function UpdateProfile({ onProfileUpdate, onProfile }) {
     const { user, userDetails, setUserDetails } = useContext(UserContext);
@@ -97,38 +98,20 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                     })
 
             } else {
-                Swal.fire({
-                    title: "Update failed",
-                    text: "Please try again later.",
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Update Failed';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
+
                 setLoading(false);
                 setIsActive(false);
                 setDisableInput(false);
             }
         } catch (error) {
             console.error(`Error: ${error}`);
-            Swal.fire({
-                title: "Update failed",
-                text: "Please try again later.",
-                imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                imageWidth: 250,
-                imageHeight: 250,
-                imageAlt: "Custom image",
-                background: "#ffc800",
-                customClass: {
-                    image: 'swalImageError shadow-lg'
-                },
-                timer: 2500
-            })
+            const title = 'Update Failed';
+            const text = 'Please Try Again Later';
+            SwalFireError(title, text);
+
             setLoading(false);
             setIsActive(false);
             setDisableInput(false);

@@ -37,7 +37,8 @@ function ProductView() {
         }
     } 
 
-    const { _id, name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner, imgLqip } = product;
+    const { _id, name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner, imgLqip, imgBannerLqip } = product;
+    const subTotal = productToCart * price;
 
     useEffect(() => {
         getProductById();
@@ -86,18 +87,19 @@ function ProductView() {
         <Container id="productView">
             <Row className="my-3 productBannerRow">
                 <Col xs={12} className="d-flex justify-content-center my-3">
-                    <Image src={imgBanner} className="productBanner shadow-lg productViewImage"/>
+                    <Image src={imgBanner} className="productBanner shadow-lg productViewImage" style={{background: `url('${imgBannerLqip}'), contain`}}/>
                 </Col>
             </Row>
             <Row className="my-4">
                 <Col md={5} className="d-flex justify-content-center">
                     <Card style={{ width: '18rem' }} className="shadow">
-                    <Card.Img variant="top" src={img} className="productViewImage"/>
+                    <Card.Img variant="top" src={img} style={{background: `url('${imgLqip}'), contain`}}className="productViewImage"/>
                     <Card.Body>
                         <Card.Title>{name}</Card.Title>
                         <h5 className="mt-2 text-end text-danger border-bottom mb-3">₱ {price}</h5>
                             <span>Quantity: {quantity} </span>
                             <p> Add to Cart: {productToCart}</p>
+                            <p>Your Total: <span className="text-danger">₱ {subTotal}</span></p>
                             <p>
                             {disableAdd ? 
                                 <>
@@ -166,7 +168,6 @@ function ProductView() {
                         getProductById={ getProductById }
                         setProductToCartData={ setProductToCartData }/>
                     }
-                        
                     </Card.Body>
                     </Card>
                 </Col>

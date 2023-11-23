@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import AddEditForm from "../../forms/AddEditForm";
+import { SwalFireError, SwalFireSuccess } from "../../util/SwalFire";
 
 function EditProduct({ product, getAllProducts }) {
     const [error, setError] = useState(null);
@@ -27,50 +27,21 @@ function EditProduct({ product, getAllProducts }) {
             const data = await response.json();
 
             if (response.ok) {
-                Swal.fire({
-                    title: 'Product Update Successful',
-                    text: `${data.name} was updated successfully.`,
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                })
+                const title = 'Product Update Successful';
+                const text = `${data.name} was updated successfully.`;
+                SwalFireSuccess(title, text);
                 setDisableInput(false);
             } else {
-                Swal.fire({
-                    title: 'Failed to Update Product',
-                    text: `Please try again later.`,
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Failed to Update Product';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
                 setDisableInput(false);
             }
         } catch (error) {
             setError(error.message);
-            Swal.fire({
-                title: 'Failed to Update Product',
-                text: `Please try again later. Error: ${error}`,
-                imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                imageWidth: 250,
-                imageHeight: 250,
-                imageAlt: "Custom image",
-                background: "#ffc800",
-                customClass: {
-                    image: 'swalImageError shadow-lg'
-                },
-                timer: 2500
-            })
+            const title = 'Failed to Update Product';
+            const text = `Please try again later. Error: ${error}`;
+            SwalFireError(title, text);
             setDisableInput(false);
         } finally {
             setDisableInput(false);

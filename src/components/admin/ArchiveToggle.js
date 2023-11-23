@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
+import { SwalFireError, SwalFireSuccess } from "../../util/SwalFire";
 
 function ArchiveToggle({ product, getAllProducts, isActive }) {
 
@@ -20,33 +21,14 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
 
             if (response.ok) {
                 getAllProducts();
-                Swal.fire({
-                    title: `Product Archived Successfully`,
-                    text: `${data.name} is successfully archived!`,
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                })
+                const title = 'Product Archived Successfully';
+                const text = `${data.name} is successfully archived!`;
+                SwalFireSuccess(title, text);
             } else {
                 getAllProducts();
-                Swal.fire({
-                    title: 'Failed to Archive',
-                    text: 'Please try again later.',
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Failed to Archive';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
             }
         } catch (error) {
             console.error(`Error: ${error}`)
@@ -70,33 +52,14 @@ function ArchiveToggle({ product, getAllProducts, isActive }) {
 
             if(response.ok){
                 getAllProducts();
-                Swal.fire({
-                    title: `Product Activated Successfully`,
-                    text: `${data.product.name} is successfully activated!`,
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                })
+                const title = 'Product Activated Successfully';
+                const text = `${data.name} is successfully activated!`;
+                SwalFireSuccess(title, text);
             } else {
                 getAllProducts();
-                Swal.fire({
-                    title: 'Failed to Activate',
-                    text: 'Please try again later.',
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Failed to Activate';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
             };
         } catch (error) {
             console.error(`Error: ${error}`)

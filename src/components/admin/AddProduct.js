@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import AddEditForm from "../../forms/AddEditForm";
+import { SwalFireSuccess, SwalFireError } from "../../util/SwalFire";
 
 function AddProduct({ getAllProducts }) {
     const [loading, setLoading] = useState(false);
@@ -28,33 +28,16 @@ function AddProduct({ getAllProducts }) {
             const data = await response.json();
 
             if (response.ok) {
-                Swal.fire({
-                    title: 'Product Added Successfully',
-                    text: `${data.name} was added successfully.`,
-                    imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImage shadow-lg'
-                    }
-                })
+                const title = 'Product Added Successfully';
+                const text = `${data.name} was added successfully.`
+                SwalFireSuccess(title, text);
+
                 setDisableInput(false);
             } else {
-                Swal.fire({
-                    title: 'Failed to Add Product',
-                    text: `Please try again later.`,
-                    imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
-                    imageWidth: 250,
-                    imageHeight: 250,
-                    imageAlt: "Custom image",
-                    background: "#ffc800",
-                    customClass: {
-                        image: 'swalImageError shadow-lg'
-                    },
-                    timer: 2500
-                })
+                const title = 'Failed to Add Product';
+                const text = 'Please Try Again Later';
+                SwalFireError(title, text);
+
                 setDisableInput(false);
             }
         } catch (error) {
