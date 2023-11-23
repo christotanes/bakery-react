@@ -30,7 +30,7 @@ function AppNavbar() {
                                     className="me-2"
                                     aria-label="Search"
                                 />
-                                <Button variant="outline-success">Search</Button>
+                                <Button variant="outline-success" disabled>Search</Button>
                             </Form>
                     <Nav variant="underline" className="align-item-end ms-auto">
                     
