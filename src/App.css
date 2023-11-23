@@ -8,11 +8,12 @@
 }
 
 .suspenseImage{
-  position: absolute;
+  position: relative;
   width: 250;
   height: auto;
-  top: 50%;
-  left: 50%;
+  top:50%;
+  left:50%;
+  transform: translateX(-25%);
   animation: rotate 2s infinite;
   border-radius: 50%;
 }

@@ -4,8 +4,8 @@ import {Container, Form, Button, Nav, Navbar, NavDropdown, Offcanvas, Image} fro
 import UserContext from '../../UserContext';
 import { Link } from 'react-router-dom';
 
-function OffcanvasExample() {
-    const { user } = useContext(UserContext);
+function AppNavbar() {
+    const { user, cart } = useContext(UserContext);
 
     return (
     <>
@@ -42,15 +42,18 @@ function OffcanvasExample() {
                                 <NavDropdown
                                 title="Cart"
                                 id={`offcanvasNavbarDropdown-expand-${expand}`}>
-                                <NavDropdown.Item href="#action3"></NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">
-
-                                </NavDropdown.Item>
-
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-
-                                </NavDropdown.Item>
+                                {cart.products.map((product, index) => (
+                                    <NavDropdown.Item key={index} as={Link} to={`/products/${product.productId}`} className='d-flex justify-content-between'>
+                                        <span className='me-2'>{product.name}</span> <span>- {product.quantity} x {product.price}</span>
+                                    </NavDropdown.Item>
+                                    ))}
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item className='d-flex justify-content-between'>
+                                    <span>Total Amount: </span>
+                                    <span>₱ {cart.totalAmount}</span>
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item as={Link} to="/checkout" className='text-center bg-danger'>Checkout</NavDropdown.Item>
                                 </NavDropdown>
                             : null
                             }
@@ -82,4 +85,4 @@ function OffcanvasExample() {
     );
 }
 
-export default OffcanvasExample;
+export default AppNavbar;

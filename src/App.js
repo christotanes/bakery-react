@@ -100,6 +100,7 @@ const App = () => {
           id: userData._id,
           isAdmin: userData.isAdmin
         });
+        
         setUserDetails({
           firstName: userData.firstName,
           lastName: userData.lastName,
@@ -116,6 +117,7 @@ const App = () => {
           id: userData._id,
           isAdmin: userData.isAdmin
         });
+
         setUserDetails({
           firstName: userData.firstName,
           lastName: userData.lastName,
