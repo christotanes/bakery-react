@@ -8,6 +8,12 @@ Done
         > Retrieve all products >>> MVP6
         > Update product info >>> MVP7
         > Deactivate/reactivate product >>> MVP8
+        > set as admin >>> MVP Stretch3
+        > Retrieve all users
+
+        > Retrieve all orders >>>
+            > pending >>>
+            > complete >>>
     > Cart
         > addtocart >>> MVP Stretch4
         > Checkout >>> MVP9
@@ -19,13 +25,7 @@ Done
 
 Todo
     > Admin dashboard
-        > Retrieve all users
             > new users
-            > set as admin > MVP Stretch3
-        
-        > Retrieve all orders
-            > pending
-            > complete
             > new orders
         
         > retrieve all feedbacks
@@ -38,7 +38,6 @@ Todo
         > edit Cart > MVP Stretch5
 
     > User
-
         > Add review
         > Edit review
         > Get review

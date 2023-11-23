@@ -2,7 +2,7 @@ import { Col, Row, Image, Button } from "react-bootstrap";
 import AllProducts from "./AllProducts.js";
 import AllUsers from "./AllUsers.js";
 import { useState } from "react";
-// import AllOrders from "./AllOrders.js";
+import AllOrders from "./AllOrders.js";
 
 function AdminView({ products, getAllProducts }) {
     const [ adminView, setAdminView ] = useState('products');
@@ -10,7 +10,7 @@ function AdminView({ products, getAllProducts }) {
     const views = {
         products: <AllProducts products={products} getAllProducts={getAllProducts} />,
         users: <AllUsers />,
-        // orders: <AllOrders />
+        orders: <AllOrders />
     };
 
     return (
@@ -20,7 +20,7 @@ function AdminView({ products, getAllProducts }) {
             <Col md={6} className="mx-auto d-flex justify-content-between">
                 <Button variant="outline-primary" className="w-50 mx-1" onClick={() => setAdminView('products')}>Products</Button>
                 <Button variant="outline-primary" className="w-50 mx-1" onClick={() => setAdminView('users')}>Users</Button>
-                {/* <Button variant="outline-primary" className="w-50 mx-1" onClick={() => setAdminView('orders')}>Orders</Button> */}
+                <Button variant="outline-primary" className="w-50 mx-1" onClick={() => setAdminView('orders')}>Orders</Button>
             </Col>
         </Row>
         <Row>

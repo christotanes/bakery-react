@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { formatDate } from "../../util/FormatDate";
+import { Table, Button, Collapse, Card } from "react-bootstrap";
+import { OrderToggle } from "./OrderStatus";
 
 function AllOrders() {
     const [ allOrders, setAllOrders ] = useState([]);
@@ -21,47 +25,50 @@ function AllOrders() {
         .then(data => {
             setAllOrders(data);
             setIsNull(false);
-            console.log(allUsers)
+            console.log(allOrders)
         })
     }
 
     useEffect(() => {
         getAllOrders();
-    }, [isNull])
+    }, [])
 
     const allOrdersTable = allOrders.map((order) => (
         <tbody key={order._id}>
             <tr>
-                <td className="text-center">{order.img !== null ? <Image src={order.img} width={30} height={30} className="productAdminImage"/> : "No Profile Pic Link"}</td>
-                <td>{order._id}</td>
-                <td>{order.email}</td>
-                <td>{formatDate(order.createdOn)}</td>
-                <td className="text-center"><Button
+                <td><Button
                     onClick={() => toggleOpen(order._id)}
                     aria-controls={`collapse-text-${order._id}`}
                     aria-expanded={openStates[order._id]}>
-                    order Details
+                    Product Details
                 </Button>
                 </td>
-                <td colSpan={2} className="text-center"><AdminToggle order={order._id} isAdmin={order.isAdmin} getAllorders={getAllorders}/></td>
+                <td>{order.userId}</td>
+                <td>{formatDate(order.purchasedOn)}</td>
+                <td>₱ {order.totalAmount}</td>
+                <td>{order.paymentInfo}</td>
+                <td className={order.orderStatus === "complete" ? 'text-success text-center' : 'text-danger text-center'}>{order.orderStatus}</td>
+                <td className="text-center"><OrderToggle order={order._id} orderStatus={order.orderStatus} getAllOrders={getAllOrders}/></td>
             </tr>
             <Collapse in={openStates[order._id]}>
             <tr key={`collapse-${order._id}`} id={`collapse-text-${order._id}`}>
-                <td colSpan={6}>
+                <td colSpan={7}>
                     <Table>
                         <thead>
-                            <td>Name</td>
-                            <td>Address</td>
-                            <td>Mobile No.</td>
-                            <td colSpan={3}>Profile Pic</td>
+                            <th colSpan={2}>Product Id</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th colSpan={3}>Added On</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{order.firstName !== undefined ? order.firstName : "None set"} {order.lastName !== undefined ? order.lastName : "None set"}</td>
-                                <td>{order.address?.houseNo ?? "None set"} {order.address?.streetName ?? "None set"} {order.address?.city ?? "None set"}</td>
-                                <td>{order.mobileNo !== undefined ? order.mobileNo : "None set"}</td>
-                                <td colSpan={3}>{order.img !== undefined ? order.img : "None set"}</td>
+                        {order.products.map((product) => (
+                            <tr key={product.productId}>
+                                <td colSpan={2}>{product.productId}</td>
+                                <td>{product.quantity}</td>
+                                <td>₱ {product.price}</td>
+                                <td colSpan={3}>{formatDate(product.addedOn)}</td>
                             </tr>
+                        ))}
                         </tbody>
                     </Table>
                 </td>
@@ -74,11 +81,12 @@ function AllOrders() {
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th>Profile Pic</th>
-                        <th>UserId</th>
-                        <th>Email</th>
-                        <th>Joined</th>
-                        <th className="text-center">More Details</th>
+                        <th>Products</th>
+                        <th>User Id</th>
+                        <th>Date Ordered</th>
+                        <th>Total Amount</th>
+                        <th>Payment Method</th>
+                        <th>Status</th>
                         <th className="text-center">Action</th>
                     </tr>
                 </thead>

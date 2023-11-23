@@ -31,7 +31,7 @@ function AllUsers() {
 
     useEffect(() => {
         getAllUsers();
-    }, [isNull])
+    }, [])
 
     const allUsersTable = allUsers.map((user) => (
         <tbody key={user._id}>
@@ -54,10 +54,10 @@ function AllUsers() {
                 <td colSpan={6}>
                     <Table>
                         <thead>
-                            <td>Name</td>
-                            <td>Address</td>
-                            <td>Mobile No.</td>
-                            <td colSpan={3}>Profile Pic</td>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Mobile No.</th>
+                            <th colSpan={3}>Profile Pic</th>
                         </thead>
                         <tbody>
                             <tr>
