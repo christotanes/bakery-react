@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Table, Collapse, Button } from "react-bootstrap";
+import { formatDate } from "../../util/FormatDate";
 
 function UserOrders() {
     const [ userOrders, setUserOrders ] = useState([]);
@@ -46,17 +47,6 @@ function UserOrders() {
     useEffect(() => {
         fetchUserOrders();
     }, [isNull])
-
-    function formatDate(isoString) {
-        const date = new Date(isoString);
-        return date.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
     
     const ordersTable = userOrders.map((order) => (
         <tbody key={order._id}>
