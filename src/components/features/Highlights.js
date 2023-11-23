@@ -7,8 +7,8 @@ function Highlights({ data }) {
 
     return (
         <>
-            <Col xs={12} md={5} lg={3} className="mx-2 mb-3">
-                <Card style={{ width: '18rem' }} key={_id}>
+            <Col xs={12} md={5} lg={2} className="ms-3 mb-3">
+                <Card style={{ width: '12rem' }} key={_id}>
                 <Card.Img variant="top" src={img}/>
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>

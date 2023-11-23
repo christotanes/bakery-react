@@ -56,12 +56,12 @@ function Home() {
         </Container>
         <Container fluid id="featured" className="my-3">
             <section id="cakes">
-            <Row className="pt-3">
-                <Col className="d-flex justify-content-center">
+            <Row className="pt-3 ms-3 ps-3">
+                <Col className="ms-3">
                     <h3>Add a Dash of Delight to Your Celebrations with Our Exquisite Cake Collection!</h3>
                 </Col>
             </Row>
-            <Row className="mt-3 justify-content-center">
+            <Row className="mt-3 ms-5 ps-3">
                 {cakesFeatured.map(product => (
                     <Highlights key={product._id} data={product} />
                 ))}
@@ -69,12 +69,12 @@ function Home() {
             </section>
 
             <section id="breads">
-            <Row className="pt-3">
-                <Col className="d-flex justify-content-center">
+            <Row className="pt-3 ms-3 ps-3">
+                <Col className="ms-3">
                     <h3>Start Your Day with a Smile: Our Breads Bring the Warmth of Sunrise to Your Mornings!</h3>
                 </Col>
             </Row>
-            <Row className="my-3 justify-content-center">
+            <Row className="my-3 ms-5 ps-3">
             {breadsFeatured.map((product) => (
                     <Highlights key={product._id} data={product} />
                 ))}
@@ -82,12 +82,12 @@ function Home() {
             </section>
 
             <section id="snacks">
-                <Row className="py-3">
-                    <Col className="d-flex justify-content-center">
+                <Row className="py-3 ms-3 ps-3">
+                    <Col className="ms-3">
                         <h3>Delight in Fun-Filled Snacking Moments with the Kids with Our Joyful Assortment of Snacks!</h3>
                     </Col>
                 </Row>
-                <Row className="my-3 justify-content-center">
+                <Row className="my-3 ms-5 ps-3">
                 {snacksFeatured.map((product) => (
                     product.type === "Snack" && <Highlights key={product._id} data={product} />
                     ))}

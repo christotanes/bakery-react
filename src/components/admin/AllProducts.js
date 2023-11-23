@@ -114,7 +114,6 @@ function AllProducts({ products, getAllProducts}) {
 
     return (
         <>
-        <h1 className="text-center mb-3">All Products</h1>
         <Table striped bordered hover responsive>
                         <thead>
                             <tr>

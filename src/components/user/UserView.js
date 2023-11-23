@@ -1,4 +1,4 @@
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, ButtonGroup } from "react-bootstrap";
 import ViewCart from "./ViewCart";
 import { getAscendingProductsOfType } from "../../util/RandomNumber.js";
 import { ActiveProductCols } from "./ActiveProductCols.js";
@@ -21,10 +21,12 @@ function UserView({ activeProducts }) {
         <>  
             <Row>
                 <Col className="mb-auto my-3 mx-auto d-flex justify-content-center">
-                    <Button variant="primary" onClick={() => setUserView('all')} className="mx-2">All Products</Button>
-                    <Button variant="primary" onClick={() => setUserView('cake')} className="mx-2">Cakes</Button>
-                    <Button variant="primary" onClick={() => setUserView('bread')} className="mx-2">Breads</Button>
-                    <Button variant="primary" onClick={() => setUserView('snack')} className="mx-2">Snacks</Button>
+                <ButtonGroup aria-label="Product Categories" size="lg" className="shadow">
+                    <Button variant="primary" disabled={userView === 'all'} onClick={() => setUserView('all')}>All Products</Button>
+                    <Button variant="primary" disabled={userView === 'cake'} onClick={() => setUserView('cake')}>Cakes</Button>
+                    <Button variant="primary" disabled={userView === 'bread'} onClick={() => setUserView('bread')}>Breads</Button>
+                    <Button variant="primary" disabled={userView === 'snack'} onClick={() => setUserView('snack')}>Snacks</Button>
+                </ButtonGroup>
                 </Col>
             </Row>
             <Row>

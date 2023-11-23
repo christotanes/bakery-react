@@ -4,7 +4,7 @@ import { Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Im
 import { Link } from "react-router-dom";
 
 function ViewCart({ onCheckout }) {
-    const { cart } = useContext(UserContext);
+    const { cart, user } = useContext(UserContext);
 
     return (
             (cart?.products?.length > 0) ? (
@@ -21,8 +21,14 @@ function ViewCart({ onCheckout }) {
             ))}
             <h3 className="text-center text-danger font-weight-bold mt-3">₱ {cart.totalAmount}</h3>
             
-            {(onCheckout === false) ? 
-            <Button variant="outline-primary" as={Link} to={`/checkout`} exact className="m-3">Checkout</Button> : null}
+            {(onCheckout === false || user.isAdmin === false) ? 
+            <Button 
+            variant="outline-primary" 
+            as={Link} 
+            to={`/checkout`} 
+            exact 
+            className="m-3"
+            disabled={user.isAdmin === true}>Checkout</Button> : null}
         </Card>)
         :
         (<Card>
