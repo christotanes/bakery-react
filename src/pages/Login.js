@@ -2,7 +2,7 @@ import { Form, Button, Row, Card, Col, CardBody, CardTitle, CardFooter, Image, C
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../UserContext";
 import { Navigate, useNavigate, Link } from "react-router-dom";
-import { EmailField, PasswordField } from "../forms/InputFields.js";
+import { TextInputField } from "../forms/InputFields.js";
 import HandleChange from "../util/Handlers.js";
 import { SwalFireError, SwalFireSuccess } from "../util/SwalFire.js";
 
@@ -94,8 +94,27 @@ function Login({ checkLocalToken }) {
                 <CardBody>
                 <CardTitle className="text-center">Login</CardTitle>
                 <Form className="justify-content-center mx-auto my-3" onSubmit={handleLogin}>
-                    <EmailField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
-                    <PasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                    <TextInputField
+                        id={'userEmail'}
+                        labelPlaceholder={'Email Address'}
+                        name={'email'}
+                        type={'email'}
+                        value={userInfo.email}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userInfo, setUserInfo, e)}
+                        />
+                    <TextInputField
+                        id={'userPassword'}
+                        labelPlaceholder={'Password'}
+                        name={'password'}
+                        type={'password'}
+                        value={userInfo.password}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userInfo, setUserInfo, e)}
+                        onRegisterPassword={true}
+                        />
                     <div className="d-flex justify-content-center">
                             <Button 
                             variant="success" 

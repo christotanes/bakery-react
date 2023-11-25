@@ -21,7 +21,7 @@ function ViewCart({ onCheckout }) {
             ))}
             <h3 className="text-center text-danger font-weight-bold mt-3">₱ {cart.totalAmount}</h3>
             
-            {(onCheckout === false || user.isAdmin === false) ? 
+            {(onCheckout === false) ? 
             <Button 
             variant="outline-primary" 
             as={Link} 

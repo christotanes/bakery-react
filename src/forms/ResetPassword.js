@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import UserContext from "../UserContext";
 import { SwalFireError, SwalFireSuccess } from "../util/SwalFire";
-import { ConfirmPasswordField, PasswordField } from "./InputFields";
+import { TextInputField } from "./InputFields";
 import HandleChange from "../util/Handlers";
 
 function ResetPassword() {
@@ -104,8 +104,28 @@ function ResetPassword() {
             </Modal.Header>
             <Form className="resetPassword">
             <Modal.Body className="my-3">
-                <PasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)} />
-                <ConfirmPasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)} />
+                <TextInputField
+                        id={'userPassword'}
+                        labelPlaceholder={'Password'}
+                        type={'password'}
+                        name={'password'}
+                        value={userInfo.password}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userInfo, setUserInfo, e)}
+                        onRegisterPassword={true}
+                        />
+                <TextInputField
+                        id={'confirmPassword'}
+                        labelPlaceholder={'Confirm Password'}
+                        type={'password'}
+                        name={'confirmPassword'}
+                        value={userInfo.confirmPassword}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userInfo, setUserInfo, e)}
+                        onRegisterPassword={false}
+                        />
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="danger" onClick={handleClose}>

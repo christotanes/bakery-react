@@ -1,22 +1,23 @@
 import { Form } from "react-bootstrap";
 
-export function EmailField ({ userInfo, disableInput, handleChange }) {
+export function TextInputField ({ id, labelPlaceholder, type, name, value, required, handleChange, disableInput, onRegisterPassword  }) {
     return (
-            <Form.Group controlId="userEmail">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Group controlId={id}>
+            <Form.Label>{labelPlaceholder}</Form.Label>
                 <Form.Control 
-                    type="email"
-                    name="email"
-                    value={userInfo.email}
-                    placeholder="Email Address" 
-                    required  
+                    type={type}
+                    name={name}
+                    value={value}
+                    placeholder={labelPlaceholder} 
+                    required={required}
                     onChange={handleChange} 
                     disabled={disableInput === true}/> 
+                    { !onRegisterPassword ? null : <Form.Text muted>Must be 8-20 characters long.</Form.Text> }
             </Form.Group>
     )
 }
 
-export function PasswordField({ userInfo, disableInput, handleChange, onRegister }) {
+export function PasswordField({ userInfo, disableInput, handleChange }) {
     return (
         <Form.Group controlId="userPassword">
         <Form.Label>Password</Form.Label>
@@ -28,7 +29,6 @@ export function PasswordField({ userInfo, disableInput, handleChange, onRegister
                 required 
                 onChange={handleChange} 
                 disabled={disableInput === true}/>
-            { onRegister === true ? <Form.Text muted>Must be 8-20 characters long.</Form.Text> : null }
         </Form.Group>
     )
 }

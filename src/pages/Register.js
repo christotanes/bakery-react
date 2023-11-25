@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image, CardFooter, Container } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
-import { ConfirmPasswordField, EmailField, PasswordField } from "../forms/InputFields.js";
+import { TextInputField, PasswordField } from "../forms/InputFields.js";
 import HandleChange from "../util/Handlers.js";
 import { SwalFireError, SwalFireSuccess } from "../util/SwalFire.js";
 
@@ -80,9 +80,40 @@ function Register() {
                     <CardTitle className="text-center">Register</CardTitle>
                     <Form className="justify-content-center mx-auto my-3" onSubmit={handleRegister}>
 
-                        <EmailField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
-                        <PasswordField disableInput={disableInput} userInfo={userInfo} onRegister={true} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
-                        <ConfirmPasswordField disableInput={disableInput} userInfo={userInfo} handleChange={e => HandleChange(userInfo, setUserInfo, e)}/>
+                        <TextInputField
+                        id={'userEmail'}
+                        labelPlaceholder={'Email Address'}
+                        name={'email'}
+                        type={'email'}
+                        value={userInfo.email}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userInfo, setUserInfo, e)}
+                        />
+
+                        <TextInputField
+                        id={'userPassword'}
+                        labelPlaceholder={'Password'}
+                        type={'password'}
+                        name={'password'}
+                        value={userInfo.password}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userInfo, setUserInfo, e)}
+                        onRegisterPassword={true}
+                        />
+
+                        <TextInputField
+                        id={'userConfirmPassword'}
+                        labelPlaceholder={'Confirm Password'}
+                        type={'password'}
+                        name={'confirmPassword'}
+                        value={userInfo.confirmPassword}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userInfo, setUserInfo, e)}
+                        onRegisterPassword={false}
+                        />
 
                         <div className="d-flex justify-content-center">
                                 <Button 

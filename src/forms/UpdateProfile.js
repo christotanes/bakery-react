@@ -4,16 +4,19 @@ import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { SwalFireError } from "../util/SwalFire.js";
 import Swal from "sweetalert2";
+import HandleChange from "../util/Handlers.js";
+import { TextInputField } from "./InputFields.js";
 
 function UpdateProfile({ onProfileUpdate, onProfile }) {
     const { user, userDetails, setUserDetails } = useContext(UserContext);
-    const [ firstName, setFirstName ] = useState(userDetails.firstName || '');
-    const [ lastName, setLastName ] = useState(userDetails.lastName || '');
-    const [ mobileNo, setMobileNo ] = useState(userDetails.mobileNo || '');
-    const [ img, setImg ] = useState(userDetails.img || '');
-    const [ houseNo, setHouseNo ] = useState(userDetails.address.houseNo || '');
-    const [ streetName, setStreetName ] = useState(userDetails.address.streetName || '');
-    const [ city, setCity ] = useState(userDetails.address.city || '');
+    const { firstName, lastName, mobileNo, img } = userDetails
+    // const [ firstName, setFirstName ] = useState(userDetails.firstName || '');
+    // const [ lastName, setLastName ] = useState(userDetails.lastName || '');
+    // const [ mobileNo, setMobileNo ] = useState(userDetails.mobileNo || '');
+    // const [ img, setImg ] = useState(userDetails.img || '');
+    // const [ houseNo, setHouseNo ] = useState(userDetails.address.houseNo || '');
+    // const [ streetName, setStreetName ] = useState(userDetails.address.streetName || '');
+    // const [ city, setCity ] = useState(userDetails.address.city || '');
 
     const [ isActive, setIsActive ] = useState(false);
     const [ loading, setLoading ] = useState(false);
@@ -26,17 +29,17 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
         setLoading(true);
         setDisableInput(true);
 
-        const userProfileData = {
-            firstName: firstName,
-            lastName: lastName,
-            mobileNo: Number(mobileNo),
-            address: {
-                houseNo: houseNo,
-                streetName: streetName,
-                city: city
-            },
-            img: img
-        }
+        // const userProfileData = {
+        //     firstName: firstName,
+        //     lastName: lastName,
+        //     mobileNo: Number(mobileNo),
+        //     address: {
+        //         houseNo: userDetails.houseNo,
+        //         streetName: userDetails.streetName,
+        //         city: city
+        //     },
+        //     img: img
+        // }
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${user.id}`, {
@@ -45,7 +48,7 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                     "Content-Type": "application/json",
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify(userProfileData)
+                body: JSON.stringify(user)
             });
 
             const data = await response.json();
@@ -63,13 +66,13 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                     img: data.img
                 })
                 
-                setFirstName('');
-                setLastName('');
-                setMobileNo('');
-                setHouseNo('');
-                setStreetName('');
-                setCity('');
-                setImg('');
+                // setFirstName('');
+                // setLastName('');
+                // setMobileNo('');
+                // setHouseNo('');
+                // setStreetName('');
+                // setCity('');
+                // setImg('');
                 setLoading(false);
                 setIsActive(false);
                 onProfileUpdate();
@@ -119,40 +122,40 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
     }
 
     useEffect(() => {
-        if((firstName !== '' && lastName !== '' && mobileNo !== '' && houseNo !== '' && streetName !== '' && city !== '' && img !== '') && (mobileNo.length === 11 && (/^\d{11}$/.test(mobileNo)))){
+        if((firstName !== '' && lastName !== '' && mobileNo !== '' && userDetails.address?.houseNo !== '' && userDetails.address?.streetName !== '' && userDetails.address?.city !== '' && img !== '') && (mobileNo.length === 11 && (/^\d{11}$/.test(mobileNo)))){
             setIsActive(true);
         } else {
             setIsActive(false)
         }
-    }, [firstName, lastName, mobileNo, houseNo, streetName, city, img, isActive])
+    }, [user, isActive])
 
     return (
         <Card className="w-100 m-3 shadow ">
             <Form onSubmit={e => handleUpdate(e)} className="mb-3">
             <Row className="mx-3 mt-3">
                 <Col md={6}>
-                    <Form.Group controlId="firstName">
-                        <Form.Label>First Name</Form.Label>
-                            <Form.Control 
-                            type="text"
-                            placeholder="First Name"
-                            required
-                            value={firstName}
-                            onChange={e => setFirstName(e.target.value)}
-                            disabled={disableInput === true}/>
-                    </Form.Group>
+                    <TextInputField
+                        id={'firstName'}
+                        labelPlaceholder={'First Name'}
+                        type={'text'}
+                        name={'firstName'}
+                        value={firstName}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userDetails, setUserDetails, e)}
+                        />
                 </Col>
                 <Col md={6}>
-                    <Form.Group controlId="lastName">
-                        <Form.Label>Last Name</Form.Label>
-                            <Form.Control 
-                            type="text"
-                            placeholder="Last Name"
-                            required
-                            value={lastName}
-                            onChange={e => setLastName(e.target.value)}
-                            disabled={disableInput === true}/>
-                    </Form.Group>
+                    <TextInputField
+                        id={'lastName'}
+                        labelPlaceholder={'Last Name'}
+                        type={'text'}
+                        name={'lastName'}
+                        value={lastName}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userDetails, setUserDetails, e)}
+                        />
                 </Col>
             </Row>
             <Row className="mx-3 mt-3">
@@ -164,7 +167,7 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                         placeholder="Mobile Number"
                         required
                         value={mobileNo}
-                        onChange={e => setMobileNo(e.target.value)}
+                        onChange={e => HandleChange(e.target.value)}
                         disabled={disableInput === true}/>
                     <Form.Text id="mobileNoHelpBlock" muted>
                         Your mobileNo must be 11 numerical digits, no spaces or dashes in between.
@@ -175,61 +178,58 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
                 
             <Row className="mx-3 mt-3">
                 <Col md={6}>
-                    <Form.Group controlId="houseNo">
-                    <Form.Label>House No.</Form.Label>
-                        <Form.Control 
-                        type="text"
-                        placeholder="House Number"
-                        required
-                        value={houseNo}
-                        onChange={e => setHouseNo(e.target.value)}
-                        disabled={disableInput === true}/>
-                    </Form.Group>
+                    <TextInputField
+                        id={'houseNo'}
+                        labelPlaceholder={'House No.'}
+                        type={'text'}
+                        name={'address.houseNo'}
+                        value={userDetails.address?.houseNo}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userDetails, setUserDetails, e)}
+                        />
                 </Col>
                 <Col md={6}>
-                    <Form.Group controlId="streetName">
-                    <Form.Label>Street Name</Form.Label>
-                    <Form.Control 
-                    type="text"
-                    placeholder="Street Name"
-                    required
-                    value={streetName}
-                    onChange={e => setStreetName(e.target.value)}
-                    disabled={disableInput === true}/>
-                    </Form.Group>
+                    <TextInputField
+                        id={'streetName'}
+                        labelPlaceholder={'Street Name'}
+                        type={'text'}
+                        name={'address.streetName'}
+                        value={userDetails.address?.streetName}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userDetails, setUserDetails, e)}
+                        />
                 </Col>
             </Row>
 
             <Row className="mx-3 mt-3">
                 <Col md={6}>
-                    <Form.Group controlId="city">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control 
-                    type="text"
-                    placeholder="City Name"
-                    required
-                    value={city}
-                    onChange={e => setCity(e.target.value)}
-                    disabled={disableInput === true}/>
-                    </Form.Group>
+                    <TextInputField
+                        id={'city'}
+                        labelPlaceholder={'City'}
+                        type={'text'}
+                        name={'address.city'}
+                        value={userDetails.address?.city}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userDetails, setUserDetails, e)}
+                        />
                 </Col>
             </Row>
                 
             <Row className="mx-3 mt-3">
                 <Col md={6} className="mx-auto">
-                    <Form.Group controlId="img">
-                    <Form.Label>Profile Pic Link</Form.Label>
-                    <Form.Control 
-                    type="text"
-                    placeholder="Image URL Link"
-                    required
-                    value={img}
-                    onChange={e => setImg(e.target.value)}
-                    disabled={disableInput === true}/>
-                    <Form.Text id="mobileNoHelpBlock" muted>
-                        Don't worry we can provide a default profile picture if you don't have one right now!
-                    </Form.Text>
-                    </Form.Group>
+                    <TextInputField
+                        id={'img'}
+                        labelPlaceholder={'Profile Pic URL link'}
+                        type={'text'}
+                        name={'img'}
+                        value={img}
+                        required={true}
+                        disableInput={disableInput} 
+                        handleChange={e => HandleChange(userDetails, setUserDetails, e)}
+                        />
                 </Col>
             </Row>
 
