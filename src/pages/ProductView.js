@@ -6,6 +6,7 @@ import Error from "./Error";
 import AddToCart from "../components/user/AddToCart";
 import UserContext from "../UserContext";
 import Products from "./Products";
+import { LazyLoad } from "../util/LazyLoad";
 
 function ProductView() {
     const { user } = useContext(UserContext);
@@ -87,13 +88,13 @@ function ProductView() {
         <Container id="productView">
             <Row className="my-3 productBannerRow">
                 <Col xs={12} className="d-flex justify-content-center my-3">
-                    <Image src={imgBanner} className="productBanner shadow-lg productViewImage" style={{background: `url('${imgBannerLqip}'), contain`}}/>
+                <LazyLoad image={imgBanner} imageLqip={imgBannerLqip} alt={name} width={`500`} height={`200`} className={"productBanner shadow-lg productViewImage"}/>
                 </Col>
             </Row>
             <Row className="my-4">
                 <Col md={5} className="d-flex justify-content-center">
                     <Card style={{ width: '18rem' }} className="shadow">
-                    <Card.Img variant="top" src={img} style={{background: `url('${imgLqip}'), contain`}}className="productViewImage"/>
+                    <LazyLoad image={img} imageLqip={imgLqip} alt={name} width={`100%`} height={`100%`} className={"productViewImage"}/>
                     <Card.Body>
                         <Card.Title>{name}</Card.Title>
                         <h5 className="mt-2 text-end text-danger border-bottom mb-3">₱ {price}</h5>

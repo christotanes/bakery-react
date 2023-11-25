@@ -1,13 +1,7 @@
 import './App.css';
-// import AddProduct from './pages/AddProduct';
 import AppNavbar from "./components/layout/AppNavbar";
-// import Error from "./pages/Error";
-// import Home from './pages/Home';
+import Footer from './components/layout/Footer';
 import Login from './pages/Login';
-// import Logout from './pages/Logout';
-// import Products from './pages/Products';
-// import Register from './pages/Register';
-// import ProductView from './pages/ProductView';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useEffect, useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
@@ -161,6 +155,7 @@ const App = () => {
                 <Route path='/register' element={<Register/>}/>
                 <Route path='*' element={<Error/>}/> 
             </Routes>
+            <Footer />
           </Suspense>
         </Router>
       </UserProvider>

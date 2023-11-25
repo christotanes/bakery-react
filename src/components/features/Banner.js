@@ -1,7 +1,7 @@
 import { Carousel, Image } from "react-bootstrap";
+import { LazyLoad } from "../../util/LazyLoad";
 
 function Banner({ activeProducts }) {
-
     return (
         <>
         <Carousel className="pt-3 shadow-lg aboveLanding ms-auto">
@@ -9,7 +9,7 @@ function Banner({ activeProducts }) {
             if(product.featured === true) {
                 return (
             <Carousel.Item key={product._id} className="justify-content-center">
-            <Image src={product.imgBanner} text={product.name} className="img-fluid rounded" style={{background: `url('${product.imgBannerLqip}'), contain`}}/>
+            <LazyLoad image={product.imgBanner} imageLqip={product.imgBannerLqip} alt={product.name} width={`100%`} height={`auto`}/>
             </Carousel.Item>)
         }})}
         </Carousel>

@@ -28,13 +28,14 @@ function AllProducts({ products, getAllProducts}) {
                 
             </tr>
             <tr>
-                <td className="text-center"><Button
+                <td className="text-center">
+                    <Button
                     onClick={(e) => (toggleOpen(product._id), handleCollapse(e))}
                     aria-controls={`collapse-text-${product._id}`}
-                    aria-expanded={openStates[product._id]}
-                    >
+                    aria-expanded={openStates[product._id]}>
                     {isOpen === false ? "Open" : "Close"}
-                </Button></td>
+                    </Button>
+                </td>
                 <td>{product._id}</td>
                 <td style={{width: '40%'}}>{product.description}</td>
                 <td className="text-center">₱ {product.price}</td>

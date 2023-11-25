@@ -21,7 +21,7 @@ function UserView({ activeProducts }) {
         <>  
             <Row>
                 <Col className="mb-auto my-3 mx-auto d-flex justify-content-center">
-                <ButtonGroup aria-label="Product Categories" size="lg" className="shadow">
+                <ButtonGroup aria-label="Product Categories" size="md-lg xs-sm" className="shadow">
                     <Button variant="primary" disabled={userView === 'all'} onClick={() => setUserView('all')}>All Products</Button>
                     <Button variant="primary" disabled={userView === 'cake'} onClick={() => setUserView('cake')}>Cakes</Button>
                     <Button variant="primary" disabled={userView === 'bread'} onClick={() => setUserView('bread')}>Breads</Button>

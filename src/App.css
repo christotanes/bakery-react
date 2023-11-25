@@ -32,17 +32,38 @@
   }
 }
 
-.register, .login, #checkout, .error, #landing {
+.register, .login, #checkout, .error {
   background: #ffc800;
   height: 100vh;
 }
 
-#products, #addProduct, .productBannerRow, #profile, .resetPassword, #bread {
+#landing {
+  background-image: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('https://drive.google.com/uc?id=1T4hn_g987UD5mjm32tqotXTW11Acm-2J');
+    /* https://drive.google.com/uc?id=1Xd4qs1d8JnfCEu-Mib9jpb_2h_bHQIp1 */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: fill;
+  height: 95vh;
+}
+
+#products,  #landing, #addProduct, .productBannerRow, #profile, .resetPassword {
   background-color: #ffc800;
 }
 
 .bannerImage, .registerCard, .loginCard {
   animation: fromBottom 1s linear 1;
+}
+.bannerTitle {
+  animation: fromLeft 1.5s linear 1;
+}
+
+.bannerSubtitle {
+  animation: fromRight 1.5s linear 1;
 }
 
 @keyframes fromBottom {
@@ -58,20 +79,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.bannerImage {
-  width: auto;
-  height: 700px;
-}
-
-
-.bannerTitle {
-  animation: fromLeft 1.5s linear 1;
-}
-
-.bannerSubtitle {
-  animation: fromRight 1.5s linear 1;
 }
 
 @keyframes fromLeft {
@@ -120,8 +127,6 @@
 }
 
 .productBanner {
-  width: 500px;
-  height: 200px;
   margin: auto;
 }
 

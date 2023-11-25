@@ -1,6 +1,6 @@
 // import Button from 'react-bootstrap/Button';
 import { useContext } from 'react';
-import {Container, Form, Button, Nav, Navbar, NavDropdown, Offcanvas, Image} from 'react-bootstrap';
+import {Container, Form, Button, Nav, Navbar, NavDropdown, Image} from 'react-bootstrap';
 import UserContext from '../../UserContext';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function AppNavbar() {
     <>
         {['lg'].map((expand) => (
             <Navbar key={expand} expand={expand} bg="dark" data-bs-theme="dark">
-                <Container fluid className='mb-0'>
+                <Container className='mb-0'>
                     <Navbar.Brand as={Link} to="/" exact>
                         <Image
                             src="https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is"

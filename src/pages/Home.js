@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import Banner from "../components/features/Banner";
 import Highlights from "../components/features/Highlights";
-import { Container, Row, Col } from "react-bootstrap";
 import Landing from "../components/features/Landing";
 import { getRandomProductsOfType } from "../util/RandomNumber.js";
 
@@ -51,17 +51,20 @@ function Home() {
     return (
         <>
         <Container fluid id="landing" className="overflow-hidden">
-            <Banner activeProducts={ activeProducts } />
-            <Landing landingText={landingText}/>
+            <Landing landingText={ landingText }/>
         </Container>
-        <Container fluid id="featured" className="my-3">
+        <Container id="banner">
+            <Banner activeProducts={ activeProducts } />
+        </Container>
+        
+        <Container id="featured" className="my-3">
             <section id="cakes">
-            <Row className="pt-3 ms-3 ps-3">
-                <Col className="ms-3">
+            <Row className="pt-3">
+                <Col>
                     <h3>Add a Dash of Delight to Your Celebrations with Our Exquisite Cake Collection!</h3>
                 </Col>
             </Row>
-            <Row className="mt-3 ms-5 ps-3">
+            <Row className="mt-3">
                 {cakesFeatured.map(product => (
                     <Highlights key={product._id} data={product} />
                 ))}
@@ -69,12 +72,12 @@ function Home() {
             </section>
 
             <section id="breads">
-            <Row className="pt-3 ms-3 ps-3">
-                <Col className="ms-3">
+            <Row className="pt-3">
+                <Col>
                     <h3>Start Your Day with a Smile: Our Breads Bring the Warmth of Sunrise to Your Mornings!</h3>
                 </Col>
             </Row>
-            <Row className="my-3 ms-5 ps-3">
+            <Row className="my-3">
             {breadsFeatured.map((product) => (
                     <Highlights key={product._id} data={product} />
                 ))}
@@ -82,12 +85,12 @@ function Home() {
             </section>
 
             <section id="snacks">
-                <Row className="py-3 ms-3 ps-3">
-                    <Col className="ms-3">
+                <Row className="py-3">
+                    <Col>
                         <h3>Delight in Fun-Filled Snacking Moments with the Kids with Our Joyful Assortment of Snacks!</h3>
                     </Col>
                 </Row>
-                <Row className="my-3 ms-5 ps-3">
+                <Row className="my-3">
                 {snacksFeatured.map((product) => (
                     product.type === "Snack" && <Highlights key={product._id} data={product} />
                     ))}

@@ -6,7 +6,7 @@ import UserProfileDetails from "../components/user/UserProfileDetails";
 import { SwalFireError, SwalFireSuccess } from "../util/SwalFire";
 
 function CheckoutForm() {
-    const { setCart, userDetails } = useContext(UserContext);
+    const { setCart } = useContext(UserContext);
     const [ isActive, setIsActive ] = useState(false);
     const [ loading, setLoading ] = useState(false);
     const [ paymentInfo, setPaymentInfo ] = useState('');
@@ -22,7 +22,7 @@ function CheckoutForm() {
         const userPaymentInfo = {
             paymentInfo: paymentInfo
         }
-        console.log(`UserPaymentInfo: ${JSON.stringify(userPaymentInfo)}`)
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/cart/checkout`, {
                 method: "POST",

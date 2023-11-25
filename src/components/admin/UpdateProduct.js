@@ -3,7 +3,6 @@ import AddEditForm from "../../forms/AddEditForm";
 import { SwalFireError, SwalFireSuccess } from "../../util/SwalFire";
 
 function EditProduct({ product, getAllProducts }) {
-    const [error, setError] = useState(null);
     const [ loading, setLoading] = useState(false);
     const [ isActive, setIsActive ] = useState(false);
     const [ disableInput, setDisableInput ] = useState(false);
@@ -38,7 +37,6 @@ function EditProduct({ product, getAllProducts }) {
                 setDisableInput(false);
             }
         } catch (error) {
-            setError(error.message);
             const title = 'Failed to Update Product';
             const text = `Please try again later. Error: ${error}`;
             SwalFireError(title, text);
