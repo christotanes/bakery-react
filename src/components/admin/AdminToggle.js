@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import { SwalFireError, SwalFireSuccess } from "../../util/SwalFire";
+import { SwalFireError, SwalFireSuccess } from "../../common/SwalFire";
 
 export function AdminToggle({ user, isAdmin, getAllUsers}) {
 

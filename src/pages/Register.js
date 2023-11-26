@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Button, Card, CardBody, Form, Row, Col, CardTitle, Image, CardFooter, Container } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { TextInputField, PasswordField } from "../forms/InputFields.js";
-import HandleChange from "../util/Handlers.js";
-import { SwalFireError, SwalFireSuccess } from "../util/SwalFire.js";
+import HandleChange from "../common/Handlers.js";
+import { SwalFireError, SwalFireSuccess } from "../common/SwalFire.js";
 
 function Register() {
     const [ userInfo, setUserInfo ] = useState({

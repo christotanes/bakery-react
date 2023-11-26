@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddEditForm from "../../forms/AddEditForm";
-import { SwalFireSuccess, SwalFireError } from "../../util/SwalFire";
+import { SwalFireSuccess, SwalFireError } from "../../common/SwalFire";
 
 function AddProduct({ getAllProducts }) {
     const [loading, setLoading] = useState(false);

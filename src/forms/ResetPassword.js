@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import UserContext from "../UserContext";
-import { SwalFireError, SwalFireSuccess } from "../util/SwalFire";
+import { SwalFireError, SwalFireSuccess } from "../common/SwalFire";
 import { TextInputField } from "./InputFields";
-import HandleChange from "../util/Handlers";
+import HandleChange from "../common/Handlers";
 
 function ResetPassword() {
     const { user } = useContext(UserContext);

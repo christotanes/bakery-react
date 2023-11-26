@@ -1,6 +1,6 @@
 import { Col, Card, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { LazyLoad } from "../../util/LazyLoad";
+import { LazyLoad } from "../../common/util/LazyLoad";
 
 export function ActiveProductCols( { activeProducts } ) {
     const productsCols = activeProducts.map((product) => (

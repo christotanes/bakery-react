@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../UserContext.js";
 import { Button, Card, Col, Form, Spinner, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { SwalFireError } from "../util/SwalFire.js";
+import { SwalFireError } from "../common/SwalFire.js";
 import Swal from "sweetalert2";
-import HandleChange from "../util/Handlers.js";
+import HandleChange from "../common/Handlers.js";
 import { TextInputField } from "./InputFields.js";
 
 function UpdateProfile({ onProfileUpdate, onProfile }) {

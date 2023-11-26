@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import UserContext from "../../UserContext"
 import { Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { SwalFireError, SwalFireSuccess } from "../../util/SwalFire";
+import { SwalFireError, SwalFireSuccess } from "../../common/SwalFire";
 
 function AddToCart({ productId, productName, productPrice, productToCart, getProductById, setProductToCartData, productImgLqip, productImg }) {
     const { setProductToCart } = setProductToCartData;

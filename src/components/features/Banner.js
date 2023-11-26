@@ -1,5 +1,5 @@
 import { Carousel, Image } from "react-bootstrap";
-import { LazyLoad } from "../../util/LazyLoad";
+import { LazyLoad } from "../../common/util/LazyLoad";
 
 function Banner({ activeProducts }) {
     return (

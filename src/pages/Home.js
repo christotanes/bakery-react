@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Banner from "../components/features/Banner";
 import Highlights from "../components/features/Highlights";
 import Landing from "../components/features/Landing";
-import { getRandomProductsOfType } from "../util/RandomNumber.js";
+import { getRandomProductsOfType } from "../common/util/RandomNumber.js";
 
 function Home() {
     const [ activeProducts, setActiveProducts ] = useState([]);

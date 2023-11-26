@@ -1,6 +1,6 @@
 import { Button, Row, Col, ButtonGroup } from "react-bootstrap";
 import ViewCart from "./ViewCart";
-import { getAscendingProductsOfType } from "../../util/RandomNumber.js";
+import { getAscendingProductsOfType } from "../../common/util/RandomNumber.js";
 import { ActiveProductCols } from "./ActiveProductCols.js";
 import { useEffect, useState } from "react";
 

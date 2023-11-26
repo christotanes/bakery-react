@@ -3,8 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import UserContext from "../UserContext";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { TextInputField } from "../forms/InputFields.js";
-import HandleChange from "../util/Handlers.js";
-import { SwalFireError, SwalFireSuccess } from "../util/SwalFire.js";
+import HandleChange from "../common/Handlers.js";
+import { SwalFireError, SwalFireSuccess } from "../common/SwalFire.js";
 
 function Login({ checkLocalToken }) {
     const { user } = useContext(UserContext);

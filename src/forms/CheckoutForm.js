@@ -3,7 +3,7 @@ import UserContext from "../UserContext";
 import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import UserProfileDetails from "../components/user/UserProfileDetails";
-import { SwalFireError, SwalFireSuccess } from "../util/SwalFire";
+import { SwalFireError, SwalFireSuccess } from "../common/SwalFire";
 
 function CheckoutForm() {
     const { setCart } = useContext(UserContext);
