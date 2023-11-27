@@ -34,7 +34,7 @@ function Home() {
         getProducts();
         console.log(activeProducts)
         console.log(isNull)
-});
+    }, []);
 
     useEffect(() => {
         if (activeProducts.length > 0) {

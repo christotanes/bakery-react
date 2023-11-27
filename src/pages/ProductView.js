@@ -43,7 +43,7 @@ function ProductView() {
 
     useEffect(() => {
         getProductById();
-    });
+    }, []);
 
     if (loading) {
         return <Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>

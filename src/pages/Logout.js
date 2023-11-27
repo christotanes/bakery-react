@@ -31,7 +31,7 @@ function Logout() {
         console.log(`This is logout, user: ${user}`)
         console.log(`This is logout, cart: ${cart}`)
         console.log(`This is localStorage: ${localStorage.getItem('token')}`)
-    })
+    }, [])
     
     console.log(`This is Logout: ${localStorage.getItem('token')}`)
     return (
