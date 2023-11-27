@@ -6,6 +6,7 @@ import { SwalFireError } from "../common/SwalFire.js";
 import Swal from "sweetalert2";
 import HandleChange from "../common/Handlers.js";
 import { TextInputField } from "./InputFields.js";
+import 'dotenv/config'
 
 function UpdateProfile({ onProfileUpdate, onProfile }) {
     const { user, userDetails, setUserDetails } = useContext(UserContext);

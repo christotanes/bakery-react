@@ -7,6 +7,7 @@ import AddToCart from "../components/user/AddToCart";
 import UserContext from "../UserContext";
 import Products from "./Products";
 import { LazyLoad } from "../common/util/LazyLoad";
+import 'dotenv/config'
 
 function ProductView() {
     const { user } = useContext(UserContext);

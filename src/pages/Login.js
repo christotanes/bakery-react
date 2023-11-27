@@ -5,6 +5,7 @@ import { Navigate, useNavigate, Link } from "react-router-dom";
 import { TextInputField } from "../forms/InputFields.js";
 import HandleChange from "../common/Handlers.js";
 import { SwalFireError, SwalFireSuccess } from "../common/SwalFire.js";
+import 'dotenv/config'
 
 function Login({ checkLocalToken }) {
     const { user } = useContext(UserContext);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddEditForm from "../../forms/AddEditForm";
 import { SwalFireSuccess, SwalFireError } from "../../common/SwalFire";
+import 'dotenv/config'
 
 function AddProduct({ getAllProducts }) {
     const [loading, setLoading] = useState(false);
