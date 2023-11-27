@@ -30,7 +30,7 @@ function AllProducts({ products, getAllProducts}) {
             <tr>
                 <td className="text-center">
                     <Button
-                    onClick={(e) => ((toggleOpen(product._id)) (handleCollapse(e)))}
+                    onClick={(e) => ((toggleOpen(product._id)), (handleCollapse(e)))}
                     aria-controls={`collapse-text-${product._id}`}
                     aria-expanded={openStates[product._id]}>
                     {isOpen === false ? "Open" : "Close"}
