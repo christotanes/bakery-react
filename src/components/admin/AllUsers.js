@@ -16,7 +16,6 @@ function AllUsers() {
     };
 
     const getAllUsers = () => {
-        setIsNull(true);
         fetch(`${process.env.REACT_APP_API_URL}/users/`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

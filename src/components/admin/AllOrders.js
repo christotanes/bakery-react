@@ -21,7 +21,6 @@ function AllOrders() {
     }, [isNull])
 
     const getAllOrders = () => {
-        setIsNull(true);
         fetch(`${process.env.REACT_APP_API_URL}/orders/all`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

@@ -21,7 +21,6 @@ function ProductView() {
     const [ isNull, setIsNull ] = useState(true);
 
     const getProductById = async () => {
-        setLoading(true)
         try {
             const productResponse = await fetch(`${process.env.REACT_APP_API_URL}/products/${ productId }`);
 
