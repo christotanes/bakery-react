@@ -31,7 +31,7 @@ function AllUsers() {
 
     useEffect(() => {
         getAllUsers();
-    }, [])
+    }, [isNull, getAllUsers])
 
     const allUsersTable = allUsers.map((user) => (
         <tbody key={user._id}>

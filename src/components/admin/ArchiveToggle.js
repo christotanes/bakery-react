@@ -1,5 +1,4 @@
 import { Button } from "react-bootstrap";
-import Swal from 'sweetalert2';
 import { SwalFireError, SwalFireSuccess } from "../../common/SwalFire";
 
 function ArchiveToggle({ product, getAllProducts, isActive }) {

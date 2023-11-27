@@ -21,7 +21,7 @@ export function OrderToggle({ order, orderStatus, getAllOrders }) {
                 body: JSON.stringify(orderIsComplete)
             })
 
-            const data = await response.json();
+            // const data = await response.json();
 
             if (response.ok) {
                 getAllOrders();

@@ -48,7 +48,7 @@ const App = () => {
 
   useEffect(() => {
     checkLocalToken();
-  }, [isNull])
+  }, [isNull, checkLocalToken])
 
   const checkLocalToken = async () => {
     console.log(`This is CHECKLOCALTOKEN at app.js`);

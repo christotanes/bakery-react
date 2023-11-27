@@ -4,7 +4,6 @@ import { SwalFireSuccess, SwalFireError } from "../../common/SwalFire";
 
 function AddProduct({ getAllProducts }) {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     const [ isActive, setIsActive ] = useState(false);
     const [ disableInput, setDisableInput ] = useState(false);
@@ -41,7 +40,7 @@ function AddProduct({ getAllProducts }) {
                 setDisableInput(false);
             }
         } catch (error) {
-            setError(error.message);
+            console.error(`Error: ${error}`)
         } finally {
             setDisableInput(false);
             closeModal();

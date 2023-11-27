@@ -127,7 +127,7 @@ function UpdateProfile({ onProfileUpdate, onProfile }) {
         } else {
             setIsActive(false)
         }
-    }, [user, isActive])
+    }, [isActive, firstName, lastName, mobileNo, userDetails.address?.houseNo, userDetails.address?.streetName, userDetails.address?.city, img ])
 
     return (
         <Card className="w-100 m-3 shadow ">

@@ -32,8 +32,7 @@ function Home() {
 
     useEffect(() =>{
         getProducts();
-        console.log(activeProducts)
-    }, [isNull]);
+    }, [isNull, getProducts]);
 
     useEffect(() => {
         if (activeProducts.length > 0) {

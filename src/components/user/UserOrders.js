@@ -46,7 +46,7 @@ function UserOrders() {
 
     useEffect(() => {
         fetchUserOrders();
-    }, [isNull])
+    }, [isNull, fetchUserOrders])
     
     const ordersTable = userOrders.map((order) => (
         <tbody key={order._id}>

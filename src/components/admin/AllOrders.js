@@ -31,7 +31,7 @@ function AllOrders() {
 
     useEffect(() => {
         getAllOrders();
-    }, [])
+    }, [isNull, getAllOrders])
 
     const allOrdersTable = allOrders.map((order) => (
         <tbody key={order._id}>

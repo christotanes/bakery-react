@@ -84,7 +84,7 @@ function ResetPassword() {
         } else {
             setIsActive(false);
         }
-    })
+    }, [userInfo.password, userInfo.confirmPassword])
 
     return(
         <>
