@@ -15,6 +15,11 @@ function AllOrders() {
         }));
     };
 
+    useEffect(() => {
+        getAllOrders();
+        console.log(isNull)
+    })
+
     const getAllOrders = () => {
         setIsNull(true);
         fetch(`${process.env.REACT_APP_API_URL}/orders/all`, {
@@ -28,10 +33,6 @@ function AllOrders() {
             console.log(allOrders)
         })
     }
-
-    useEffect(() => {
-        getAllOrders();
-    }, [isNull, getAllOrders])
 
     const allOrdersTable = allOrders.map((order) => (
         <tbody key={order._id}>

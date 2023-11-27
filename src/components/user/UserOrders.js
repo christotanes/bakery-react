@@ -4,7 +4,7 @@ import { formatDate } from "../../common/util/FormatDate";
 
 function UserOrders() {
     const [ userOrders, setUserOrders ] = useState([]);
-    const [ isNull, setIsNull ] = useState(true)
+    // const [ isNull, setIsNull ] = useState(true)
     const [ openStates, setOpenStates ] = useState({});
     const toggleOpen = (orderId) => {
         setOpenStates(prevStates => ({
@@ -28,7 +28,6 @@ function UserOrders() {
                 const data = await response.json();
                 if(data) {
                     setUserOrders(data);
-                    setIsNull(false);
                     console.log(`UserOrders: ${userOrders}`)
                 } else if (retryCount < MAX_RETRIES) {
                     fetchUserOrders(retryCount + 1);
@@ -46,7 +45,7 @@ function UserOrders() {
 
     useEffect(() => {
         fetchUserOrders();
-    }, [isNull, fetchUserOrders])
+    })
     
     const ordersTable = userOrders.map((order) => (
         <tbody key={order._id}>

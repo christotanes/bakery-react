@@ -40,7 +40,7 @@ function AddProduct({ getAllProducts }) {
                 setDisableInput(false);
             }
         } catch (error) {
-            console.error(`Error: ${error}`)
+            console.error(`${error}`)
         } finally {
             setDisableInput(false);
             closeModal();

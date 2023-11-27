@@ -32,7 +32,9 @@ function Home() {
 
     useEffect(() =>{
         getProducts();
-    }, [isNull, getProducts]);
+        console.log(activeProducts)
+        console.log(isNull)
+});
 
     useEffect(() => {
         if (activeProducts.length > 0) {
