@@ -18,6 +18,7 @@ function ProductView() {
     const [ productLeft, setProductLeft ] = useState(10);
     const [ disableAdd, setDisableAdd ] = useState(false);
     const [ disableMinus, setDisableMinus ] = useState(true);
+    const [ isNull, setIsNull ] = useState(true);
 
     const getProductById = async () => {
         setLoading(true)
@@ -35,6 +36,7 @@ function ProductView() {
             setError(error.message);
         } finally {
             setLoading(false)
+            setIsNull(false)
         }
     } 
 
@@ -43,7 +45,7 @@ function ProductView() {
 
     useEffect(() => {
         getProductById();
-    }, []);
+    }, [isNull]);
 
     if (loading) {
         return <Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>

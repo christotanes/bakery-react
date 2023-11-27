@@ -18,7 +18,7 @@ function AllOrders() {
     useEffect(() => {
         getAllOrders();
         console.log(isNull)
-    }, [])
+    }, [isNull])
 
     const getAllOrders = () => {
         setIsNull(true);

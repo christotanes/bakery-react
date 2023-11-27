@@ -59,7 +59,7 @@ function Products() {
         } else {
             getUserProducts();
         }
-    }, [user])
+    }, [user.isAdmin])
 
     return(
         <>
