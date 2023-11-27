@@ -4,7 +4,6 @@ import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import UserProfileDetails from "../components/user/UserProfileDetails";
 import { SwalFireError, SwalFireSuccess } from "../common/SwalFire";
-import 'dotenv/config'
 
 function CheckoutForm() {
     const { setCart } = useContext(UserContext);

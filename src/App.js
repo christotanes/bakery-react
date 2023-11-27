@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useEffect, useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Image } from 'react-bootstrap';
-import 'dotenv/config'
 
 const Checkout = React.lazy(() => import('./pages/Checkout'))
 const Error = React.lazy(() => import('./pages/Error'));

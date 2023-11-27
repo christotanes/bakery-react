@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { formatDate } from "../../common/util/FormatDate";
 import { Table, Button, Collapse, Card, Image } from "react-bootstrap";
 import { AdminToggle } from "./AdminToggle";
-import 'dotenv/config'
 
 function AllUsers() {
     const [ allUsers, setAllUsers ] = useState([]);

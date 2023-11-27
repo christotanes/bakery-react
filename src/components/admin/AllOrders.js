@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { formatDate } from "../../common/util/FormatDate";
 import { Table, Button, Collapse, Card } from "react-bootstrap";
 import { OrderToggle } from "./OrderStatus";
-import 'dotenv/config'
 
 function AllOrders() {
     const [ allOrders, setAllOrders ] = useState([]);

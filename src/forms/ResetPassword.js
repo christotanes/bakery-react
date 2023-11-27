@@ -4,7 +4,6 @@ import UserContext from "../UserContext";
 import { SwalFireError, SwalFireSuccess } from "../common/SwalFire";
 import { TextInputField } from "./InputFields";
 import HandleChange from "../common/Handlers";
-import 'dotenv/config'
 
 function ResetPassword() {
     const { user } = useContext(UserContext);

@@ -1,6 +1,5 @@
 import { Button } from "react-bootstrap";
 import { SwalFireError, SwalFireSuccess } from "../../common/SwalFire";
-import 'dotenv/config'
 
 function ArchiveToggle({ product, getAllProducts, isActive }) {
 

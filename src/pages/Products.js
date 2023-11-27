@@ -3,7 +3,6 @@ import UserContext from "../UserContext";
 import AdminView from "../components/admin/AdminView";
 import UserView from "../components/user/UserView";
 import { Container } from "react-bootstrap";
-import 'dotenv/config'
 
 function Products() {
     const { user } = useContext(UserContext);

@@ -1,6 +1,5 @@
 import { Button } from "react-bootstrap";
 import { SwalFireError, SwalFireSuccess } from "../../common/SwalFire";
-import 'dotenv/config'
 
 export function OrderToggle({ order, orderStatus, getAllOrders }) {
 
