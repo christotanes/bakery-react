@@ -48,3 +48,44 @@ export function ConfirmPasswordField({ userInfo, disableInput, handleChange } ) 
         </Form.Group>
     )
 }
+
+// Used on /forms/AddReview.js
+export function RatingField({ review, setReview, disableInput, HandleReviewchange }) {
+    return (
+        <Form.Group controlId="userReview">
+            <Form.Label>Rating:</Form.Label>
+            <Form.Control
+            type="select"
+            name="rating"
+            value={review.rating}
+            onChange={e => HandleReviewchange(review, setReview, e)}
+            disabled={disableInput === true}
+            required> 
+                <option value={0}>Select Rating</option>
+                <option value={5}>5</option>
+                <option value={4}>4</option>
+                <option value={3}>3</option>
+                <option value={2}>2</option>
+                <option value={1}>1</option>
+            </Form.Control>
+        </Form.Group>
+    )
+}
+
+// Used on /forms/AddReview.js
+export function RatingMessageField({ review, setReview, disableInput, HandleReviewchange }) {
+    return (
+        <Form.Group controlId="messageReview">
+            <Form.Label>Review:</Form.Label>
+            <Form.Control
+            as="textarea"
+            name="messageReview"
+            rows={3}
+            placeholder="Leave your review here"
+            value={review.message}
+            onChange={e => HandleReviewchange(review, setReview, e)}
+            disabled={disableInput === true}
+            required />
+        </Form.Group>
+    )
+}

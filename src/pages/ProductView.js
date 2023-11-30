@@ -2,48 +2,35 @@ import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Card, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import Error from "./Error";
-import AddToCart from "../components/user/AddToCart";
-import UserContext from "../UserContext";
-import Products from "./Products";
 import { LazyLoad } from "../common/util/LazyLoad";
+import AddToCart from "../components/user/AddToCart";
+import AllReviews from "../components/Reviews";
+import { AverageRating } from "../common/util/AverageRating";
+import Error from "./Error";
+import { handleAddToCart, handldeRemoveToCart } from "../common/Handlers";
+import Products from "./Products";
+import UserContext from "../UserContext";
+import { GetProductById } from "../components/fetches/GetProductById";
 
 function ProductView() {
     const { user } = useContext(UserContext);
     const { productId } = useParams();
     const [ product, setProduct ] = useState('');
+    const [ productReviews, setProductReviews ] = useState([]);
     const [ loading, setLoading] = useState(false);
     const [ error, setError] = useState(null);
+    const [ isNull, setIsNull ] = useState(true);
+
     const [ productToCart, setProductToCart ] = useState(0);
     const [ productLeft, setProductLeft ] = useState(10);
     const [ disableAdd, setDisableAdd ] = useState(false);
     const [ disableMinus, setDisableMinus ] = useState(true);
-    const [ isNull, setIsNull ] = useState(true);
-
-    const getProductById = async () => {
-        try {
-            const productResponse = await fetch(`${process.env.REACT_APP_API_URL}/products/${ productId }`);
-
-            const data = await productResponse.json();
-
-            if(productResponse.ok){
-                setProduct(data);
-                setProductLeft(data.quantity)
-                console.log(product)
-            }
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false)
-            setIsNull(false)
-        }
-    } 
 
     const { _id, name, description, price, quantity, type, size, flavors, allergens, weight, vegetarian, bestBefore, deliveryAvailable, img, imgBanner, imgLqip, imgBannerLqip } = product;
     const subTotal = productToCart * price;
 
     useEffect(() => {
-        getProductById();
+        GetProductById(productId, product, setProduct, setProductLeft, productReviews, setProductReviews, setError, setLoading, setIsNull);
     }, [isNull]);
 
     if (loading) {
@@ -55,32 +42,12 @@ function ProductView() {
     }
 
     if (!product) {
-        return <Error />
+        return <Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='rounded-circle suspenseImage'/>
     }
 
-    function addToCart(e) {
-        e.stopPropagation();
-        if (productLeft <= 0) {
-            setDisableAdd(true);
-        } else {
-            setProductToCart(productToCart + 1);
-            setProductLeft(productLeft - 1);
-            setDisableMinus(false);
-        }
-    };
-
-    function removeToCart(e) {
-        e.stopPropagation();
-        if(productToCart <=0){
-            setDisableMinus(true);
-        } else {
-            setProductToCart(productToCart - 1);
-            setProductLeft(productLeft + 1);
-            setDisableAdd(false);
-        }
-    };
-
+    const averageRatings = AverageRating(productReviews);
     const setProductToCartData = {setProductToCart};
+    const numberOfProductReviews = productReviews.length;
 
     return(
         user.isAdmin === true ?
@@ -108,7 +75,7 @@ function ProductView() {
                                 {/* There are still products left, button to add disabled, button to remove is active */}
                                     <Button 
                                     variant="outline-primary" 
-                                    onClick={e => addToCart(e)} 
+                                    onClick={e => handleAddToCart(productLeft, productToCart, setDisableAdd, setProductToCart, setProductLeft, setDisableMinus, e)} 
                                     size="sm"
                                     className="me-2"
                                     disabled>
@@ -120,7 +87,7 @@ function ProductView() {
                                 <>
                                     <Button 
                                     variant="outline-primary" 
-                                    onClick={e => addToCart(e)} 
+                                    onClick={e => handleAddToCart(productLeft, productToCart, setDisableAdd, setProductToCart, setProductLeft, setDisableMinus, e)} 
                                     size="sm"
                                     className="me-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -133,7 +100,7 @@ function ProductView() {
                                 <>
                                     <Button 
                                     variant="outline-primary" 
-                                    onClick={e => removeToCart(e)}
+                                    onClick={e => handldeRemoveToCart(productLeft, productToCart, setDisableMinus, setProductToCart, setProductLeft, setDisableAdd, e)}
                                     size="sm"
                                     disabled>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
@@ -144,7 +111,7 @@ function ProductView() {
                                 <>
                                 <Button 
                                     variant="outline-primary" 
-                                    onClick={e => removeToCart(e)}
+                                    onClick={e => handldeRemoveToCart(productLeft, productToCart, setDisableMinus, setProductToCart, setProductLeft, setDisableAdd, e)}
                                     size="sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
@@ -167,15 +134,16 @@ function ProductView() {
                         productImgLqip={ imgLqip}
                         productPrice={ price }
                         productToCart={ productToCart } 
-                        getProductById={ getProductById }
+                        getProductById={ GetProductById }
                         setProductToCartData={ setProductToCartData }/>
                     }
                     </Card.Body>
                     </Card>
                 </Col>
-                <Col md={6}>
+                <Col md={6} className="mt-3">
                     <h3>{description}</h3>
-                    <p>Ratings | Reviews</p>
+                    <p>{(averageRatings <=0 || isNaN(averageRatings)) ? 0 : averageRatings} Star Ratings | {numberOfProductReviews <= 0 ? "0" : numberOfProductReviews} Reviews <Button variant="primary" size="sm">Add Review</Button></p>
+                    
                     <Row>
                         <Col xs={5}>
                             <h5>Type:</h5>
@@ -216,11 +184,9 @@ function ProductView() {
                     </Row>
                 </Col>
             </Row>
-            {/* <Row>
-                <Col>
-                    
-                </Col>
-            </Row> */}
+
+            <AllReviews productReviews={productReviews}/>
+
         </Container>
     )
 };
