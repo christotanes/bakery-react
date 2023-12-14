@@ -1,8 +1,9 @@
 # Capstone 3 JerryBee Bakery React App
 
-### [Link to the React app from AWS server provided by Zuitt]((http://zuitt-bootcamp-prod-328-6138-totanes.s3-website.us-east-1.amazonaws.com/))
+### [Link to the React app from AWS server provided by Zuitt](http://zuitt-bootcamp-prod-328-6138-totanes.s3-website.us-east-1.amazonaws.com/)
 ### [If that doesn't work, this is the react app as published on Render](https://bakery-react.onrender.com/)
 #### The Render app's API needs a while to 'wake up' as described by Render. [Click Here to wake up the api](https://bakery-api-qxhm.onrender.com/products/active)
+
 This was my submission as my capstone 3 project for my bootcamp at Zuitt.
 
 I had a lot of fun making and creating the react app. We were only required to make an MVP. And I think I might add more functionalities in the future and make the site more responsive.
