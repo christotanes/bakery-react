@@ -1,70 +1,14 @@
-# Getting Started with Create React App
+# Capstone 3 JerryBee Bakery React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### [Link to the React app from AWS server provided by Zuitt]((http://zuitt-bootcamp-prod-328-6138-totanes.s3-website.us-east-1.amazonaws.com/))
+### [If that doesn't work, this is the react app as published on Render](https://bakery-react.onrender.com/)
+#### The Render app's API needs a while to 'wake up' as described by Render. [Click Here to wake up the api](https://bakery-api-qxhm.onrender.com/products/active)
+This was my submission as my capstone 3 project for my bootcamp at Zuitt.
 
-## Available Scripts
+I had a lot of fun making and creating the react app. We were only required to make an MVP. And I think I might add more functionalities in the future and make the site more responsive.
 
-In the project directory, you can run:
+The app is based on a business by my fiancee's family. The pictures were AI generated and prompted by me. In the future, I will look into Multer so I can store the image data into MongoDB. As of now, the images are stored in my personal google drive and are being lazy loaded. One link is a Low Quality Image Placeholder, while the other is a main resolution one.
 
-### `npm start`
+When I decided to publish the app to Render, I used dotenv and dotenv vault to store the secrets of the app. Dotenv vault, as the developer mentioned, added an extra layer of security for the secrets of the app.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Overall, the process was overall fun and I hope its pleasing to you as well.
