@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useEffect, useState, Suspense } from 'react';
 import { UserProvider } from './UserContext';
 import { Image } from 'react-bootstrap';
+import logo from "./images/RESIZEDnavbaricon.jpg";
 
 const Checkout = React.lazy(() => import('./pages/Checkout'))
 const Error = React.lazy(() => import('./pages/Error'));
@@ -143,10 +144,10 @@ const App = () => {
     <>
       <UserProvider value={{ user, setUser, unSetUser, cart, setCart, userDetails, setUserDetails }}>
         <Router>
-        <Suspense fallback={<Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='suspenseImage'/>}>
+        <Suspense fallback={<Image src={logo} className='suspenseImage'/>}>
           <AppNavbar />
             <Routes>
-                <Route path='/bakery-react' element={<Home/>}/>
+                <Route path='/' element={<Home/>}/>
                 <Route path='/checkout' element={<Checkout/>}/>
                 <Route path='/login' element={<Login checkLocalToken={checkLocalToken}/>}/>
                 <Route path='/logout' element={<Logout/>}/>
