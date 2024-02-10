@@ -24,15 +24,15 @@ function AppNavbar() {
                     </Navbar.Brand>
                     <Navbar.Brand as={Link} to="/" exact>JerryBee Bakery</Navbar.Brand>
                     
-                    <Form className="d-flex">
+                    {/* <Form className="d-flex">
                                 <Form.Control
                                     type="search"
-                                    placeholder="Under Construction"
+                                    placeholder="Portfolio site"
                                     className="me-2"
                                     aria-label="Search"
                                 />
                                 <Button variant="outline-success" disabled>Search</Button>
-                            </Form>
+                            </Form> */}
                     <Nav variant="underline" className="align-item-end ms-auto">
                     
                     </Nav>
