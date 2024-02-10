@@ -1,10 +1,13 @@
 import Swal from "sweetalert2";
+import successIcon from '../images/RESIZEDnavbaricon.jpg';
+import errorIcon from '../images/RESIZEDErrorlog.jpg';
+
 
 export function SwalFireSuccess(title, text){
     return (Swal.fire({
         title: `${title}`,
         text: `${text}`,
-        imageUrl: "https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is",
+        imageUrl: successIcon,
         imageWidth: 250,
         imageHeight: 250,
         imageAlt: "Custom image",
@@ -19,7 +22,7 @@ export function SwalFireError(title, text){
     return (Swal.fire({
         title: `${title}`,
         text: `${text}'`,
-        imageUrl: "https://drive.google.com/uc?id=1np1kEmk_C5Mn6c64uvWPak8OcfIzhS7I",
+        imageUrl: errorIcon,
         imageWidth: 250,
         imageHeight: 250,
         imageAlt: "Custom image",

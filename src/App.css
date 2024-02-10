@@ -43,8 +43,7 @@
       rgba(0, 0, 0, 0.7), 
       rgba(0, 0, 0, 0.7)
     ),
-    url('https://drive.google.com/uc?id=1T4hn_g987UD5mjm32tqotXTW11Acm-2J');
-    /* https://drive.google.com/uc?id=1Xd4qs1d8JnfCEu-Mib9jpb_2h_bHQIp1 */
+    url('../src/images/logoCropped.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: fill;

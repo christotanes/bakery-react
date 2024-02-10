@@ -23,8 +23,8 @@ function AllProducts({ products, getAllProducts}) {
         <tbody key={product._id}>
             <tr>
                 <td colSpan={5}><h5>{product.name}</h5></td>
-                <td className="text-center"><Image src={product.imgLqip} width={30} height={30} className="productAdminImage"/></td>
-                <td className="text-center" colSpan={3}><Image src={product.imgBannerLqip} width={60} height={30} className="productAdminImage"/></td>
+                <td className="text-center"><Image src={`/images/products/${product.imgLqip}`} width={30} height={30} className="productAdminImage"/></td>
+                <td className="text-center" colSpan={3}><Image src={`/images/products/${product.imgBannerLqip}`} width={60} height={30} className="productAdminImage"/></td>
                 
             </tr>
             <tr>

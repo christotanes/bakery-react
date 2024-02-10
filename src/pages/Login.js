@@ -5,6 +5,7 @@ import { Navigate, useNavigate, Link } from "react-router-dom";
 import { TextInputField } from "../forms/InputFields.js";
 import HandleChange from "../common/Handlers.js";
 import { SwalFireError, SwalFireSuccess } from "../common/SwalFire.js";
+import logo from "../images/logo.png";
 
 function Login({ checkLocalToken }) {
     const { user } = useContext(UserContext);
@@ -87,7 +88,7 @@ function Login({ checkLocalToken }) {
         <Container fluid>
         <Row className="d-flex flex-column login">
             <Col xs="12" md="6" lg="3" className="mx-auto p-0 text-center">
-                <Image className="img-fluid shadow-lg my-3 registerCard" src="https://drive.google.com/uc?id=1tYh9q_ii39cyotTRzn8u_TAEJCiu-uhg" alt="" width="200" roundedCircle />
+                <Image className="img-fluid shadow-lg my-3 registerCard" src={logo} alt="" width="200" roundedCircle />
             </Col>
             <Col xs="12" md="8" lg="4" className="d-flex flex-column mx-auto"> 
             <Card className="shadow-lg p-3 loginCard">

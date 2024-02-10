@@ -6,7 +6,7 @@ export function ActiveProductCols( { activeProducts } ) {
     const productsCols = activeProducts.map((product) => (
     <Col xs={12} md="auto" key={product._id} className="my-3 mx-auto">
         <Card style={{ width: '18rem' }} className="shadow-lg">
-            <LazyLoad image={product.img} imageLqip={product.imgLqip} alt={product.name} width={`100%`} height={`100%`}/>
+            <LazyLoad image={`/images/products/${product.img}`} imageLqip={`/images/products/${product.imgLqip}`} alt={product.name} width={`100%`} height={`100%`}/>
             <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Subtitle>{product.description}</Card.Subtitle>

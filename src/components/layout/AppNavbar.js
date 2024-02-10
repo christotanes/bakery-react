@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import {Container, Form, Button, Nav, Navbar, NavDropdown, Image} from 'react-bootstrap';
 import UserContext from '../../UserContext';
 import { Link } from 'react-router-dom';
+import navbarIcon from "../../images/RESIZEDnavbaricon.jpg"
 
 function AppNavbar() {
     const { user, cart } = useContext(UserContext);
@@ -14,7 +15,7 @@ function AppNavbar() {
                 <Container className='mb-0'>
                     <Navbar.Brand as={Link} to="/" exact>
                         <Image
-                            src="https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is"
+                            src={navbarIcon}
                             width="30"
                             height="30"
                             className="d-inline-block align-top"

@@ -56,13 +56,13 @@ function ProductView() {
         <Container id="productView">
             <Row className="my-3 productBannerRow">
                 <Col xs={12} className="d-flex justify-content-center my-3">
-                <LazyLoad image={imgBanner} imageLqip={imgBannerLqip} alt={name} width={`500`} height={`200`} className={"productBanner shadow-lg productViewImage"}/>
+                <LazyLoad image={`/images/products/${imgBanner}`} imageLqip={`/images/products/${imgBannerLqip}`} alt={name} width={`500`} height={`200`} className={"productBanner shadow-lg productViewImage"}/>
                 </Col>
             </Row>
             <Row className="my-4">
                 <Col md={5} className="d-flex justify-content-center">
                     <Card style={{ width: '18rem' }} className="shadow">
-                    <LazyLoad id={_id} image={img} imageLqip={imgLqip} alt={name} width={`100%`} height={`100%`}/>
+                    <LazyLoad id={_id} image={`/images/products/${img}`} imageLqip={`/images/products/${imgLqip}`} alt={name} width={`100%`} height={`100%`}/>
                     <Card.Body>
                         <Card.Title>{name}</Card.Title>
                         <h5 className="mt-2 text-end text-danger border-bottom mb-3">₱ {price}</h5>
