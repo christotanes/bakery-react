@@ -1,6 +1,6 @@
 # Capstone 3 JerryBee Bakery React App
 
-### [Link to the React app as published personal EC2 instance]([https://bakery-react.onrender.com/](http://ec2-54-254-9-166.ap-southeast-1.compute.amazonaws.com/))
+### [Link to the React app as published personal EC2 instance](https://bakery-react.onrender.com/](http://ec2-54-254-9-166.ap-southeast-1.compute.amazonaws.com/)
 
 This was my submission as my capstone 3 project for my bootcamp at Zuitt.
 
