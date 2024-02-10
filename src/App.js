@@ -146,7 +146,7 @@ const App = () => {
         <Suspense fallback={<Image src='https://drive.google.com/uc?id=1hAjqoolhxL--cZXV4ecPahZfIdlmN3is' className='suspenseImage'/>}>
           <AppNavbar />
             <Routes>
-                <Route path='/' element={<Home/>}/>
+                <Route path='/bakery-react' element={<Home/>}/>
                 <Route path='/checkout' element={<Checkout/>}/>
                 <Route path='/login' element={<Login checkLocalToken={checkLocalToken}/>}/>
                 <Route path='/logout' element={<Logout/>}/>
